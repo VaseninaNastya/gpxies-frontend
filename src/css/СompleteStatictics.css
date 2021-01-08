@@ -1,0 +1,11 @@
+.сompleteStatictics{
+    background-color: hsl(53, 40%, 84%);
+    padding: 10px;
+    height: 65px;
+
+}
+
+.сompleteStatictics .container .сompleteStatictics_container{
+    display: flex;
+    justify-content: space-between;
+}

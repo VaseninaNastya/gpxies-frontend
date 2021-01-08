@@ -66,6 +66,7 @@ body{
 }
 @import "./Header";
 @import "./Footer";
+@import "./СompleteStatictics";
 .container{
     width: 1200px;
     margin: 0 auto;

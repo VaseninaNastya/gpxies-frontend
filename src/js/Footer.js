@@ -2,6 +2,22 @@ import create from "./create";
 import rslogo from "../../assets/img/logo-rs.png";
 class Footer {
   generateLayout() {
+    const fullStatistics = create("div","statistics__full",[
+      create("div", "container",[
+        "407 км",
+        "4000 точек",
+        "25 wpt",
+        "407 км",
+        "4000 точек",
+        "25 wpt",
+        "407 км",
+        "4000 точек",
+        "25 wpt",
+        "407 км",
+        "4000 точек",
+        "25 wpt"
+      ])
+    ])
     const img = create(
       "a",
       null,
