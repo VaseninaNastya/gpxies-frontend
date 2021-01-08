@@ -1,7 +1,7 @@
 footer{
     background-color: hsl(53, 40%, 84%);
     padding: 10px;
-    height: 70px;
+    height: 65px;
 }
 footer .container{
     display: flex;

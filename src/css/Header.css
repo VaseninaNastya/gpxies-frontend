@@ -1,3 +1,6 @@
+.trackDescription{
+    margin-top: 10px;
+}
 .trackDescription_menu_item{
     border-left: solid 2px  rgba(128, 128, 128, 0.3);
     outline: none; /* убирать контур в Mozilla */
@@ -15,6 +18,7 @@
 .trackDescription_menu{
     margin-top: 10px;
     display: flex;
+    margin-bottom: 10px;
 }
 .trackDescription_menu_item:hover{
    /* background: linear-gradient(to left, purple, crimson, orangered, gold);*/
@@ -29,7 +33,6 @@
 
 header{
     background-color: white;
-    padding: 10px;
     height: 150px;
 }
 
@@ -40,8 +43,16 @@ header .container{
     flex-wrap: wrap;
 }
 .trackDescription_statistic{
+    margin-left: auto;
+    align-self: end;
+    width: 150px;
+    padding-left: 10px;
+    /*background: linear-gradient(to left,rgba(255, 68, 0, 0.8), rgba(255, 68, 0, 0.5));*/
+    background:rgba(255, 68, 0);
+    color: white;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-bottom: 10px;
 }
