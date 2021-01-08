@@ -1,0 +1,17 @@
+footer{
+    background-color: hsl(53, 40%, 84%);
+    padding: 10px;
+    height: 70px;
+}
+footer .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer .container a{
+    color: rgb(110, 110, 110);
+}
+.footer_img{
+    height: 35px;
+}

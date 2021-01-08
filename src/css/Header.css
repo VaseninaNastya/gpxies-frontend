@@ -1,0 +1,47 @@
+.trackDescription_menu_item{
+    border-left: solid 2px  rgba(128, 128, 128, 0.3);
+    outline: none; /* убирать контур в Mozilla */
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    display:block;
+    font-size: 14px;
+    background-color:inherit;
+    transition: background-color 0.3s;
+    text-transform:uppercase;
+    color: rgba(128, 128, 128);
+}
+.trackDescription_menu{
+    margin-top: 10px;
+    display: flex;
+}
+.trackDescription_menu_item:hover{
+   /* background: linear-gradient(to left, purple, crimson, orangered, gold);*/
+  background-color:orangered;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s;
+}
+.trackDescription_menu_item:active{
+    background-color:rgb(255, 69, 0, 0.7);
+}
+
+header{
+    background-color: white;
+    padding: 10px;
+    height: 150px;
+}
+
+header .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.trackDescription_statistic{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
