@@ -56,3 +56,6 @@ header .container{
     justify-content: space-between;
     padding-bottom: 10px;
 }
+.icon_header{
+    height: 40px;
+}

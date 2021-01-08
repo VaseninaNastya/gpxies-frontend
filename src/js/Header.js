@@ -1,4 +1,5 @@
 import create from "./create";
+import icon from "../../assets/img/icon_велосипед.png";
 class Header {
   generateLayout() {
     const menu = create("ul","trackDescription_menu",[
@@ -18,7 +19,8 @@ class Header {
       create("div","trackDescription",[
         create("h1", "trackDescription_title__primary",[
           create('span', "trackDescription_trackName","Название трека, "),
-          create("span", "trackDescription_trackLength","407 км")
+          create("span", "trackDescription_trackLength","407 км"),
+          create('img',"icon_header",null,null,["src", icon])
         ]),
         create('h3', "trackDescription_title__secondary", [
           create("span", "trackDescription_authorName",[
