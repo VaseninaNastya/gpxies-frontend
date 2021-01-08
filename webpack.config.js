@@ -1,41 +1,33 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
 
 module.exports = {
   entry: './src/js/index.js',
-  mode: 'development',
-  output: {
-    path: path.resolve(__dirname, 'dist')
-  },
   module: {
     rules: [
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      { test: /\.(js)$/, use: 'babel-loader' },
       {
-        test: /\.(ttf|woff|eot)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
+        test: /\.(jpe?g|png|svg|ico|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'img',
+              name: '[name].[ext]'
+            }
+          }
+        ]
       },
-      {
-        test: /\.css$/,
-        use: [ 'css-loader']
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'assets/img/[name].[ext]'
-        },
-      },
-      {
-        test: /\.(html)$/,
-        use: {
-          loader: 'html-loader'
-        }
-      }
-    ],
+    ]
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index_bundle.js'
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' })
-  ]
-};
+    new HtmlWebpackPlugin({
+    })
+  ],
+  mode: 'development'
+}
