@@ -1,0 +1,26 @@
+{
+  "name": "rsclone",
+  "version": "1.0.0",
+  "description": "Gpxies: сервис создания и хранения GPS-треков",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikolai-minkevich/rsclone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikolai-minkevich/rsclone/issues"
+  },
+  "homepage": "https://github.com/nikolai-minkevich/rsclone#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^5.12.1",
+    "webpack-cli": "^4.3.1"
+  }
+}
