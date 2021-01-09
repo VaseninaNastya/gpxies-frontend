@@ -1,5 +1,5 @@
 import create from "./create";
-import icon from "../../assets/img/icon_велосипед.png";
+import icon from "../../assets/img/icon_bike1.png";
 class Header {
   generateLayout() {
     const menu = create("ul","trackDescription_menu",[

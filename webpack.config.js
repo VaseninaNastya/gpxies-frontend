@@ -26,8 +26,11 @@ module.exports = {
     filename: 'index_bundle.js'
   },
   plugins: [
+    new HtmlWebpackPlugin({}),
     new HtmlWebpackPlugin({
-    })
+      filename:'showTrack.html',
+      template:'./src/showTrack.html'
+    }),
   ],
   mode: 'development'
 }
