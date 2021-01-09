@@ -59,3 +59,7 @@ header .container{
 .icon_header{
     height: 40px;
 }
+.trackDescription_title__primary{
+    display: flex;
+    align-items: center;
+}
