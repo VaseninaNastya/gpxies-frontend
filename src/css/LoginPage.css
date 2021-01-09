@@ -1,0 +1,42 @@
+.login_form{
+    width: 300px;
+    height: 230px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: space-between;
+    border-radius: 7px;
+    margin-top: 10px;
+}
+.login_form_buttoncontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login_form_title{
+    border-radius: 7px 7px 0 0 ;
+    height: 50px;
+    background-color: rgb(0, 172, 143);
+    text-shadow: 0.05em 0.05em 0.1em rgba(0,0,0,0.2),-0.05em -0.05em 0.1em rgba(255,255,255,0.3);
+    color: white;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login_form_container{
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    justify-content: space-between;
+}
+
+.login_form_registrationLink{
+    margin-bottom: 10px;
+    color: rgba(128, 128, 128) !important;
+}
+.login_form_registrationLink:hover{
+    margin-bottom: 10px;
+    color: black !important;
+}
