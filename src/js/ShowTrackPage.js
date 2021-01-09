@@ -1,8 +1,9 @@
+import  '../css/main.css';
 import create from "./create";
 import Header from "./Header";
 import Footer from "./Footer";
 import СompleteStatictics from "./СompleteStatictics";
-class Wrapper {
+class ShowTrackPage {
   generateLayout() {
     const completeStatictics = new СompleteStatictics();
     const header = new Header();
@@ -16,4 +17,4 @@ class Wrapper {
     );
   }
 }
-export default Wrapper;
+export default ShowTrackPage;

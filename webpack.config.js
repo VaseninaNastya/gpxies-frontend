@@ -28,8 +28,12 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({}),
     new HtmlWebpackPlugin({
-      filename:'showTrack.html',
-      template:'./src/showTrack.html'
+      filename:'showTrackPage.html',
+      template:'./src/showTrackPage.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename:'registrationPage.html',
+      template:'./src/registrationPage.html'
     }),
   ],
   mode: 'development'
