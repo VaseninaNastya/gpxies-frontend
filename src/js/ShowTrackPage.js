@@ -3,6 +3,7 @@ import create from "./create";
 import Header from "./Header";
 import Footer from "./Footer";
 import СompleteStatictics from "./СompleteStatictics";
+console.log('SHOW TRACK PAGE JS');
 class ShowTrackPage {
   generateLayout() {
     const completeStatictics = new СompleteStatictics();
@@ -17,4 +18,8 @@ class ShowTrackPage {
     );
   }
 }
+
+const showTrackPage = new ShowTrackPage();
+showTrackPage.generateLayout();
+
 export default ShowTrackPage;

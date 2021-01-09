@@ -1,11 +1,54 @@
+// var HtmlWebpackPlugin = require('html-webpack-plugin');
+// const path = require('path')
+
+// module.exports = {
+//   entry: './src/js/index.js',
+//   module: {
+//     rules: [
+//       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+//       { test: /\.(js)$/, use: 'babel-loader' },
+//       {
+//         test: /\.(jpe?g|png|svg|ico|gif)$/,
+//         use: [
+//           {
+//             loader: 'file-loader',
+//             options: {
+//               outputPath: 'img',
+//               name: '[name].[ext]'
+//             }
+//           }
+//         ]
+//       },
+//     ]
+//   },
+//   output: {
+//     path: path.resolve(__dirname, 'dist'),
+//     filename: 'index_bundle.js'
+//   },
+//   plugins: [
+//     new HtmlWebpackPlugin({}),
+//     new HtmlWebpackPlugin({
+//       filename:'showTrack.html',
+//       template:'./src/showTrack.html'
+//     }),
+//   ],
+//   mode: 'development'
+// }
+
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path')
 
 module.exports = {
-  entry: './src/js/index.js',
+  entry: {
+    showTrackPage: './src/js/ShowTrackPage.js',
+    registrationPage: './src/js/RegistrationPage.js',
+  },
   module: {
     rules: [
-      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      // { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      {
+        test: /\.css$/, use: ['style-loader', 'css-loader']
+      },
       { test: /\.(js)$/, use: 'babel-loader' },
       {
         test: /\.(jpe?g|png|svg|ico|gif)$/,
@@ -22,18 +65,19 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index_bundle.js'
+    filename: 'js/[name].bundle.js'
   },
   plugins: [
-    new HtmlWebpackPlugin({}),
+    // new HtmlWebpackPlugin({}),
     new HtmlWebpackPlugin({
-      filename:'showTrackPage.html',
-      template:'./src/showTrackPage.html'
+      filename: 'registrationPage.html',
+      template: './src/registrationPage.html',
+      chunks: ['registrationPage']
     }),
     new HtmlWebpackPlugin({
-      filename:'registrationPage.html',
-      template:'./src/registrationPage.html'
+      filename: 'showTrack.html',
+      template: './src/showTrackPage.html',
+      chunks: ['showTrackPage']
     }),
   ],
   mode: 'development'
