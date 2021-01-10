@@ -76,14 +76,13 @@ body {
     min-width: 1200px;
     margin: 0 auto;
     width: 100%;
-  background-image: url(../../assets/img/monochrome-abstract-contour-line-illustration_53876-81792.jpg);
+  background-image: url(../../assets/img/background.png);
   background-size: cover;
   font-size: 15px;
   line-height: 24px;
 }
 .button__primary {
-  text-shadow: 0.05em 0.05em 0.1em rgba(0, 0, 0, 0.2),
-    -0.05em -0.05em 0.1em rgba(255, 255, 255, 0.3);
+
   padding: 5px 20px;
   background-color: orangered;
   color: white;

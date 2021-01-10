@@ -1,10 +1,10 @@
 .trackDescription{
-    margin-top: 10px;
+    margin-top: 5px;
 }
 .trackDescription_menu_item{
     border-left: solid 2px  rgba(128, 128, 128, 0.3);
     outline: none; /* убирать контур в Mozilla */
-    padding: 5px;
+    padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
     box-sizing: border-box;
@@ -16,7 +16,7 @@
     color: rgba(128, 128, 128);
 }
 .trackDescription_menu{
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     margin-bottom: 10px;
 }
@@ -33,7 +33,10 @@
 
 header{
     background-color: white;
-    height: 150px;
+    height: 120px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0; /* required */
 }
 
 header .container{
