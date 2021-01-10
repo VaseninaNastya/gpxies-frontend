@@ -8,6 +8,7 @@
     justify-content: space-between;
     border-radius: 7px;
     margin-top: 10px;
+    box-shadow: 0 0 100px rgba(0,0,0,0.2); /* Параметры тени */
 }
 .registration_form_buttoncontainer{
     display: flex;
@@ -17,8 +18,8 @@
 .registration_form_title{
     border-radius: 7px 7px 0 0 ;
     height: 50px;
-    background-color: rgb(255, 196, 0);
-    text-shadow: 0.05em 0.05em 0.1em rgba(0,0,0,0.2),-0.05em -0.05em 0.1em rgba(255,255,255,0.3);
+    background-color:#54939b;
+    text-shadow: 0.05em 0.05em 0.1em rgb(84, 147, 155),-0.05em -0.05em 0.1em rgb(84, 147, 155, 0.3);
     color: white;
     width: 100%;
     display: flex;
