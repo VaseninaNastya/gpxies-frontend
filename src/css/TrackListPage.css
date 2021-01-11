@@ -1,0 +1,60 @@
+.table_container {
+  background-color: white;
+  width: 1000px;
+  margin: 0 auto;
+}
+.table_body_container,
+.table_header_container {
+  display: grid;
+  grid-template-columns: 50px 170px 170px 300px 200px 110px;
+}
+
+.table_body_container{
+  background-color: white;
+  height: 80px;
+}
+.table_header_container {
+  background-color: rgb(245, 245, 245);
+  height: 70px;
+}
+.table_header_container .table_item:first-child{
+  background-color:  transparent;
+}
+.table_body_item_action-list a{
+  font-size: 13px;
+  color: rgb(110, 110, 110);
+  padding-left: 2px;
+}
+.table_item {
+  padding: 0px 5px 0px 5px;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: center;
+  justify-content: center;
+}
+.table_body_container .table_item{
+  border: 1px solid rgb(235, 235, 235);
+}
+.table_body_container .table_item:first-child{
+  background-color: none;
+  justify-content: center;
+}
+.table_header_item_sport-choce,
+.table_header_item_name,
+.table_header_item_distance {
+  flex-direction: column;
+}
+.table_body_item_action-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.table_body_item_action-list a:hover{
+  background-color: rgb(84, 147, 155);
+  color: white ;
+  width: 100%;
+}

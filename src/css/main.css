@@ -82,7 +82,6 @@ body {
   line-height: 24px;
 }
 .button__primary {
-
   padding: 5px 20px;
   background-color: orangered;
   color: white;
@@ -111,6 +110,7 @@ body {
 @import "./СompleteStatictics";
 @import "./RegistrationPage";
 @import "./LoginPage";
+@import "./TrackListPage";
 
 .container {
   width: 1000px;
