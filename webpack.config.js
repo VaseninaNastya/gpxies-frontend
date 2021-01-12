@@ -70,7 +70,6 @@ module.exports = {
     filename: 'js/[name].bundle.js'
   },
   plugins: [
-    // new HtmlWebpackPlugin({}),
     new HtmlWebpackPlugin({
       filename: 'registrationPage.html',
       template: './src/registrationPage.html',

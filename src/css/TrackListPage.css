@@ -1,6 +1,7 @@
 .table_container {
   background-color: white;
   width: 1000px;
+  height: 6000px;
   margin: 0 auto;
 }
 .table_body_container,
