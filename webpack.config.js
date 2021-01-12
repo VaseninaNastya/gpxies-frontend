@@ -42,7 +42,8 @@ module.exports = {
   entry: {
     showTrackPage: './src/js/ShowTrackPage.js',
     registrationPage: './src/js/RegistrationPage.js',
-    loginPage: './src/js/loginPage.js'
+    loginPage: './src/js/LoginPage.js',
+    trackListPage: './src/js/TrackListPage.js'
   },
   module: {
     rules: [
@@ -69,7 +70,6 @@ module.exports = {
     filename: 'js/[name].bundle.js'
   },
   plugins: [
-    // new HtmlWebpackPlugin({}),
     new HtmlWebpackPlugin({
       filename: 'registrationPage.html',
       template: './src/registrationPage.html',
@@ -84,6 +84,11 @@ module.exports = {
       filename: 'showTrack.html',
       template: './src/showTrackPage.html',
       chunks: ['showTrackPage']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'trackListPage.html',
+      template: './src/trackListPage.html',
+      chunks: ['trackListPage']
     }),
   ],
   mode: 'development'

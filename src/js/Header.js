@@ -1,5 +1,7 @@
 import create from "./create";
-import icon from "../../assets/img/icon_bike1.png";
+import icon_walk from "../../assets/img/icon_walk.png";
+import icon_run from "../../assets/img/icon_run.png";
+import icon_bike from "../../assets/img/icon_bike.png";
 class Header {
   generateLayout() {
     const menu = create("ul","trackDescription_menu",[
@@ -20,7 +22,9 @@ class Header {
         create("h2", "trackDescription_title__primary",[
           create('span', "trackDescription_trackName","Название трека, "),
           create("span", "trackDescription_trackLength","407 км"),
-          create('img',"icon_header",null,null,["src", icon])
+          create('img',"icon_header",null,null,["src", icon_walk]),
+          create('img',"icon_header",null,null,["src", icon_run]),
+          create('img',"icon_header",null,null,["src", icon_bike])
         ]),
         create('h4', "trackDescription_title__secondary", [
           create("span", "trackDescription_authorName",[
