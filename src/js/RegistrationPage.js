@@ -58,6 +58,7 @@ class RegistrationPage {
           ),
           create("label", null, "пароль", null, ["for", "password"]),
           password,
+          create("div", "password_description__hidden password_description", "Минимальная длина пароля - 6 знаков. Пароль должен содержать не менее одной прописной буквы и не менее одной цифры"),
           create("label", null, "подтвердите пароль", null, [
             "for",
             "confirmPassword",
@@ -74,26 +75,37 @@ class RegistrationPage {
         ]),
       ])
     );
+    this.validatePassword = () => {
+      if (! /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/gm.test(password.value)  ){
+        document.querySelector(".password_description").classList.remove("password_description__hidden")
+      } else {
+        if(!document.querySelector(".password_description__hidden")){
+          document.querySelector(".password_description").classList.add("password_description__hidden")
+        }
+      }
+    }
 
-
-
-
-
-
-  function validatePassword(){
+  function validateСonfirmPassword(){
     if(password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
+      confirm_password.setCustomValidity("Пароли не совпадают");
     } else {
       confirm_password.setCustomValidity('');
     }
   }
-  
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
+  password.onchange = validateСonfirmPassword;
+  confirm_password.onkeyup = validateСonfirmPassword;
 
 
 
+  /*
 
+
+  password.onkeyup 
+  password.addEventListener('click', ()=>{
+    password.value
+  })
+
+*/
 
 
 
@@ -104,6 +116,7 @@ class RegistrationPage {
 
     button__prime.addEventListener("click", (e) => {
       //e.preventDefault();
+      this.validatePassword()
       let userRegistrationData = {
         username: document.querySelector("#loginField").value,
         email: document.querySelector("#emailField").value,
