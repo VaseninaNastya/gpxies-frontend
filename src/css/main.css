@@ -88,12 +88,14 @@ body {
   color: white;
   border-radius: 7px;
   border: none;
+  font-size: 18px;
 }
 .button__primary:hover {
   color: white;
 }
 .button__primary:active {
   background-color: rgb(238, 63, 0);
+  border: none;
 }
 .wrapper {
   margin: 0 auto;

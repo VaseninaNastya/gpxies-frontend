@@ -1,6 +1,6 @@
 .registration_form{
     width: 300px;
-    height: 370px;
+    /*height: 350px;*/
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -42,10 +42,15 @@
     color: black !important;
 }
 .password_description__hidden{
-    display: none;
+    visibility: hidden;
+    height: 0px;
 }
-.password_description{
+.password_description, .login_description, .email_description{
     font-size: 10px;
     line-height: 12px;
-    color: rgba(128, 128, 128) !important;
+    color: rgba(128, 128, 128);
+    display: flex;
+    flex-direction: column;
 }
+
+

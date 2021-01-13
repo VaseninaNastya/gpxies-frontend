@@ -11,8 +11,10 @@ class GpxiesAPI {
       body: JSON.stringify(userRegistrationData),
     })
       .then((response) => {
-        if (!response.ok) throw Error(response.statusText);
         return response.json();
+      })
+      .then((jsonData)=>{
+        return jsonData;
       })
       .catch((error) => Error(error));
   }

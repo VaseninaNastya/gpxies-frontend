@@ -4,16 +4,8 @@ import GpxiesAPI from "./GpxiesAPI";
 
 class RegistrationPage {
   generateLayout() {
-    const button__prime = create(
-      "input",
-      "button__primary",
-      "Зарегистрироваться",
-      null,
-      ["type", "submit"],
-      ["value", "Зарегистрироваться"]
-    );
-    
-    const password =create(
+    const button__prime = create("a", "button__primary", "Зарегистрироваться");
+    const password = create(
       "input",
       null,
       null,
@@ -21,7 +13,7 @@ class RegistrationPage {
       ["type", "password"],
       ["id", "password"],
       ["required", "required"]
-    )
+    );
     const confirm_password = create(
       "input",
       null,
@@ -30,8 +22,7 @@ class RegistrationPage {
       ["type", "password"],
       ["id", "confirmPassword"],
       ["required", "required"]
-    )
-  
+    );
     document.body.prepend(
       create("form", "registration_form", [
         create("h3", "registration_form_title", "Регистрация"),
@@ -46,6 +37,7 @@ class RegistrationPage {
             ["id", "loginField"],
             ["required", "required"]
           ),
+          create("div", "login_description"),
           create("label", null, "email", null, ["for", "emailField"]),
           create(
             "input",
@@ -56,9 +48,14 @@ class RegistrationPage {
             ["id", "emailField"],
             ["required", "required"]
           ),
+          create("div", "email_description"),
           create("label", null, "пароль", null, ["for", "password"]),
           password,
-          create("div", "password_description__hidden password_description", "Минимальная длина пароля - 6 знаков. Пароль должен содержать не менее одной прописной буквы и не менее одной цифры"),
+          create(
+            "div",
+            "password_description__hidden password_description",
+            "Минимальная длина пароля - 6 знаков. Пароль должен содержать не менее одной прописной буквы и не менее одной цифры"
+          ),
           create("label", null, "подтвердите пароль", null, [
             "for",
             "confirmPassword",
@@ -76,57 +73,68 @@ class RegistrationPage {
       ])
     );
     this.validatePassword = () => {
-      if (! /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/gm.test(password.value)  ){
-        document.querySelector(".password_description").classList.remove("password_description__hidden")
+      if (
+        !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/gm.test(
+          password.value
+        )
+      ) {
+        document
+          .querySelector(".password_description")
+          .classList.remove("password_description__hidden");
       } else {
-        if(!document.querySelector(".password_description__hidden")){
-          document.querySelector(".password_description").classList.add("password_description__hidden")
+        if (!document.querySelector(".password_description__hidden")) {
+          document
+            .querySelector(".password_description")
+            .classList.add("password_description__hidden");
         }
       }
-    }
-
-  function validateСonfirmPassword(){
-    if(password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Пароли не совпадают");
-    } else {
-      confirm_password.setCustomValidity('');
-    }
-  }
-  password.onchange = validateСonfirmPassword;
-  confirm_password.onkeyup = validateСonfirmPassword;
-
-
-
-  /*
-
-
-  password.onkeyup 
-  password.addEventListener('click', ()=>{
-    password.value
-  })
-
-*/
-
-
-
-
-
-
-
-
-    button__prime.addEventListener("click", (e) => {
-      //e.preventDefault();
-      this.validatePassword()
+    };
+    this.validateСonfirmPassword = () => {
+      if (password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Пароли не совпадают");
+      } else {
+        confirm_password.setCustomValidity("");
+      }
+    };
+    password.onchange = this.validateСonfirmPassword;
+    confirm_password.onkeyup = this.validateСonfirmPassword;
+    button__prime.addEventListener("click", async (e) => {
+      e.preventDefault();
+      this.clearLoginErrors();
+      this.validatePassword();
       let userRegistrationData = {
         username: document.querySelector("#loginField").value,
         email: document.querySelector("#emailField").value,
         password: document.querySelector("#password").value,
         confirm_password: document.querySelector("#confirmPassword").value,
       };
-      console.log("userRegistrationData", userRegistrationData);
       this.gpxiesAPI = new GpxiesAPI();
-      this.gpxiesAPI.userRegistration(userRegistrationData);
+      const result = await this.gpxiesAPI.userRegistration(
+        userRegistrationData
+      );
+      console.log("result", result);
+      //not work
+      if (result.errors) {
+        result.errors.map((item) => {
+          if (item.param == "email") {
+            document.querySelector(".email_description").append(create("span",null,item.msg));
+          }
+          if (item.param == "username") {
+            document.querySelector(".login_description").append(create("span",null,));
+          }
+        });
+        console.log(result.errors);
+      }
+      //not work
     });
+  }
+  clearLoginErrors() {
+    if (document.querySelector(".login_description")) {
+      document.querySelector(".login_description").innerHTML = "";
+    }
+    if (document.querySelector(".email_description")) {
+      document.querySelector(".email_description").innerHTML = "";
+    }
   }
 }
 const registrationPage = new RegistrationPage();
