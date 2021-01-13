@@ -87,6 +87,7 @@ body {
   background-color: orangered;
   color: white;
   border-radius: 7px;
+  border: none;
 }
 .button__primary:hover {
   color: white;
