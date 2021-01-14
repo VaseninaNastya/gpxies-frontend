@@ -45,3 +45,15 @@
     margin-bottom: 10px;
     color: rgba(128, 128, 128);
 }
+
+.error_description_hidden{
+    visibility: hidden;
+    height: 0px;
+}
+.error_description{
+    font-size: 10px;
+    line-height: 12px;
+    color: rgba(128, 128, 128);
+    display: flex;
+    flex-direction: column;
+}
