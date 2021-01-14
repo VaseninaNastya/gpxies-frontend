@@ -38,8 +38,9 @@ class RegistrationPage {
       "confirm_password_description__hidden confirm_password_description",
       "Пароль и его подтверждение должны совпадать"
     );
-    (this.login_description = create("div", "login_description")),
-      (this.email_description = create("div", "email_description"));
+    this.registration_form_loginLink =  create("div", "registration_form_loginLink", "Вход");
+    this.login_description = create("div", "login_description");
+      this.email_description = create("div", "email_description");
     document.body.prepend(
       create("form", "registration_form", [
         create("h3", "registration_form_title", "Регистрация"),
@@ -76,18 +77,15 @@ class RegistrationPage {
           ]),
           this.confirm_password,
           this.confirm_password_description,
-          create("a", null, null, null, ["href", "#"]),
         ]),
         create("div", "registration_form_buttoncontainer", [
           this.button__prime,
-          create("a", "registration_form_loginLink", "Вход", null, [
-            "href",
-            "#",
-          ]),
+          this.registration_form_loginLink,
         ]),
       ])
     );
     this.addSendFormButtonEventListener();
+    this.addLoginPageLinkEventListener()
   }
   validateСonfirmPassword() {
     if (this.password.value != this.confirm_password.value) {
@@ -136,6 +134,12 @@ class RegistrationPage {
       await this.addRegisteredDataAtLocalStorage()
     });
   }
+  addLoginPageLinkEventListener(){
+    this.registration_form_loginLink.addEventListener("click", ()=>{
+      this.redirectToLoginPage()
+    }
+    )
+  }
   showLoginErrorsMessages() {
     if (this.gpxiesAPIAnswer.errors) {
       this.gpxiesAPIAnswer.errors.map((item) => {
@@ -166,8 +170,11 @@ class RegistrationPage {
     if (this.gpxiesAPIAnswer.ok) {
       localStorage.setItem("email", this.userRegistrationData.email);
       localStorage.setItem("password", this.userRegistrationData.password);
-      window.location = "loginPage.html";
+      this.redirectToLoginPage();
     }
+  }
+  redirectToLoginPage(){
+    window.location = "loginPage.html";
   }
   clearLoginErrors() {
     if (this.login_description) {

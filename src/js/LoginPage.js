@@ -8,6 +8,7 @@ class LoginPage {
         const button__prime = create('a', 'button__primary', 'Войти');
         this.email_input =  create('input', null, null, null, ['type',"text"],['id',"emailField"]);
         this.password_input = create('input', null, null, null, ['type',"password"],['id',"password"]);
+        this.login_form_registrationPageLink =  create('div', "login_form_registrationLink", "Регистрация")
         document.body.prepend(
             create("form", "login_form", [
                 create('h3', "login_form_title", 'Вход'),
@@ -20,11 +21,12 @@ class LoginPage {
                 ]),
                 create('div', "login_form_buttoncontainer", [
                     button__prime,
-                    create('a', "login_form_registrationLink", "Регистрация", null, ['href', "#"])
+                    this.login_form_registrationPageLink
                 ])
             ])
         )
         this.checkRegistration()
+        this.addRegistrationPageLinkEventListener()
         button__prime.addEventListener("click",  async (e)=>{
             e.preventDefault();
             let userLogin = {
@@ -36,6 +38,15 @@ class LoginPage {
             let res = await this.gpxiesAPI.userLogin(userLogin)
             localStorage.setItem('token',res.token)
         })
+    }
+    addRegistrationPageLinkEventListener(){
+        this.login_form_registrationPageLink.addEventListener("click", ()=>{
+            this.redirectToRegistrationPage()
+          }
+          )
+    }
+    redirectToRegistrationPage(){
+        window.location = "registrationPage.html";
     }
     checkRegistration(){
         if(localStorage.getItem("email")){

@@ -34,12 +34,13 @@
 }
 
 .registration_form_loginLink{
+    cursor: pointer;
     margin-bottom: 10px;
-    color: rgba(128, 128, 128) !important;
+    color: rgba(128, 128, 128);
 }
 .registration_form_loginLink:hover{
     margin-bottom: 10px;
-    color: black !important;
+    color: black;
 }
 .password_description__hidden, .confirm_password_description__hidden, .duplicate_email_description__hidden{
     visibility: hidden;
