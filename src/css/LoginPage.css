@@ -7,7 +7,6 @@
     background-color: white;
     justify-content: space-between;
     border-radius: 7px;
-    margin-top: 10px;
     box-shadow: 0 0 100px rgba(0,0,0,0.2); /* Параметры тени */
 }
 .login_form_buttoncontainer{
@@ -15,11 +14,20 @@
     flex-direction: column;
     align-items: center;
 }
+.login_form_registrationLink{
+    cursor: pointer;
+    margin-bottom: 10px;
+    color: rgba(128, 128, 128);
+}
+.login_form_registrationLink:hover{
+    margin-bottom: 10px;
+    color: black;
+}
 .login_form_title{
     border-radius: 7px 7px 0 0 ;
     height: 50px;
     background-color: rgb(255, 187, 0);
-    text-shadow: 0.05em 0.05em 0.1em rgba(0,0,0,0.2),-0.05em -0.05em 0.1em rgba(255,255,255,0.3);
+    /*text-shadow: 0.05em 0.05em 0.1em rgba(0,0,0,0.2),-0.05em -0.05em 0.1em rgba(243, 243, 243, 0.3);*/
     color: white;
     width: 100%;
     display: flex;
@@ -36,4 +44,16 @@
 .login_form_registrationLink{
     margin-bottom: 10px;
     color: rgba(128, 128, 128);
+}
+
+.error_description_hidden{
+    visibility: hidden;
+    height: 0px;
+}
+.error_description{
+    font-size: 10px;
+    line-height: 12px;
+    color: rgba(128, 128, 128);
+    display: flex;
+    flex-direction: column;
 }

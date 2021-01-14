@@ -1,68 +1,43 @@
-.trackDescription{
-    margin-top: 5px;
+.header_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.trackDescription_menu_item{
-    border-left: solid 2px  rgba(128, 128, 128, 0.3);
-    outline: none; /* убирать контур в Mozilla */
-    padding: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
-    box-sizing: border-box;
-    display:block;
-    font-size: 14px;
-    background-color:inherit;
-    transition: background-color 0.3s;
-    text-transform:uppercase;
-    color: rgba(128, 128, 128);
+header {
+  height: 50px;
+  width: 100%;
+  background-color: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0; /* required */
 }
-.trackDescription_menu{
-    margin-top: 5px;
-    display: flex;
-    margin-bottom: 10px;
+.logout_button {
+  margin-right: 10px;
+  height: 35px;
+  padding: 5px 20px;
+  background-color: #54939b;
+  color: white;
+  border-radius: 7px;
+  border: none;
+  font-size: 16px;
 }
-.trackDescription_menu_item:hover{
-   /* background: linear-gradient(to left, purple, crimson, orangered, gold);*/
-  background-color:orangered;
-    cursor: pointer;
-    color: white;
-    transition: background-color 0.3s;
+.logout_button:hover {
+  color: white;
 }
-.trackDescription_menu_item:active{
-    background-color:rgb(255, 69, 0, 0.7);
+.logout_button:active {
+  background-color: #40757c;
+  border: none;
 }
-
-header{
-    background-color: white;
-    height: 120px;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0; /* required */
+.logo{
+  padding-left: 10px;
+  color:#40757c;
+  font-size: 25px;
+  line-height: 28px;
+  font-weight: 600;
 }
-
-header .container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-.trackDescription_statistic{
-    margin-left: auto;
-    align-self: end;
-    width: 150px;
-    padding-left: 10px;
-    /*background: linear-gradient(to left,rgba(255, 68, 0, 0.8), rgba(255, 68, 0, 0.5));*/
-    background:rgba(255, 68, 0);
-    color: white;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-bottom: 10px;
-}
-.icon_header{
-    height: 40px;
-}
-.trackDescription_title__primary{
-    display: flex;
-    align-items: center;
+.header_userName{
+  margin-left: auto;
+  margin-right: 10px;
+  color: rgb(110, 110, 110);
 }

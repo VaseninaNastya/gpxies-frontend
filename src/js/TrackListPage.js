@@ -1,8 +1,9 @@
 import  '../css/main.css';
 import create from './create';
-
+import Header from './Header';
 class TrackListPage {
     generateLayout() {
+        const header = new Header();
         const tableHeader = create("div", 'table_header_container',[
             create("div",'table_item'),
             create("div",'table_item table_header_item_sport-choce',[
@@ -51,7 +52,7 @@ class TrackListPage {
             ])
         ])
         const tableContainer = create('div', "table_container", [tableHeader,tableBody])
-        document.body.prepend(tableContainer)
+        document.body.prepend(create("div", "table_wraper",[header.generateLayout(),tableContainer]))
     }
 }
 

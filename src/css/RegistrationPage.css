@@ -1,13 +1,12 @@
 .registration_form{
     width: 300px;
-    height: 350px;
+    /*height: 350px;*/
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     background-color: white;
     justify-content: space-between;
     border-radius: 7px;
-    margin-top: 10px;
     box-shadow: 0 0 100px rgba(0,0,0,0.2); /* Параметры тени */
 }
 .registration_form_buttoncontainer{
@@ -34,10 +33,23 @@
 }
 
 .registration_form_loginLink{
+    cursor: pointer;
     margin-bottom: 10px;
-    color: rgba(128, 128, 128) !important;
+    color: rgba(128, 128, 128);
 }
 .registration_form_loginLink:hover{
     margin-bottom: 10px;
-    color: black !important;
+    color: black;
 }
+.password_description__hidden, .confirm_password_description__hidden, .duplicate_email_description__hidden{
+    visibility: hidden;
+    height: 0px;
+}
+.password_description, .login_description, .email_description, .confirm_password_description, .duplicate_email_description{
+    font-size: 10px;
+    line-height: 12px;
+    color: rgba(128, 128, 128);
+    display: flex;
+    flex-direction: column;
+}
+
