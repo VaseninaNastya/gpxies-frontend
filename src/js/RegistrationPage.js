@@ -164,8 +164,9 @@ class RegistrationPage {
   }
   addRegisteredDataAtLocalStorage() {
     if (this.gpxiesAPIAnswer.ok) {
-      localStorage.setItem("login",this.userRegistrationData.username);
-      localStorage.setItem("password",this.userRegistrationData.password)
+      localStorage.setItem("email", this.userRegistrationData.email);
+      localStorage.setItem("password", this.userRegistrationData.password);
+      window.location = "loginPage.html";
     }
   }
   clearLoginErrors() {
