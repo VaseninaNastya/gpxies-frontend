@@ -4,8 +4,8 @@ import GpxiesAPI from "./GpxiesAPI";
 
 class RegistrationPage {
   generateLayout() {
-    const button__prime = create("a", "button__primary", "Зарегистрироваться");
-    const password = create(
+    this.button__prime = create("a", "button__primary", "Зарегистрироваться");
+    this.password = create(
       "input",
       null,
       null,
@@ -14,7 +14,17 @@ class RegistrationPage {
       ["id", "password"],
       ["required", "required"]
     );
-    const confirm_password = create(
+    this.password_description = create(
+      "div",
+      "password_description__hidden password_description",
+      "Минимальная длина пароля - 6 знаков. Язык пароля - английский. Пароль должен содержать не менее одной прописной буквы и не менее одной цифры"
+    );
+    this.duplicate_email_description = create(
+      "div",
+      "duplicate_email_description__hidden duplicate_email_description",
+      "Этот email или этот логин уже зарегистрирован"
+    );
+    this.confirm_password = create(
       "input",
       null,
       null,
@@ -23,6 +33,13 @@ class RegistrationPage {
       ["id", "confirmPassword"],
       ["required", "required"]
     );
+    this.confirm_password_description = create(
+      "div",
+      "confirm_password_description__hidden confirm_password_description",
+      "Пароль и его подтверждение должны совпадать"
+    );
+    (this.login_description = create("div", "login_description")),
+      (this.email_description = create("div", "email_description"));
     document.body.prepend(
       create("form", "registration_form", [
         create("h3", "registration_form_title", "Регистрация"),
@@ -37,7 +54,7 @@ class RegistrationPage {
             ["id", "loginField"],
             ["required", "required"]
           ),
-          create("div", "login_description"),
+          this.login_description,
           create("label", null, "email", null, ["for", "emailField"]),
           create(
             "input",
@@ -48,23 +65,21 @@ class RegistrationPage {
             ["id", "emailField"],
             ["required", "required"]
           ),
-          create("div", "email_description"),
+          this.duplicate_email_description,
+          this.email_description,
           create("label", null, "пароль", null, ["for", "password"]),
-          password,
-          create(
-            "div",
-            "password_description__hidden password_description",
-            "Минимальная длина пароля - 6 знаков. Пароль должен содержать не менее одной прописной буквы и не менее одной цифры"
-          ),
+          this.password,
+          this.password_description,
           create("label", null, "подтвердите пароль", null, [
             "for",
             "confirmPassword",
           ]),
-          confirm_password,
+          this.confirm_password,
+          this.confirm_password_description,
           create("a", null, null, null, ["href", "#"]),
         ]),
         create("div", "registration_form_buttoncontainer", [
-          button__prime,
+          this.button__prime,
           create("a", "registration_form_loginLink", "Вход", null, [
             "href",
             "#",
@@ -72,68 +87,93 @@ class RegistrationPage {
         ]),
       ])
     );
-    this.validatePassword = () => {
-      if (
-        !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/gm.test(
-          password.value
-        )
-      ) {
-        document
-          .querySelector(".password_description")
-          .classList.remove("password_description__hidden");
-      } else {
-        if (!document.querySelector(".password_description__hidden")) {
-          document
-            .querySelector(".password_description")
-            .classList.add("password_description__hidden");
-        }
+    this.addSendFormButtonEventListener();
+  }
+  validateСonfirmPassword() {
+    if (this.password.value != this.confirm_password.value) {
+      this.confirm_password_description.classList.remove(
+        "confirm_password_description__hidden"
+      );
+    } else {
+      this.confirm_password_description.classList.add(
+        "confirm_password_description__hidden"
+      );
+    }
+  }
+  validatePassword() {
+    if (
+      !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/gm.test(
+        this.password.value
+      )
+    ) {
+      this.password_description.classList.remove(
+        "password_description__hidden"
+      );
+    } else {
+      if (!document.querySelector(".password_description__hidden")) {
+        this.password_description.classList.add("password_description__hidden");
       }
-    };
-    this.validateСonfirmPassword = () => {
-      if (password.value != confirm_password.value) {
-        confirm_password.setCustomValidity("Пароли не совпадают");
-      } else {
-        confirm_password.setCustomValidity("");
-      }
-    };
-    password.onchange = this.validateСonfirmPassword;
-    confirm_password.onkeyup = this.validateСonfirmPassword;
-    button__prime.addEventListener("click", async (e) => {
+    }
+  }
+  addSendFormButtonEventListener() {
+    this.button__prime.addEventListener("click", async (e) => {
       e.preventDefault();
       this.clearLoginErrors();
       this.validatePassword();
-      let userRegistrationData = {
+      this.validateСonfirmPassword();
+      this.userRegistrationData = {
         username: document.querySelector("#loginField").value,
         email: document.querySelector("#emailField").value,
         password: document.querySelector("#password").value,
         confirm_password: document.querySelector("#confirmPassword").value,
       };
       this.gpxiesAPI = new GpxiesAPI();
-      const result = await this.gpxiesAPI.userRegistration(
-        userRegistrationData
+      this.gpxiesAPIAnswer = await this.gpxiesAPI.userRegistration(
+        this.userRegistrationData
       );
-      console.log("result", result);
-      //not work
-      if (result.errors) {
-        result.errors.map((item) => {
-          if (item.param == "email") {
-            document.querySelector(".email_description").append(create("span",null,item.msg));
-          }
-          if (item.param == "username") {
-            document.querySelector(".login_description").append(create("span",null,));
-          }
-        });
-        console.log(result.errors);
-      }
-      //not work
+      await this.showLoginErrorsMessages();
+      await this.showDuplicateEmailErrorsMessages();
+      await this.addRegisteredDataAtLocalStorage()
     });
   }
-  clearLoginErrors() {
-    if (document.querySelector(".login_description")) {
-      document.querySelector(".login_description").innerHTML = "";
+  showLoginErrorsMessages() {
+    if (this.gpxiesAPIAnswer.errors) {
+      this.gpxiesAPIAnswer.errors.map((item) => {
+        if (item.param == "email") {
+          this.email_description.append(create("span", null, item.msg));
+        }
+        if (item.param == "username") {
+          this.login_description.append(create("span", null, item.msg));
+        }
+      });
     }
-    if (document.querySelector(".email_description")) {
-      document.querySelector(".email_description").innerHTML = "";
+  }
+  showDuplicateEmailErrorsMessages() {
+    console.log("this.gpxiesAPIAnswer", this.gpxiesAPIAnswer);
+    if (this.gpxiesAPIAnswer.status == "409") {
+      this.duplicate_email_description.classList.remove(
+        "duplicate_email_description__hidden"
+      );
+    } else {
+      if (!document.querySelector(".duplicate_email_description__hidden")) {
+        this.duplicate_email_description.classList.add(
+          "duplicate_email_description__hidden"
+        );
+      }
+    }
+  }
+  addRegisteredDataAtLocalStorage() {
+    if (this.gpxiesAPIAnswer.ok) {
+      localStorage.setItem("login",this.userRegistrationData.username);
+      localStorage.setItem("password",this.userRegistrationData.password)
+    }
+  }
+  clearLoginErrors() {
+    if (this.login_description) {
+      this.login_description.innerHTML = "";
+    }
+    if (this.email_description) {
+      this.email_description.innerHTML = "";
     }
   }
 }
