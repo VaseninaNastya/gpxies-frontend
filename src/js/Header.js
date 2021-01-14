@@ -1,47 +1,14 @@
 import create from "./create";
-import icon_walk from "../../assets/img/icon_walk.png";
-import icon_run from "../../assets/img/icon_run.png";
-import icon_bike from "../../assets/img/icon_bike.png";
+
 class Header {
   generateLayout() {
-    const menu = create("ul","trackDescription_menu",[
-      create("li", "trackDescription_menu_item", "Скачать"),
-      create("li", "trackDescription_menu_item", "Создать вариант"),
-      create("li", "trackDescription_menu_item", "Добавить в закладки"),
-      create("li", "trackDescription_menu_item", "Редактировать"),
-      create("li", "trackDescription_menu_item", "Удалить")
-    ])
-    const statisticsSmall = create('ul',"trackDescription_statistic",[
-      create("h4", null, "статистика"),
-      create("li", "trackDescription_statistic_item", "407 км"),
-      create("li", "trackDescription_statistic_item", "4000 точек"),
-      create("li", "trackDescription_statistic_item", "25 wpt")
-    ])
-    const headerContainer = create("div", "container",[
-      create("div","trackDescription",[
-        create("h2", "trackDescription_title__primary",[
-          create('span', "trackDescription_trackName","Название трека, "),
-          create("span", "trackDescription_trackLength","407 км"),
-          create('img',"icon_header",null,null,["src", icon_walk]),
-          create('img',"icon_header",null,null,["src", icon_run]),
-          create('img',"icon_header",null,null,["src", icon_bike])
-        ]),
-        create('h4', "trackDescription_title__secondary", [
-          create("span", "trackDescription_authorName",[
-            "aвтор: ",
-            "authorName. "
-          ]),
-          create("span", "trackDescription_data",[
-            "дата: ",
-            "2005.01.25"
-          ])
-        ])
-      ]),
-      menu,
-      statisticsSmall
-    ]);
-    const header = create("header",null,headerContainer);
-    return header
+    this.logout_button = create("a", "logout_button", "Выйти");
+    const logo = create("div", "logo", "gpXies");
+    const userName = create("div", "header_userName", localStorage.getItem('userName'))
+    const header = create("header", null, 
+      create("div", "container header_container", [logo,userName,this.logout_button]),
+    );
+    return header;
   }
 }
 export default Header;

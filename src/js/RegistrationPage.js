@@ -41,7 +41,7 @@ class RegistrationPage {
     this.registration_form_loginLink =  create("div", "registration_form_loginLink", "Вход");
     this.login_description = create("div", "login_description");
       this.email_description = create("div", "email_description");
-    document.body.prepend(
+      const wrapper = create("div", "wrapper",
       create("form", "registration_form", [
         create("h3", "registration_form_title", "Регистрация"),
         create("div", "registration_form_container", [
@@ -83,6 +83,9 @@ class RegistrationPage {
           this.registration_form_loginLink,
         ]),
       ])
+      )
+    document.body.prepend(
+      wrapper
     );
     this.addSendFormButtonEventListener();
     this.addLoginPageLinkEventListener()

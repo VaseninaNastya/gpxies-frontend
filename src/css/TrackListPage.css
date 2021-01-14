@@ -1,3 +1,11 @@
+.table_wraper{
+  width: 100%;
+  background-image: url(../../assets/img/background.png);
+  background-repeat: repeat;
+  background-size: contain;
+
+}
+
 .table_container {
   background-color: white;
   width: 1000px;
@@ -16,7 +24,10 @@
 }
 .table_header_container {
   background-color: rgb(245, 245, 245);
-  height: 70px;
+  height: 50px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 50px; /* required */
 }
 .table_header_container .table_item:first-child{
   background-color:  transparent;
@@ -61,3 +72,10 @@
 .table_body_item_action-list a:active{
   background-color: rgb(68, 118, 124);
 }
+.table_wraper header{
+  background-color: inherit;
+}
+.table_wraper .header_container{
+  background-color: rgb(245, 245, 245);
+}
+
