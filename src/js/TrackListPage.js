@@ -52,7 +52,7 @@ class TrackListPage {
             ])
         ])
         const tableContainer = create('div', "table_container", [tableHeader,tableBody])
-        document.body.prepend(create("div", "table_wraper",[header.generateLayout(),tableContainer]))
+        document.body.prepend(create("div", "table_wrapper",[header.generateLayout(),tableContainer]))
     }
 }
 

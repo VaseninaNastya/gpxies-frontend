@@ -43,7 +43,8 @@ module.exports = {
     showTrackPage: './src/js/ShowTrackPage.js',
     registrationPage: './src/js/RegistrationPage.js',
     loginPage: './src/js/LoginPage.js',
-    trackListPage: './src/js/TrackListPage.js'
+    trackListPage: './src/js/TrackListPage.js',
+    loadTrackPage:'./src/js/LoadTrackPage.js'
   },
   module: {
     rules: [
@@ -89,6 +90,11 @@ module.exports = {
       filename: 'trackListPage.html',
       template: './src/trackListPage.html',
       chunks: ['trackListPage']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'loadTrackPage.html',
+      template: './src/loadTrackPage.html',
+      chunks: ['loadTrackPage']
     }),
   ],
   mode: 'development'

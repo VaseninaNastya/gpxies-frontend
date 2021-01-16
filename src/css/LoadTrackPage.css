@@ -1,0 +1,105 @@
+.loadTrackPage_wrapper{
+    margin: 0 auto;
+    min-width: 1200px;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../../assets/img/background.png);
+    background-size: cover;
+    background-repeat: no-repeat
+  }
+.loadTrackPage_wrapper header{
+    background-color: inherit;
+}
+.loadTrackPage_wrapper .header_container{
+    background-color: rgb(245, 245, 245);
+}
+.loadTrackPage_container{
+    background-color: white;
+    padding: 10px 60px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 400px;
+    width: 1000px;
+    margin: 0 auto;
+}
+.track_description_container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
+}
+.track_loading_container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 10%;
+}
+.track_description_container>*{
+    height: 100%;
+}
+.sport_selector{
+    width: 15%;
+}
+.loadTrackPage_name{
+    padding: 0 10px;
+    width: 60%;
+}
+.private_checkbox_container{
+    display: flex;
+    align-items: center;
+}
+#private_checkbox{
+    margin-right: 10px;
+}
+.track_description_textarea_container{
+    width: 100%;
+    height: 50%;
+    margin: 0 auto;
+}
+.track_description_textarea{
+    width: 100%;
+    height: 90%;
+    padding: 10px;
+    text-align: start;
+}
+
+.loadTrackPage_name, .sport_selector, .sport_selector>*{
+    font-size: 16px; 
+}
+
+.track_description_label{
+    color:#2d555a;
+}
+.loadTrackPage_title{
+    color:#2d555a;
+}
+.loading_button{
+    padding: 5px 30px;
+    background-color: #d5f0f3;
+    color:#2d555a;
+    border-radius: 7px;
+    border: 2px solid #54939b;
+    font-size: 16px;
+    margin-right: 10px;
+}
+.loading_hiddenInput{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    position: absolute;
+    z-index: -10;
+}
+.loading_trackFileName{
+    color: rgb(110, 110, 110);
+}
+.private_checkbox_label{
+    line-height: 16px;
+    height: 16px;
+    margin-bottom: 2px;
+
+}
