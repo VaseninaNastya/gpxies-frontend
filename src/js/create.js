@@ -32,7 +32,7 @@ function create(el, classNames, child, parent, ...dataAttr) {
         if (attrValue === "") {
           element.setAttribute(attrName, "");
         }
-        if (attrName.match(/type|id|value|for|name|selected|height|width|href|src|required|placeholder|accept/)) {
+        if (attrName.match(/type|id|value|for|name|selected|height|width|href|src|required|placeholder|accept|ref|encType|action|method/)) {
           element.setAttribute(attrName, attrValue);
         } else {
           element.dataset[attrName] = attrValue;
