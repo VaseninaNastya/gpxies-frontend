@@ -1,4 +1,5 @@
 .header_container {
+  /*padding: 0 10px;*/
   width: 100%;
   display: flex;
   align-items: center;
@@ -8,12 +9,11 @@ header {
   height: 50px;
   width: 100%;
   background-color: white;
-  position: -webkit-sticky;
+ /* position: -webkit-sticky;
   position: sticky;
   top: 0; /* required */
 }
 .logout_button {
-  margin-right: 10px;
   height: 35px;
   padding: 5px 20px;
   background-color: #54939b;
@@ -30,14 +30,43 @@ header {
   border: none;
 }
 .logo{
-  padding-left: 10px;
   color:#40757c;
   font-size: 25px;
   line-height: 28px;
   font-weight: 600;
+  margin-left: 10px;
 }
 .header_userName{
+  z-index: 20;
+  background-color: white;
+  position: relative;
+  right: -220px;
+  height: 100%;
+  width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   margin-left: auto;
-  margin-right: 10px;
   color: rgb(110, 110, 110);
+  padding-right: 5px;
+}
+/*.header_userName:hover{
+  color: black;
+  background-color: #d5f0f3;
+}*/
+.header_userName:hover{
+  cursor: pointer;
+}
+.icon_triangle{
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
+  transition: filter 0.1s;
+}
+.header_userName:hover .icon_triangle{
+  filter: invert(0);
+  transition: filter 0.1s;
+}
+.header_userName:hover{
+  color: black;
 }

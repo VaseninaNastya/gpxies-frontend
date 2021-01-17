@@ -116,12 +116,13 @@ body {
 @import "./ShowTrack";
 @import "./LoadTrackPage";
 @import "./SuccessRegistrationPopup";
-
+@import "./HeaderMenu";
 
 .container {
   width: 1000px;
   margin: 0 auto;
   height: 100%;
+  /*padding: 0 10px;*/
 }
 /*@media (max-width: 1024px) and (min-width: 500px) {
     header{

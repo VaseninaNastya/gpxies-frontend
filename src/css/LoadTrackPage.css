@@ -13,6 +13,9 @@
 .loadTrackPage_wrapper .header_container{
     background-color: rgb(245, 245, 245);
 }
+.loadTrackPage_wrapper .header_userName{
+    background-color: inherit;
+}
 .loadTrackPage_container{
     background-color: white;
     padding: 10px 60px;
