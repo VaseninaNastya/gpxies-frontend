@@ -60,17 +60,19 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .table_body_item_action-list a:hover{
-  background-color: rgb(84, 147, 155);
-  color: white ;
+  /*background-color: rgb(84, 147, 155);*/
+  cursor: pointer;
+  background-color: #d5f0f3;
+  color:black;
   width: 100%;
   align-items: flex-start;
 }
-.table_body_item_action-list a:active{
+/*.table_body_item_action-list a:active{
   background-color: rgb(68, 118, 124);
-}
+}*/
 .table_wrapper header{
   background-color: inherit;
 }
