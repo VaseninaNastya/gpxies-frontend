@@ -26,7 +26,7 @@
   height: 50px;
   position: -webkit-sticky;
   position: sticky;
-  top: 50px; /* required */
+  top: 0; /* required */
 }
 .table_header_container .table_item:first-child{
   background-color:  transparent;
@@ -79,4 +79,9 @@
 .table_wrapper .header_container{
   background-color: rgb(245, 245, 245);
 }
-
+.table_wrapper .header_userName{
+  background-color: inherit;
+}
+.table_item:first-child{
+  align-items: center
+}

@@ -5,4 +5,4 @@ module.exports = {
     Ski: 'Ski',
     Kayak: 'Kayak',
     Other: 'Other'
-}
+  }

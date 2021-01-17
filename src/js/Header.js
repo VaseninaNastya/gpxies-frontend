@@ -1,25 +1,70 @@
 import create from "./create";
-
+import icon_triangle from "../../assets/img/icon_triangle.png";
+import HeaderMenu from "./HeaderMenu";
 class Header {
   generateLayout() {
-    this.logout_button = create("a", "logout_button", "Выйти");
-    this.logoutButtonAddEventListener()
+    const headerMenu = new HeaderMenu();
+    this.headerMenu_node = headerMenu.generateLayout()
     const logo = create("div", "logo", "gpXies");
-    const userName = create("div", "header_userName", localStorage.getItem('gpxiesUserName'))
-    const header = create("header", null, 
-      create("div", "container header_container", [logo,userName,this.logout_button]),
+    this.userName = create("div", "header_userName", [
+      create("span", null, localStorage.getItem("gpxiesUserName")),
+      create("img", "icon_triangle", null, null, ["src", icon_triangle]),
+    ]);
+    this.header = create(
+      "header",
+      null,
+      create("div", "container header_container", [
+        logo,
+        this.userName,
+        this.headerMenu_node
+      ])
     );
-    return header;
+    this.addUserNameButtonEventListener()
+    this.addHeaderEventListener()
+    this.logoutButtonAddEventListener();
+    return this.header;
   }
-  logoutButtonAddEventListener(){
-    this.logout_button.addEventListener("click", ()=>{
-        localStorage.removeItem("gpxiesUserName")
-        localStorage.removeItem('gpxiesToken')
-        this.redirectLogout()
-    });
-  }
-  redirectLogout(){
+  logoutButtonAddEventListener() {
+    this.headerMenu_node.addEventListener("click", (e) => {
+      if(e.target.innerHTML==="Выйти"){
+        this.redirectLogout();
+        localStorage.removeItem("gpxiesToken");
+      }
+      if(e.target.innerHTML==="Показать список моих треков"){
+        this.redirectTrackListPage()
+      }
+      if(e.target.innerHTML==="Загрузить трек"){
+        this.redirectLoadTrackPage()
+      }
+    }); }
+  redirectLogout() {
     window.location = "loginPage.html";
+  }
+  redirectTrackListPage() {
+    window.location = "trackListPage.html";
+  }
+  redirectLoadTrackPage() {
+    window.location = "loadTrackPage.html";
+  }
+  addUserNameButtonEventListener(){
+    this.userName.addEventListener("click",()=>{
+      this.showMenu()
+    })
+  }
+  addHeaderEventListener(){
+    this.header.addEventListener("mouseleave",()=>{
+      this.showOutMenu()
+    })
+  }
+ 
+  showMenu(){
+    document.querySelector(".headerMenu_container").classList.toggle("headerMenu_container_opened")
+  }
+  showOutMenu(){
+    if(document.querySelector(".headerMenu_container_opened")){
+      console.log("smsjs");
+      document.querySelector(".headerMenu_container").classList.remove("headerMenu_container_opened")
+    }
   }
 }
 export default Header;

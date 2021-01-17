@@ -1,0 +1,28 @@
+.headerMenu_container{
+    z-index: 10;
+    position: relative;
+    right: 0;
+    top: 78px;
+    width: 220px;
+    background-color: white;
+    transform: translate(0px,-105px);
+    transition: transform 1s;
+
+}
+.headerMenu_item{
+    height: 35px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-right: 7px;
+    justify-content: flex-end;
+}
+.headerMenu_item:hover{
+    background-color: #d5f0f3;
+    cursor: pointer;
+}
+.headerMenu_container_opened{
+    transform: translate(0px,0px);
+    transition: transform 0.2s;
+    box-shadow: 0 0 100px rgba(0,0,0,0.2); /* Параметры тени */
+}
