@@ -1,6 +1,7 @@
 import "../css/main.css";
 import create from "./create";
 import GpxiesAPI from "./GpxiesAPI";
+import SuccessRegistrationPopup from "./SuccessRegistrationPopup";
 
 class LoginPage {
   generateLayout() {
@@ -13,7 +14,8 @@ class LoginPage {
       null,
       null,
       ["type", "text"],
-      ["id", "emailField"]
+      ["id", "emailField"],
+      ["required", "required"]
     );
     this.password_input = create(
       "input",
@@ -21,29 +23,32 @@ class LoginPage {
       null,
       null,
       ["type", "password"],
-      ["id", "password"]
+      ["id", "password"],
+      ["required", "required"]
     );
     this.login_form_registrationPageLink = create(
       "div",
       "login_form_registrationLink",
       "Регистрация"
     );
-    const wrapper = create("div", "wrapper",
-    create("form", "login_form", [
+    this.login_form_container =       create("div", "login_form_container", [
+      create("label", null, "email", null, ["for", "emailField"]),
+      this.email_input,
+      this.error_description,
+      create("label", null, "пароль", null, ["for", "password"]),
+      this.password_input,
+      create("a", null, null, null, ["href", "#"]),
+    ]),
+    this.login_form =     create("form", "login_form", [
       create("h3", "login_form_title", "Вход"),
-      create("div", "login_form_container", [
-        create("label", null, "email", null, ["for", "emailField"]),
-        this.email_input,
-        this.error_description,
-        create("label", null, "пароль", null, ["for", "password"]),
-        this.password_input,
-        create("a", null, null, null, ["href", "#"]),
-      ]),
+      this.login_form_container,
       create("div", "login_form_buttoncontainer", [
         this.button__prime,
         this.login_form_registrationPageLink,
       ]),
     ])
+    const wrapper = create("div", "wrapper",
+    this.login_form
     )
     document.body.prepend(wrapper);
     this.checkRegistration();
@@ -85,8 +90,11 @@ class LoginPage {
   redirectToRegistrationPage() {
     window.location = "registrationPage.html";
   }
+
   checkRegistration() {
+    let successMessage = new SuccessRegistrationPopup()
     if (localStorage.getItem("gpxiesEmail")) {
+      this.login_form_container.prepend(successMessage.generateLayout())
       this.email_input.value = localStorage.getItem("gpxiesEmail");
       localStorage.removeItem("gpxiesEmail");
     }
