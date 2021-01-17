@@ -115,7 +115,7 @@ body {
 @import "./TrackListPage";
 @import "./ShowTrack";
 @import "./LoadTrackPage";
-
+@import "./SuccessRegistrationPopup";
 
 
 .container {
