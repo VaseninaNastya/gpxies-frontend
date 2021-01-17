@@ -1,6 +1,7 @@
 class GpxiesAPI {
   constructor() {
     this.API_SERVER = "https://api.gpxies.ru";
+    // this.API_SERVER = "http://127.0.0.1:3003";
   }
   async userRegistration(userRegistrationData) {
     return fetch(this.API_SERVER + "/users", {
@@ -41,27 +42,23 @@ class GpxiesAPI {
 
   // This will upload the file after having read it
   async uploadTrack(file) {
-    console.log('FILE',file);
+    console.log('FILE', file);
     return fetch(this.API_SERVER + "/tracks/upload", {
       method: "POST",
       headers: {
-        'Content-Type': 'multipart/form-data',
-        // "Content-Type": "application/json",
+        // 'Content-Type': 'multipart/form-data',
         "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36",
         "Referer": "https://api.gpxies.ru",
         "Authorization": "Bearer " + localStorage.getItem("gpxiesToken"),
-        // "Access-Control-Allow-Origin": "*",
-        // 'Access-Control-Allow-Headers': 'origin, content-type, accept'
+        "Access-Control-Max-Age": "7200"
       },
-      body: file,
+      body: new FormData(file),
     })
       .then((response) => {
-        console.log("response",response);
-        return response;
+        return response.json();
       })
-      .then((response) => {
-        console.log("response2",response);
-        return response;
+      .then((jsonData) => {
+        return jsonData;
       })
       .catch((error) => Error(error));
   };
