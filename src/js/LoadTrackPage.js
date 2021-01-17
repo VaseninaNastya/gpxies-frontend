@@ -35,12 +35,13 @@ class LoadTrackPage {
       null,
       ["type", "submit"]
     );
-    this.button_upload = create(
-      "button",
-      "button_save button__primary",
-      "Загрузить",
-      null
-    );
+    // this.button_upload = create(
+    //   "input",
+    //   "button_save button__primary",
+    //   "Загрузить",
+    //   null,
+    //   ["type", "submit"]
+    // );
     const header = new Header();
     this.button__prime = create("a", "button__primary", "Сохранить");
     this.private_checkbox = create(
@@ -50,7 +51,8 @@ class LoadTrackPage {
       null,
       ["type", "checkbox"],
       ["value", "1"],
-      ["id", "private_checkbox"]
+      ["id", "private_checkbox"],
+      ["name", "isPrivate"]
     );
     this.private_checkbox_container = create(
       "div",
@@ -68,7 +70,8 @@ class LoadTrackPage {
       "track_description_textarea",
       null,
       null,
-      ["id", "track_description_textarea"]
+      ["id", "track_description_textarea"],
+      ["name", "description"]
     );
     this.sport_selector = create(
       "select",
@@ -79,7 +82,8 @@ class LoadTrackPage {
         create("option", null, "Ходьба", null, ["value", Type.Hike]),
       ],
       null,
-      ["id", "sport_selector"]
+      ["id", "sport_selector"],
+      ["name", "type"]
     );
     this.trackName_input = create(
       "input",
@@ -89,7 +93,8 @@ class LoadTrackPage {
       ["placeholder", "Название трека"],
       ["type", "text"],
       ["required", "required"],
-      ["id", "loadTrackPage_name"]
+      ["id", "loadTrackPage_name"],
+      ["name", "title"]
     );
     const loadTrackPage_container = create("form", "loadTrackPage_container", [
       create("h2", "loadTrackPage_title", "Загрузить новый трек"),
@@ -111,13 +116,13 @@ class LoadTrackPage {
         this.track_description_textarea,
       ]),
       this.button_save,
-      this.button_upload
+      //   this.button_upload
     ],
       null,
-      ["ref", "uploadForm"],
+      // ["ref", "uploadForm"],
       ["id", "uploadForm"],
-      ["action", "https://api.gpxies.ru/tracks/upload"],
-      ["method", "post"],
+      // ["action", "http://127.0.0.1:3003/tracks/upload"],
+      // ["method", "post"],
       ["encType", "multipart/form-data"]
     );
 
@@ -141,26 +146,48 @@ class LoadTrackPage {
       },
       false
     );
-    this.button_upload.addEventListener('click', async (event) => {
+
+    this.button_save.addEventListener('click', async (event) => {
       event.preventDefault();
 
+      const formElem = document.querySelector('.loadTrackPage_container')
 
-      // Upload file
-      let res = await this.gpxiesAPI.uploadTrack(this.loading_hiddenInput.files[0]);
-      console.log("res", res);
+      const { hashString } = await this.gpxiesAPI.uploadTrack(formElem)
 
-      let tracksData = {
+      const tracksData = {
         title: this.trackName_input.value,
         type: this.sport_selector.value,
         description: this.track_description_textarea.value,
         isPrivate: this.private_checkbox.checked,
-        hashString: res.hashString
+        hashString: hashString
       };
-      console.log(tracksData);
-      // Add record in table
-      // let res2 = await this.gpxiesAPI.tracksDataUpload(tracksData);
-      // console.log("res2", res2);
-    });
+
+      const { result } = await this.gpxiesAPI.tracksDataUpload(tracksData);
+
+
+
+    })
+
+    // this.button_upload.addEventListener('click', async (event) => {
+    //   event.preventDefault();
+
+
+    //   // Upload file
+    //   let res = await this.gpxiesAPI.uploadTrack(this.loading_hiddenInput.files[0]);
+    //   console.log("res", res);
+
+    //   let tracksData = {
+    //     title: this.trackName_input.value,
+    //     type: this.sport_selector.value,
+    //     description: this.track_description_textarea.value,
+    //     isPrivate: this.private_checkbox.checked,
+    //     hashString: res.hashString
+    //   };
+    //   console.log(tracksData);
+    //   // Add record in table
+    //   // let res2 = await this.gpxiesAPI.tracksDataUpload(tracksData);
+    //   // console.log("res2", res2);
+    // });
 
 
 
