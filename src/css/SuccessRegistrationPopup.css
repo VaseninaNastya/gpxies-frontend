@@ -1,0 +1,7 @@
+.successRegistration_container{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    color: rgba(128, 128, 128);
+}

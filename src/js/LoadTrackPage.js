@@ -20,7 +20,7 @@ class LoadTrackPage {
       ["type", "file"],
       ["id", "load_track_file_input"],
       ["accept", ".gpx"],
-      ["name", "file"]
+      ["name", "tracksFile"]
     );
     this.loading_trackFileName = create(
       "div",

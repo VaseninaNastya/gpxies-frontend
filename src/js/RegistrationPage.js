@@ -1,8 +1,8 @@
 import "../css/main.css";
 import create from "./create";
 import GpxiesAPI from "./GpxiesAPI";
-
 class RegistrationPage {
+  
   generateLayout() {
     this.button__prime = create("a", "button__primary", "Зарегистрироваться");
     this.password = create(
@@ -40,49 +40,50 @@ class RegistrationPage {
     );
     this.registration_form_loginLink =  create("div", "registration_form_loginLink", "Вход");
     this.login_description = create("div", "login_description");
-      this.email_description = create("div", "email_description");
+    this.email_description = create("div", "email_description");
+    this.registration_form =       create("form", "registration_form", [
+      create("h3", "registration_form_title", "Регистрация"),
+      create("div", "registration_form_container", [
+        create("label", null, "логин", null, ["for", "loginField"]),
+        create(
+          "input",
+          null,
+          null,
+          null,
+          ["type", "text"],
+          ["id", "loginField"],
+          ["required", "required"]
+        ),
+        this.login_description,
+        create("label", null, "email", null, ["for", "emailField"]),
+        create(
+          "input",
+          null,
+          null,
+          null,
+          ["type", "email"],
+          ["id", "emailField"],
+          ["required", "required"]
+        ),
+        this.duplicate_email_description,
+        this.email_description,
+        create("label", null, "пароль", null, ["for", "password"]),
+        this.password,
+        this.password_description,
+        create("label", null, "подтвердите пароль", null, [
+          "for",
+          "confirmPassword",
+        ]),
+        this.confirm_password,
+        this.confirm_password_description,
+      ]),
+      create("div", "registration_form_buttoncontainer", [
+        this.button__prime,
+        this.registration_form_loginLink,
+      ]),
+    ])
       const wrapper = create("div", "wrapper",
-      create("form", "registration_form", [
-        create("h3", "registration_form_title", "Регистрация"),
-        create("div", "registration_form_container", [
-          create("label", null, "логин", null, ["for", "loginField"]),
-          create(
-            "input",
-            null,
-            null,
-            null,
-            ["type", "text"],
-            ["id", "loginField"],
-            ["required", "required"]
-          ),
-          this.login_description,
-          create("label", null, "email", null, ["for", "emailField"]),
-          create(
-            "input",
-            null,
-            null,
-            null,
-            ["type", "email"],
-            ["id", "emailField"],
-            ["required", "required"]
-          ),
-          this.duplicate_email_description,
-          this.email_description,
-          create("label", null, "пароль", null, ["for", "password"]),
-          this.password,
-          this.password_description,
-          create("label", null, "подтвердите пароль", null, [
-            "for",
-            "confirmPassword",
-          ]),
-          this.confirm_password,
-          this.confirm_password_description,
-        ]),
-        create("div", "registration_form_buttoncontainer", [
-          this.button__prime,
-          this.registration_form_loginLink,
-        ]),
-      ])
+      this.registration_form
       )
     document.body.prepend(
       wrapper
@@ -173,7 +174,7 @@ class RegistrationPage {
     if (this.gpxiesAPIAnswer.ok) {
       localStorage.setItem("gpxiesEmail", this.userRegistrationData.email);
       localStorage.setItem("gpxiesPassword", this.userRegistrationData.password);
-      this.redirectToLoginPage();
+      this.redirectToLoginPage()
     }
   }
   redirectToLoginPage(){
@@ -187,6 +188,7 @@ class RegistrationPage {
       this.email_description.innerHTML = "";
     }
   }
+
 }
 const registrationPage = new RegistrationPage();
 registrationPage.generateLayout();
