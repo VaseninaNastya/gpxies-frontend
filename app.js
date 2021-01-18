@@ -4,13 +4,15 @@ const path = require('path');
 const app = express()
 // const userRouter = require('./routes/page.route');
 
+
+app.get('/', (req, res) => {
+  res.redirect('/login')
+})
 // set static directories
 app.use(express.static(path.join(__dirname, 'dist')));
 const port = 3900
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
+
 
 app.use('/registration', express.static(path.join(__dirname, 'dist/registrationPage.html')))
 app.use('/login', express.static(path.join(__dirname, 'dist/loginPage.html')))
