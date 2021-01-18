@@ -18,7 +18,9 @@
     "url": "https://github.com/nikolai-minkevich/rsclone/issues"
   },
   "homepage": "https://github.com/nikolai-minkevich/rsclone#readme",
-  "dependencies": {},
+  "dependencies": {
+    "leaflet": "^1.7.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "babel-loader": "^8.2.2",
