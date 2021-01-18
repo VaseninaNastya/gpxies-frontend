@@ -6,6 +6,7 @@ import Type from "./trackTypes.utils";
 import Mounth from "./mounth.utils";
 import icon_triangle from "../../assets/img/icon_triangle.png";
 import icon_private from "../../assets/img/icons_private.png";
+import SearchBar from "./SearchBar";
 class TrackListPage {
   generateLayout() {
     this.addTracksData();
@@ -21,6 +22,7 @@ class TrackListPage {
     this.addEventListeners();
   }
   generateTableHeaderLayout() {
+    this.searchBar = new SearchBar()
     this.checkAllCheckbox = create("input", null, null, null, [
       "type",
       "checkbox",
@@ -84,14 +86,15 @@ class TrackListPage {
       ]),
       create("div", "table_item table_header_item_name", [
         create("label", null, "Название", null, ["for", "filter_name"]),
-        create(
+        
+        /*create(
           "input",
           null,
           null,
           null,
           ["id", "filter_name"],
           ["type", "text"]
-        ),
+        )*/
       ]),
       /* create("div", "table_item", "Приватный"),*/
       create("div", "table_item table_header_item_distance", [
@@ -122,6 +125,8 @@ class TrackListPage {
       localStorage.getItem("gpxiesUserId")
     );
     if (this.userTracks) {
+     this.searchBar_input = this.searchBar.generateLayout()
+      document.querySelector(".table_header_item_name").append(this.searchBar_input)
       console.log("this.userTracks", this.userTracks);
       this.tracksToShow = this.userTracks;
       // this.addTracksDistanseData();
@@ -150,7 +155,7 @@ class TrackListPage {
         create(
           "div",
           "table_item table_item_name",
-          [create("div", null, item.title),
+          [create("div", "track_name_tableItem", item.title),
           create("img", `${itemPrivateHidden}`, null, null, ["src", icon_private])],
         ),
         /*create("div", "table_item", [
@@ -189,6 +194,7 @@ class TrackListPage {
     });
 
     this.sportChoce_select.addEventListener("change", () => {
+      this.searchBar_input.value = ""
       this.unchoiseAll();
       this.checkAllCheckbox.checked = false;
       this.sportType_choisen = this.sportChoce_select.value;
