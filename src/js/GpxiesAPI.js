@@ -42,7 +42,6 @@ class GpxiesAPI {
 
   // This will upload the file after having read it
   async uploadTrack(file) {
-    console.log('FILE', file);
     return fetch(this.API_SERVER + "/tracks/upload", {
       method: "POST",
       headers: {
@@ -86,6 +85,42 @@ class GpxiesAPI {
       .catch((error) => Error(error));
   }
   // async tracksFileUpload(tracksFile) { }
+  async getAllTracks(){
+    return fetch(this.API_SERVER + "/tracks/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36",
+        "Referer": "https://api.gpxies.ru",
+        "Authorization": "Bearer " + localStorage.getItem("gpxiesToken"),
+      },
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((jsonData) => {
+      return jsonData;
+    })
+    .catch((error) => Error(error));
+  }
+  async getUserTracksById(id){
+    return fetch(this.API_SERVER + "/tracks/username/" + id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36",
+        "Referer": "https://api.gpxies.ru",
+        "Authorization": "Bearer " + localStorage.getItem("gpxiesToken"),
+      },
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((jsonData) => {
+      return jsonData;
+    })
+    .catch((error) => Error(error));
+  }
 
 }
 export default GpxiesAPI;

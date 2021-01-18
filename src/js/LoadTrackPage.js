@@ -149,11 +149,8 @@ class LoadTrackPage {
 
     this.button_save.addEventListener('click', async (event) => {
       event.preventDefault();
-
       const formElem = document.querySelector('.loadTrackPage_container')
-
       const { hashString } = await this.gpxiesAPI.uploadTrack(formElem)
-
       const tracksData = {
         title: this.trackName_input.value,
         type: this.sport_selector.value,
@@ -161,11 +158,7 @@ class LoadTrackPage {
         isPrivate: this.private_checkbox.checked,
         hashString: hashString
       };
-
       const { result } = await this.gpxiesAPI.tracksDataUpload(tracksData);
-
-
-
     })
 
     // this.button_upload.addEventListener('click', async (event) => {

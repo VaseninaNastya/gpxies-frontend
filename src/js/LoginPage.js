@@ -73,10 +73,11 @@ class LoginPage {
       }
       if(res.token){
         localStorage.setItem("gpxiesUserName", res.username);
+        localStorage.setItem("gpxiesToken", res.token);
+        localStorage.setItem("gpxiesUserId", res.id);
+        
         this.redirectToTrackListPage()
       }
-     // redirectToRegistrationPage()
-      localStorage.setItem("gpxiesToken", res.token);
     });
   }
   addRegistrationPageLinkEventListener() {
