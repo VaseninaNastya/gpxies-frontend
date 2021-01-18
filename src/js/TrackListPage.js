@@ -123,8 +123,9 @@ class TrackListPage {
     );
     if (this.userTracks) {
       console.log("this.userTracks",this.userTracks);
+      this.tracksToShow = this.userTracks
      // this.addTracksDistanseData();
-      this.generateTableBodyLayout(this.userTracks);
+      this.generateTableBodyLayout(this.tracksToShow);
     }
   }
   /*addTracksDistanseData() {
@@ -202,7 +203,8 @@ class TrackListPage {
         this.filterBySportType();
       } else {
         this.tableBody.innerHTML = "";
-        this.generateTableBodyLayout(this.userTracks);
+        this.tracksToShow=this.userTracks
+        this.generateTableBodyLayout(this.tracksToShow);
       }
     });
     this.filter_data_fromHight.addEventListener("click", () => {this.filterFromHight("created")})
@@ -211,28 +213,28 @@ class TrackListPage {
     this.filter_distance_fromLow.addEventListener("click", () => {this.filterFromLow("distance")})
   }
   filterBySportType() {
-    this.userChoisenSportTracks = [];
+    this.tracksToShow = []
     this.userTracks.map((item) => {
       if (item.type == this.sportType_choisen) {
-        this.userChoisenSportTracks.push(item);
+        this.tracksToShow.push(item);
       }
     });
     this.tableBody.innerHTML = "";
-    this.generateTableBodyLayout(this.userChoisenSportTracks);
+    this.generateTableBodyLayout(this.tracksToShow);
     console.log("this.userTracks", this.userTracks);
   }
   filterFromHight(parametr) {
     //this.userfilterByDistanseTracks =[]
-    this.userTracks = this.userTracks.concat().sort((a, b) => (a[parametr] > b[parametr] ? 1 : -1));
+    this.tracksToShow = this.tracksToShow.concat().sort((a, b) => (a[parametr] > b[parametr] ? 1 : -1));
     console.log("s",this.userTracks);
     this.tableBody.innerHTML = "";
-    this.generateTableBodyLayout(this.userTracks);
+    this.generateTableBodyLayout(this.tracksToShow);
   }
   filterFromLow(parametr) {
-    this.userTracks = this.userTracks.concat().sort((a, b) => (b[parametr] > a[parametr] ? 1 : -1));
+    this.tracksToShow = this.tracksToShow.concat().sort((a, b) => (b[parametr] > a[parametr] ? 1 : -1));
     console.log("s",this.userTracks);
     this.tableBody.innerHTML = "";
-        this.generateTableBodyLayout(this.userTracks);
+        this.generateTableBodyLayout(this.tracksToShow);
   }
 }
 
