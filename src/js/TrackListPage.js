@@ -5,7 +5,7 @@ import Header from "./Header";
 import Type from "./trackTypes.utils";
 import Mounth from "./mounth.utils";
 import icon_triangle from "../../assets/img/icon_triangle.png";
-
+import icon_private from "../../assets/img/icons_private.png";
 class TrackListPage {
   generateLayout() {
     this.addTracksData();
@@ -93,7 +93,7 @@ class TrackListPage {
           ["type", "text"]
         ),
       ]),
-      create("div", "table_item", "Приватный"),
+      /* create("div", "table_item", "Приватный"),*/
       create("div", "table_item table_header_item_distance", [
         create("div", null, "Дистанция, км"),
         create("div", "filter_distance_icons_container", [
@@ -122,23 +122,12 @@ class TrackListPage {
       localStorage.getItem("gpxiesUserId")
     );
     if (this.userTracks) {
-      console.log("this.userTracks",this.userTracks);
-      this.tracksToShow = this.userTracks
-     // this.addTracksDistanseData();
+      console.log("this.userTracks", this.userTracks);
+      this.tracksToShow = this.userTracks;
+      // this.addTracksDistanseData();
       this.generateTableBodyLayout(this.tracksToShow);
     }
   }
-  /*addTracksDistanseData() {
-    //this is a temperary method, for sorting test
-    /*let distanseArr =[];
-    for(let i =0; i<this.userTracks.length; i++){
-      distanseArr.push(Math.ceil(Math.random()*100))
-    }
-    this.userTracks.map((item) => {
-      return (item.distance = Math.ceil(Math.random() * 100));
-    });
-    console.log("distanseArr", this.userTracks);
-  }*/
   getDate(date) {
     const dateObj = new Date(date);
     const day = dateObj.getDate();
@@ -149,6 +138,7 @@ class TrackListPage {
   }
   generateTableBodyLayout(arr) {
     arr.map((item) => {
+      const itemPrivateHidden = `icon_private${item.isPrivate}`
       console.log("item", item.distance);
       const date = this.getDate(item.created);
       const tableBodyString = create("div", "table_body_container", [
@@ -157,10 +147,15 @@ class TrackListPage {
         ]),
         create("div", "table_item", [create("span", null, Type[item.type])]),
         create("div", "table_item", [create("span", null, date)]),
-        create("div", "table_item", [create("span", null, item.title)]),
-        create("div", "table_item", [
+        create(
+          "div",
+          "table_item table_item_name",
+          [create("div", null, item.title),
+          create("img", `${itemPrivateHidden}`, null, null, ["src", icon_private])],
+        ),
+        /*create("div", "table_item", [
           create("span", null, item.isPrivate.toString()),
-        ]),
+        ]),*/
         create("div", "table_item", [
           create("span", null, item.distance.toString()),
         ]),
@@ -174,19 +169,17 @@ class TrackListPage {
     });
   }
   addEventListeners() {
-    document.querySelectorAll(".checkbox_item").forEach(
-      (item) => {
-        item.addEventListener("change", (e) => {
-          e.preventDefault();
-          if (e.target.checked) {
-            e.target.checked = true;
-          } else {
-            e.target.checked = false;
-          }
-          //console.log(e.target);
-        });
-      }
-    );
+    document.querySelectorAll(".checkbox_item").forEach((item) => {
+      item.addEventListener("change", (e) => {
+        e.preventDefault();
+        if (e.target.checked) {
+          e.target.checked = true;
+        } else {
+          e.target.checked = false;
+        }
+        //console.log(e.target);
+      });
+    });
     this.checkAllCheckbox.addEventListener("change", () => {
       if (this.checkAllCheckbox.checked) {
         this.choiseAll();
@@ -203,17 +196,25 @@ class TrackListPage {
         this.filterBySportType();
       } else {
         this.tableBody.innerHTML = "";
-        this.tracksToShow=this.userTracks
+        this.tracksToShow = this.userTracks;
         this.generateTableBodyLayout(this.tracksToShow);
       }
     });
-    this.filter_data_fromHight.addEventListener("click", () => {this.filterFromHight("created")})
-    this.filter_data_fromLow.addEventListener("click", () => {this.filterFromLow("created")})
-    this.filter_distance_fromHight.addEventListener("click", () => {this.filterFromHight("distance")})
-    this.filter_distance_fromLow.addEventListener("click", () => {this.filterFromLow("distance")})
+    this.filter_data_fromHight.addEventListener("click", () => {
+      this.filterFromHight("created");
+    });
+    this.filter_data_fromLow.addEventListener("click", () => {
+      this.filterFromLow("created");
+    });
+    this.filter_distance_fromHight.addEventListener("click", () => {
+      this.filterFromHight("distance");
+    });
+    this.filter_distance_fromLow.addEventListener("click", () => {
+      this.filterFromLow("distance");
+    });
   }
   filterBySportType() {
-    this.tracksToShow = []
+    this.tracksToShow = [];
     this.userTracks.map((item) => {
       if (item.type == this.sportType_choisen) {
         this.tracksToShow.push(item);
@@ -225,16 +226,20 @@ class TrackListPage {
   }
   filterFromHight(parametr) {
     //this.userfilterByDistanseTracks =[]
-    this.tracksToShow = this.tracksToShow.concat().sort((a, b) => (a[parametr] > b[parametr] ? 1 : -1));
-    console.log("s",this.userTracks);
+    this.tracksToShow = this.tracksToShow
+      .concat()
+      .sort((a, b) => (a[parametr] > b[parametr] ? 1 : -1));
+    console.log("s", this.userTracks);
     this.tableBody.innerHTML = "";
     this.generateTableBodyLayout(this.tracksToShow);
   }
   filterFromLow(parametr) {
-    this.tracksToShow = this.tracksToShow.concat().sort((a, b) => (b[parametr] > a[parametr] ? 1 : -1));
-    console.log("s",this.userTracks);
+    this.tracksToShow = this.tracksToShow
+      .concat()
+      .sort((a, b) => (b[parametr] > a[parametr] ? 1 : -1));
+    console.log("s", this.userTracks);
     this.tableBody.innerHTML = "";
-        this.generateTableBodyLayout(this.tracksToShow);
+    this.generateTableBodyLayout(this.tracksToShow);
   }
 }
 
