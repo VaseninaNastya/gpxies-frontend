@@ -86,10 +86,10 @@ class LoginPage {
     });
   }
   redirectToTrackListPage(){
-    window.location = "trackListPage.html";
+    window.location = "/mytracks";
   }
   redirectToRegistrationPage() {
-    window.location = "registrationPage.html";
+    window.location = "/registration";
   }
 
   checkRegistration() {

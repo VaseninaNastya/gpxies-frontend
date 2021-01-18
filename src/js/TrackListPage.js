@@ -86,7 +86,7 @@ class TrackListPage {
       ]),
       create("div", "table_item table_header_item_name", [
         create("label", null, "Название", null, ["for", "filter_name"]),
-        
+
         /*create(
           "input",
           null,
@@ -125,10 +125,11 @@ class TrackListPage {
       localStorage.getItem("gpxiesUserId")
     );
     if (this.userTracks) {
-     this.searchBar_input = this.searchBar.generateLayout()
+      this.searchBar_input = this.searchBar.generateLayout()
       document.querySelector(".table_header_item_name").append(this.searchBar_input)
       console.log("this.userTracks", this.userTracks);
-      this.tracksToShow = this.userTracks;
+      // TODO: Copying of arrays!
+      this.tracksToShow = this.userTracks.map((x) => x);
       // this.addTracksDistanseData();
       this.generateTableBodyLayout(this.tracksToShow);
     }
@@ -202,7 +203,7 @@ class TrackListPage {
         this.filterBySportType();
       } else {
         this.tableBody.innerHTML = "";
-        this.tracksToShow = this.userTracks;
+        this.tracksToShow = this.userTracks.map((x) => x);
         this.generateTableBodyLayout(this.tracksToShow);
       }
     });

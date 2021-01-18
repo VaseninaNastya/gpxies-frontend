@@ -16,7 +16,7 @@ app.use('/registration', express.static(path.join(__dirname, 'dist/registrationP
 app.use('/login', express.static(path.join(__dirname, 'dist/loginPage.html')))
 // app.use('/show/:id', express.static(path.join(__dirname,'dist/showTrack.html')))
 app.use('/mytracks', express.static(path.join(__dirname, 'dist/trackListPage.html')))
-app.use('/upload', express.static(path.join(__dirname, 'dist/loadTrackPage.html.html')))
+app.use('/upload', express.static(path.join(__dirname, 'dist/loadTrackPage.html')))
 
 
 app.listen(port, () => {

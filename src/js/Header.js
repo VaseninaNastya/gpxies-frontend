@@ -38,13 +38,13 @@ class Header {
       }
     }); }
   redirectLogout() {
-    window.location = "loginPage.html";
+    window.location = "/login";
   }
   redirectTrackListPage() {
-    window.location = "trackListPage.html";
+    window.location = "/mytracks";
   }
   redirectLoadTrackPage() {
-    window.location = "loadTrackPage.html";
+    window.location = "/upload";
   }
   addUserNameButtonEventListener(){
     this.userName.addEventListener("click",()=>{
