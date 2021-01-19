@@ -14,7 +14,7 @@
 .table_body_container,
 .table_header_container {
   display: grid;
-  grid-template-columns: 100px 150px 150px 450px 150px;
+  grid-template-columns: 100px 150px 120px 480px 150px;
 }
 
 .table_body_container {
@@ -26,7 +26,7 @@
   height: 50px;
   position: -webkit-sticky;
   position: sticky;
-  top: 0; /* required */
+  top: -2px; /* required */
 }
 .table_header_container .table_item:first-child {
   background-color: transparent;
@@ -53,17 +53,16 @@
 }
 
 .table_header_item_distance,
-.table_header_item_date {
+.table_header_item_date,
+.table_header_item_name {
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
 }
-.filter_distance_icons_container,
-.filter_date_icons_container {
-  margin-left: 5px;
-  height: 80%;
+.table_header_item_name_container{
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 .table_body_item_action-list {
   display: flex;
@@ -94,13 +93,7 @@
 .table_item:first-child {
   align-items: center;
 }
-.icon_triangle_fromLow,
-.icon_triangle_fromHight {
-  height: 20px;
-  width: 20px;
-  filter: invert(1);
-  transition: filter 0.1s;
-}
+
 
 .icon_private1 {
   height: 20px;
@@ -111,16 +104,7 @@
   height: 20px;
   width: 20px;
 }
-.icon_triangle_fromHight {
-  transform: rotate(180deg);
-}
 
-.icon_triangle_formLow:hover,
-.icon_triangle_fromHight:hover {
-  cursor: pointer;
-  filter: invert(0);
-  transition: filter 0.1s;
-}
 .table_item_name{
   display: flex;
   flex-direction: row;

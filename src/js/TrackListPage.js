@@ -7,6 +7,7 @@ import Mounth from "./mounth.utils";
 import icon_triangle from "../../assets/img/icon_triangle.png";
 import icon_private from "../../assets/img/icons_private.png";
 import SearchBar from "./SearchBar";
+import FilterFromTo from "./FilterFromTo";
 class TrackListPage {
   generateLayout() {
     this.addTracksData();
@@ -22,6 +23,14 @@ class TrackListPage {
     this.addEventListeners();
   }
   generateTableHeaderLayout() {
+
+    const iconsContainer = new FilterFromTo()
+    /*const iconsContainerData = new FilterFromTo(this.filterFromHight,this.filterFromLow,"created")
+    const iconsContainerDistance = new FilterFromTo(this.filterFromHight,this.filterFromLow,"distance")*/
+    this.filter_name_icons_container = iconsContainer.generateLayout()
+    this.filter_date_icons_container = iconsContainer.generateLayout()
+    this.filter_distance_icons_container = iconsContainer.generateLayout()
+    
     this.searchBar = new SearchBar()
     this.checkAllCheckbox = create("input", null, null, null, [
       "type",
@@ -40,35 +49,7 @@ class TrackListPage {
       null,
       ["id", "sport-choce"]
     );
-    this.filter_distance_fromHight = create(
-      "img",
-      "icon_triangle_fromHight",
-      null,
-      null,
-      ["src", icon_triangle]
-    );
-    this.filter_distance_fromLow = create(
-      "img",
-      "icon_triangle_fromLow",
-      null,
-      null,
-      ["src", icon_triangle]
-    );
-    this.filter_data_fromHight = create(
-      "img",
-      "icon_triangle_fromHight",
-      null,
-      null,
-      ["src", icon_triangle]
-    );
-    this.filter_data_fromLow = create(
-      "img",
-      "icon_triangle_fromLow",
-      null,
-      null,
-      ["src", icon_triangle]
-    );
-    const tableHeader = create("div", "table_header_container", [
+    this.tableHeader = create("div", "table_header_container", [
       create("div", "table_item", [
         create("div", null, "Всe треки"),
         this.checkAllCheckbox,
@@ -79,34 +60,18 @@ class TrackListPage {
       ]),
       create("div", "table_item table_header_item_date", [
         create("span", null, "Дата"),
-        create("div", "filter_date_icons_container", [
-          this.filter_data_fromHight,
-          this.filter_data_fromLow,
-        ]),
+        this.filter_date_icons_container,
       ]),
       create("div", "table_item table_header_item_name", [
-        create("label", null, "Название", null, ["for", "filter_name"]),
-
-        /*create(
-          "input",
-          null,
-          null,
-          null,
-          ["id", "filter_name"],
-          ["type", "text"]
-        )*/
+        create("div","table_header_item_name_container",[create("label", null, "Название", null, ["for", "filter_name"])])
+        ,
       ]),
-      /* create("div", "table_item", "Приватный"),*/
       create("div", "table_item table_header_item_distance", [
         create("div", null, "Дистанция, км"),
-        create("div", "filter_distance_icons_container", [
-          this.filter_distance_fromHight,
-          this.filter_distance_fromLow,
-        ]),
+        this.filter_distance_icons_container,
       ]),
-      /* create("div", "table_item"),*/
     ]);
-    return tableHeader;
+    return this.tableHeader;
   }
 
   choiseAll() {
@@ -126,10 +91,11 @@ class TrackListPage {
     );
     if (this.userTracks) {
       this.searchBar_input = this.searchBar.generateLayout()
-      document.querySelector(".table_header_item_name").append(this.searchBar_input)
-      console.log("this.userTracks", this.userTracks);
+      document.querySelector(".table_header_item_name_container").append(this.searchBar_input)
+      document.querySelector(".table_header_item_name").append( this.filter_name_icons_container)
       // TODO: Copying of arrays!
       this.tracksToShow = this.userTracks.map((x) => x);
+      console.log("this.tracksToShow111", this.tracksToShow);
       // this.addTracksDistanseData();
       this.generateTableBodyLayout(this.tracksToShow);
     }
@@ -145,7 +111,6 @@ class TrackListPage {
   generateTableBodyLayout(arr) {
     arr.map((item) => {
       const itemPrivateHidden = `icon_private${item.isPrivate}`
-      console.log("item", item.distance);
       const date = this.getDate(item.created);
       const tableBodyString = create("div", "table_body_container", [
         create("div", "table_item", [
@@ -193,7 +158,6 @@ class TrackListPage {
         this.unchoiseAll();
       }
     });
-
     this.sportChoce_select.addEventListener("change", () => {
       this.searchBar_input.value = ""
       this.unchoiseAll();
@@ -207,18 +171,35 @@ class TrackListPage {
         this.generateTableBodyLayout(this.tracksToShow);
       }
     });
-    this.filter_data_fromHight.addEventListener("click", () => {
-      this.filterFromHight("created");
-    });
-    this.filter_data_fromLow.addEventListener("click", () => {
-      this.filterFromLow("created");
-    });
-    this.filter_distance_fromHight.addEventListener("click", () => {
-      this.filterFromHight("distance");
-    });
-    this.filter_distance_fromLow.addEventListener("click", () => {
-      this.filterFromLow("distance");
-    });
+
+
+    
+    this.filter_name_icons_container .addEventListener("click",(e)=>{
+      if(e.target.className=="icon_triangle_fromHight"){
+        this.filterFromHight("title") 
+      }
+      if(e.target.className=="icon_triangle_fromLow"){
+        this.filterFromLow("title") 
+      }
+    })
+    this.filter_date_icons_container .addEventListener("click",(e)=>{
+      if(e.target.className=="icon_triangle_fromHight"){
+        this.filterFromHight("created") 
+      }
+      if(e.target.className=="icon_triangle_fromLow"){
+        this.filterFromLow("created") 
+      }
+    })
+    this.filter_distance_icons_container.addEventListener("click",(e)=>{
+      if(e.target.className=="icon_triangle_fromHight"){
+        this.filterFromHight("distance") 
+      }
+      if(e.target.className=="icon_triangle_fromLow"){
+        this.filterFromLow("distance") 
+      }
+    })
+    /*this.filter_date_icons_container = iconsContainer.generateLayout()
+    this.filter_distance_icons_container*/
   }
   filterBySportType() {
     this.tracksToShow = [];
@@ -232,21 +213,24 @@ class TrackListPage {
     console.log("this.userTracks", this.userTracks);
   }
   filterFromHight(parametr) {
-    //this.userfilterByDistanseTracks =[]
+    console.log(this.tracksToShow[0].created);
+
     this.tracksToShow = this.tracksToShow
       .concat()
       .sort((a, b) => (a[parametr] > b[parametr] ? 1 : -1));
-    console.log("s", this.userTracks);
+      console.log("sss",this.tracksToShow[0].created);
     this.tableBody.innerHTML = "";
     this.generateTableBodyLayout(this.tracksToShow);
   }
   filterFromLow(parametr) {
-    this.tracksToShow = this.tracksToShow
+    console.log(this.tracksToShow[0].created);
+    this.tracksToShow= this.tracksToShow
       .concat()
       .sort((a, b) => (b[parametr] > a[parametr] ? 1 : -1));
-    console.log("s", this.userTracks);
+      console.log("sss",this.tracksToShow[0].created);
     this.tableBody.innerHTML = "";
     this.generateTableBodyLayout(this.tracksToShow);
+    //this.tracksToShow = this.userTracks.map((x) => x);
   }
 }
 

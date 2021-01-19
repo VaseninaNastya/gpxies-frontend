@@ -1,6 +1,9 @@
 import create from "./create";
-import icon_success from "../../assets/img/icon_success.png";
+
 class SuccessRegistrationPopup {
+    constructor(callbackFunction){
+this.callbackFunction = callbackFunction
+    }
     generateLayout() {
         const successRegistrationContainer = create("div","successRegistration_container", [
             create("span",null, "Вы успешно зарегистрировались!")
