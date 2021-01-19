@@ -151,17 +151,28 @@ class TrackListPage {
     });
   }
   addEventListeners() {
+    
+    //Delete track
     document.querySelector(".track_delete_button").addEventListener("click",()=>{
+     // await this.gpxiesAPI.deleteTrackById(id)
       Array.from(document.querySelectorAll('.checkbox_item')).map((item)=>{
+        //console.log("искомый эл массива",this.tracksToShow.find((item1)=>{return item1.hashString ==item.getAttribute("data_checkboxhash")}));
+        //this.tracksToShow.find((item1)=>{item1.hashString ==item.getAttribute("data_checkboxhash")})
+          /*if(item1.hashString ==item.getAttribute("data_checkboxhash")){
+            this.gpxiesAPI.deleteTrackById(item1.id)
+          }
+        })*/
         if(item.checked){
-          //console.log("item.data_checkboxhash",item.getAttribute("data_checkboxhash"));
-          //console.log("ddddd",document.querySelector(`[data_rowhash='${item.getAttribute("data_checkboxhash")}']`));
           document.querySelector(`[data_rowhash='${item.getAttribute("data_checkboxhash")}']`).classList.add("table_body_row__hidden")
-          //document.querySelector(`[data_rowhash='${item.data_checkboxhash}']`).innerHTML = ''
+          console.log("botv", this.tracksToShow.find((item1)=>{return item1.hashString ==item.getAttribute("data_checkboxhash")}).id);
+          const deleteId = this.tracksToShow.find((item1)=>{return item1.hashString ==item.getAttribute("data_checkboxhash")}).id
+          this.gpxiesAPI.deleteTrackById(deleteId)
+          //this.hashStringArrToDelete.push(item.getAttribute("data_checkboxhash"))
+          //console.log(this.hashStringArrToDelete);
         }
-        //return console.log(item.checked);
+
       })
-   // console.log(  Array.from(document.querySelectorAll('.checkbox_item')).map((item))  );
+
     })
     //Show and Hide Button Container
     this.tableBody_container.addEventListener("click",(e)=>{

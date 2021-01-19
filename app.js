@@ -23,4 +23,4 @@ app.use('/upload', express.static(path.join(__dirname, 'dist/loadTrackPage.html'
 
 app.listen(port, () => {
   console.log(`🛸 Example app listening at http://localhost:${port}`)
-})
+}) 

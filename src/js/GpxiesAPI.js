@@ -121,6 +121,25 @@ class GpxiesAPI {
     })
     .catch((error) => Error(error));
   }
+  async deleteTrackById(id){
+    return fetch(this.API_SERVER + "/tracks/id/" + id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36",
+        "Referer": "https://api.gpxies.ru",
+        "Authorization": "Bearer " + localStorage.getItem("gpxiesToken"),
+      }
+    })
+    .then((response) => {
+      console.log("response", response);
+      return response.json();
+    })
+    .then((jsonData) => {
+      return jsonData;
+    })
+    .catch((error) => Error(error));
+  }
 
 }
 export default GpxiesAPI;
