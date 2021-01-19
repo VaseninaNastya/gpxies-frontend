@@ -8,6 +8,10 @@ import WorldMap from './WorldMap';
 
 class ShowTrackPage {
   generateLayout() {
+
+    console.log(window);
+
+    ///
     const completeStatictics = new СompleteStatictics();
     const showTrackPageHeader = new ShowTrackPageHeader();
     const header = new Header();

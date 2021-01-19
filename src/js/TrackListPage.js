@@ -132,7 +132,8 @@ class TrackListPage {
         create(
           "div",
           "table_item table_item_name",
-          [create("div", "track_name_tableItem", item.title),
+          [create("div", "track_name_tableItem",
+            create("a", null, item.title, null, ["href", `/show/${item.hashString}`])),
           create("img", `${itemPrivateHidden}`, null, null, ["src", icon_private])],
         ),
         /*create("div", "table_item", [
