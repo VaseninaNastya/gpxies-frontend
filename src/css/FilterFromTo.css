@@ -1,0 +1,24 @@
+
+.icon_triangle_fromLow,
+.icon_triangle_fromHight {
+  height: 20px;
+  width: 20px;
+  filter: invert(1);
+  transition: filter 0.1s;
+}
+.icon_triangle_fromHight {
+    transform: rotate(180deg);
+  }
+  
+  .icon_triangle_fromLow:hover,
+  .icon_triangle_fromHight:hover {
+    cursor: pointer;
+    filter: invert(0);
+    transition: filter 0.1s;
+  }
+  .filter_icons_container{
+  margin-left: 5px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+}
