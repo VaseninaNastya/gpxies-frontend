@@ -80,6 +80,7 @@ body {
   border-radius: 7px;
   border: none;
   font-size: 16px;
+  cursor: pointer;
 }
 .button__primary:hover {
   color: white;
@@ -118,6 +119,7 @@ body {
 @import "./SuccessRegistrationPopup";
 @import "./HeaderMenu";
 @import "./FilterFromTo";
+@import "./TrackListPageButtonsBlock";
 
 .container {
   width: 1000px;

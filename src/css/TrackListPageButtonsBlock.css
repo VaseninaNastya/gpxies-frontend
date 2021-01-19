@@ -1,0 +1,28 @@
+.buttonsBlock_container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100px;
+    padding: 10px;
+    width: 200px;
+    background-color: rgb(230, 206, 174);
+    position: sticky;
+    top: 48px;
+    margin-left: auto;
+    right: 0;
+    z-index: 2;
+    transform: translate(0,-100px);
+    transition: transform 1s;
+    /*visibility: hidden;*/
+    border-radius: 7px 0 0 7px;
+}
+.buttonsBlock_container_unhidden{
+    /*top: 0;*/
+   transform: translate(0,0);
+    transition: transform 0.3s;
+    /*visibility: visible;*/
+}
+.track_dowload_button{
+    background-color:#54939b !important;
+}

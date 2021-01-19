@@ -11,13 +11,12 @@
   height: 6000px;
   margin: 0 auto;
 }
-.table_body_container,
+.table_body_row,
 .table_header_container {
   display: grid;
-  grid-template-columns: 100px 150px 120px 480px 150px;
+  grid-template-columns: 100px 120px 120px 510px 150px;
 }
-
-.table_body_container {
+.table_body_row {
   background-color: white;
   height: 80px;
 }
@@ -27,6 +26,7 @@
   position: -webkit-sticky;
   position: sticky;
   top: -2px; /* required */
+  z-index: 4;
 }
 .table_header_container .table_item:first-child {
   background-color: transparent;
@@ -44,14 +44,20 @@
   align-items: flex-start;
   justify-content: space-around;
 }
-.table_body_container .table_item {
+.table_body{
+  position: relative;
+  top: -100px;
+}
+.table_body_row .table_item {
   border: 1px solid rgb(235, 235, 235);
 }
-.table_body_container .table_item:first-child {
+.table_body_row .table_item:first-child {
   background-color: none;
   justify-content: center;
 }
-
+.table_body_row__hidden{
+  display: none
+}
 .table_header_item_distance,
 .table_header_item_date,
 .table_header_item_name {
@@ -113,4 +119,8 @@
 }
 .hidden_by_search{
   display: none;
+}
+.icon_sports_table{
+  height: 40px;
+  margin: 0 auto;
 }
