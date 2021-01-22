@@ -25,7 +25,7 @@ class LoadTrackPage {
     );
     this.loading_trackFileName = create(
       "div",
-      "loading_trackFileName loading_trackFileName__hidden"
+      "loading_trackFileName"
     );
     this.button_save = create(
       "input",
@@ -138,33 +138,26 @@ class LoadTrackPage {
     this.loading_hiddenInput.addEventListener(
       "change",
       () => {
-        //console.log("this.loading_hiddenInput", this.loading_hiddenInput.value);
-
         const fileList = this.loading_hiddenInput.files[0];
         const fileName = fileList.name;
         this.loading_trackFileName.append(fileName);
       },
       false
     );
-    this.loading_trackFileName.addEventListener("change", () => {
-      if(this.loading_trackFileName.value!="" && this.trackName_input.value!=""){
+    let loading_trackFileNameObserver = new MutationObserver((mutationRecords) => {
+      if(mutationRecords[0]){
         this.removeDisabledButtonAttribute()
       }
-      if(this.trackName_input.value=="" && this.loading_trackFileName.value==""){
+      if(!mutationRecords[0]){
         this.addDisabledButtonAttribute()
       }
-    });
-    this.trackName_input.oninput = () =>  {
-      if(this.trackName_input.value!="" && this.loading_trackFileName.value!=""){
-        console.log("работыате111");
-        this.removeDisabledButtonAttribute()
+    })
+    loading_trackFileNameObserver.observe(
+      this.loading_trackFileName,
+      {
+        childList: true,  
       }
-      if(this.trackName_input.value==""){
-        console.log("llll",this.trackName_input.value);
-        this.addDisabledButtonAttribute()
-      }
-    }
-
+    );
     this.button_save.addEventListener("click", async (event) => {
       event.preventDefault();
       const formElem = document.querySelector(".loadTrackPage_container");
@@ -178,6 +171,7 @@ class LoadTrackPage {
       };
       const { result } = await this.gpxiesAPI.tracksDataUpload(tracksData);
       console.log("result", result);
+      
     });
   }
   removeDisabledButtonAttribute() {
