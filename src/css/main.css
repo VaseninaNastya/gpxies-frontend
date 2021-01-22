@@ -82,6 +82,11 @@ body {
   font-size: 16px;
   cursor: pointer;
 }
+.button__primary[disabled="disabled"]{
+  color: white;
+  background-color: rgb(207, 207, 207) ;
+  cursor: auto;
+}
 .button__primary:hover {
   color: white;
 }
@@ -120,6 +125,7 @@ body {
 @import "./HeaderMenu";
 @import "./FilterFromTo";
 @import "./TrackListPageButtonsBlock";
+@import "./LoadingSpinner";
 
 .container {
   width: 1000px;

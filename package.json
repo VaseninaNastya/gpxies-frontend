@@ -8,7 +8,7 @@
     "build": "webpack",
     "watch": "webpack -w",
     "start": "node app.js",
-    "dev": "nodemon"
+    "dev": "nodemon --watch src app.js"
   },
   "repository": {
     "type": "git",
