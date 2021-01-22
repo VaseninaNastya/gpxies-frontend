@@ -145,13 +145,10 @@ class LoadTrackPage {
   }
   addEventListeners() {
     document.querySelector(".button_newTrack").addEventListener("click",()=>{
-      //window.location = "/upload";
-      document.forms[0].reset()
-     //this.loadTrackPage_form.reset()
-      this.popap_container.classList.add("loadingSpinner_wrapper__hidden")
-      document.querySelector(".loadingSpinner_img").classList.remove("loadingSpinner_img__hidden")
-      document.querySelector(".successMessage_container").classList.add("successMessage_container__hidden")
-      this.loading_trackFileName.innerHTML =""
+      this.resetForm()
+    })
+    document.querySelector(".loadingSpinner_wrapper").addEventListener("click",()=>{
+      this.resetForm()
     })
     this.loading_hiddenInput.addEventListener(
       "change",
@@ -195,6 +192,13 @@ class LoadTrackPage {
         setTimeout(this.successTrackLoad(), 500);
       }
     });
+  }
+  resetForm(){
+    document.forms[0].reset()
+    this.popap_container.classList.add("loadingSpinner_wrapper__hidden")
+    document.querySelector(".loadingSpinner_img").classList.remove("loadingSpinner_img__hidden")
+    document.querySelector(".successMessage_container").classList.add("successMessage_container__hidden")
+    this.loading_trackFileName.innerHTML =""
   }
   generatePopapLayout() {
     this.popap_container.classList.remove("loadingSpinner_wrapper__hidden")
