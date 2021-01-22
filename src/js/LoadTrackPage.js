@@ -145,12 +145,13 @@ class LoadTrackPage {
   }
   addEventListeners() {
     document.querySelector(".button_newTrack").addEventListener("click",()=>{
-      window.location = "/upload";
-     /*this.loadTrackPage_form.reset()
-      //document.querySelector(".loadingSpinner_wrapper").remove()
+      //window.location = "/upload";
+      document.forms[0].reset()
+     //this.loadTrackPage_form.reset()
       this.popap_container.classList.add("loadingSpinner_wrapper__hidden")
-      //document.querySelector(".loadingSpinner_img").classList.remove("loadingSpinner_img__hidden")
-      document.querySelector(".successMessage_container").classList.add("successMessage_container__hidden")*/
+      document.querySelector(".loadingSpinner_img").classList.remove("loadingSpinner_img__hidden")
+      document.querySelector(".successMessage_container").classList.add("successMessage_container__hidden")
+      this.loading_trackFileName.innerHTML =""
     })
     this.loading_hiddenInput.addEventListener(
       "change",
