@@ -106,3 +106,7 @@
     margin-bottom: 2px;
 
 }
+.button__primary[disabled="disabled"]{
+    color: rgb(110, 110, 110) ;
+    background-color: rgb(245, 245, 245) ;
+}

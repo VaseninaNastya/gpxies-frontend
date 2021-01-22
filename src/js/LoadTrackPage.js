@@ -6,7 +6,6 @@ import Type from "./trackTypes.utils";
 class LoadTrackPage {
   generateLayout() {
     this.gpxiesAPI = new GpxiesAPI();
-
     const loading_button = create(
       "label",
       "loading_button",
@@ -31,17 +30,12 @@ class LoadTrackPage {
     this.button_save = create(
       "input",
       "button_save button__primary",
-      "Сохранить и отправить",
+      "Отправить",
       null,
-      ["type", "submit"]
+      ["type", "submit"],
+      ["disabled", "disabled"]
     );
-    // this.button_upload = create(
-    //   "input",
-    //   "button_save button__primary",
-    //   "Загрузить",
-    //   null,
-    //   ["type", "submit"]
-    // );
+
     const header = new Header();
     this.button__prime = create("a", "button__primary", "Сохранить");
     this.private_checkbox = create(
@@ -77,9 +71,17 @@ class LoadTrackPage {
       "select",
       "sport_selector",
       [
-        create("option", null, "Велосипед", null, ["value", Type.Bike], ["selected", "selected"]),
+        create(
+          "option",
+          null,
+          "Велосипед",
+          null,
+          ["value", Type.Bike],
+          ["selected", "selected"]
+        ),
         create("option", null, "Бег", null, ["value", Type.Run]),
         create("option", null, "Ходьба", null, ["value", Type.Hike]),
+        create("option", null, "Другое", null, ["value", Type.Other]),
       ],
       null,
       ["id", "sport_selector"],
@@ -96,33 +98,32 @@ class LoadTrackPage {
       ["id", "loadTrackPage_name"],
       ["name", "title"]
     );
-    const loadTrackPage_container = create("form", "loadTrackPage_container", [
-      create("h2", "loadTrackPage_title", "Загрузить новый трек"),
-      create("div", "track_loading_container", [
-        loading_button,
-        this.loading_hiddenInput,
-        this.loading_trackFileName,
-      ]),
-      create("div", "track_description_container", [
-        this.sport_selector,
-        this.trackName_input,
-        this.private_checkbox_container,
-      ]),
-      create("div", "track_description_textarea_container", [
-        create("label", "track_description_label", "Oписание трека", null, [
-          "for",
-          "track_description_textarea",
+    const loadTrackPage_container = create(
+      "form",
+      "loadTrackPage_container",
+      [
+        create("h2", "loadTrackPage_title", "Загрузить новый трек"),
+        create("div", "track_loading_container", [
+          loading_button,
+          this.loading_hiddenInput,
+          this.loading_trackFileName,
         ]),
-        this.track_description_textarea,
-      ]),
-      this.button_save,
-      //   this.button_upload
-    ],
+        create("div", "track_description_container", [
+          this.sport_selector,
+          this.trackName_input,
+          this.private_checkbox_container,
+        ]),
+        create("div", "track_description_textarea_container", [
+          create("label", "track_description_label", "Oписание трека", null, [
+            "for",
+            "track_description_textarea",
+          ]),
+          this.track_description_textarea,
+        ]),
+        this.button_save,
+      ],
       null,
-      // ["ref", "uploadForm"],
       ["id", "uploadForm"],
-      // ["action", "http://127.0.0.1:3003/tracks/upload"],
-      // ["method", "post"],
       ["encType", "multipart/form-data"]
     );
 
@@ -137,55 +138,54 @@ class LoadTrackPage {
     this.loading_hiddenInput.addEventListener(
       "change",
       () => {
-        console.log("this.loading_hiddenInput", this.loading_hiddenInput.value);
+        //console.log("this.loading_hiddenInput", this.loading_hiddenInput.value);
+
         const fileList = this.loading_hiddenInput.files[0];
         const fileName = fileList.name;
         this.loading_trackFileName.append(fileName);
-        console.log("fileList", fileList);
-        console.log("fileName", fileName);
       },
       false
     );
+    this.loading_trackFileName.addEventListener("change", () => {
+      if(this.loading_trackFileName.value!="" && this.trackName_input.value!=""){
+        this.removeDisabledButtonAttribute()
+      }
+      if(this.trackName_input.value=="" && this.loading_trackFileName.value==""){
+        this.addDisabledButtonAttribute()
+      }
+    });
+    this.trackName_input.oninput = () =>  {
+      if(this.trackName_input.value!="" && this.loading_trackFileName.value!=""){
+        console.log("работыате111");
+        this.removeDisabledButtonAttribute()
+      }
+      if(this.trackName_input.value==""){
+        console.log("llll",this.trackName_input.value);
+        this.addDisabledButtonAttribute()
+      }
+    }
 
-    this.button_save.addEventListener('click', async (event) => {
+    this.button_save.addEventListener("click", async (event) => {
       event.preventDefault();
-      const formElem = document.querySelector('.loadTrackPage_container')
-      const { hashString } = await this.gpxiesAPI.uploadTrack(formElem)
+      const formElem = document.querySelector(".loadTrackPage_container");
+      const { hashString } = await this.gpxiesAPI.uploadTrack(formElem);
       const tracksData = {
         title: this.trackName_input.value,
         type: this.sport_selector.value,
         description: this.track_description_textarea.value,
         isPrivate: this.private_checkbox.checked,
-        hashString: hashString
+        hashString: hashString,
       };
       const { result } = await this.gpxiesAPI.tracksDataUpload(tracksData);
-    })
-
-    // this.button_upload.addEventListener('click', async (event) => {
-    //   event.preventDefault();
-
-
-    //   // Upload file
-    //   let res = await this.gpxiesAPI.uploadTrack(this.loading_hiddenInput.files[0]);
-    //   console.log("res", res);
-
-    //   let tracksData = {
-    //     title: this.trackName_input.value,
-    //     type: this.sport_selector.value,
-    //     description: this.track_description_textarea.value,
-    //     isPrivate: this.private_checkbox.checked,
-    //     hashString: res.hashString
-    //   };
-    //   console.log(tracksData);
-    //   // Add record in table
-    //   // let res2 = await this.gpxiesAPI.tracksDataUpload(tracksData);
-    //   // console.log("res2", res2);
-    // });
-
-
-
+      console.log("result", result);
+    });
   }
-
+  removeDisabledButtonAttribute() {
+    this.button_save.removeAttribute("disabled");
+  }
+  addDisabledButtonAttribute() {
+    this.button_save.setAttribute("disabled","disabled");
+  }
 }
 
 const loadTrackPage = new LoadTrackPage();
