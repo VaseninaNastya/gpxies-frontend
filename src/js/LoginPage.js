@@ -7,7 +7,6 @@ class LoginPage {
   generateLayout() {
     this.button__prime = create("a", "button__primary", "Войти");
     this.error_description = create("div","error_description error_description_hidden", "Логин или пароль не зарегистрированы"),
-
     this.email_input = create(
       "input",
       null,
@@ -91,7 +90,6 @@ class LoginPage {
   redirectToRegistrationPage() {
     window.location = "/registration";
   }
-
   checkRegistration() {
     let successMessage = new SuccessRegistrationPopup()
     if (localStorage.getItem("gpxiesEmail")) {

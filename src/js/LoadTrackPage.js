@@ -3,6 +3,7 @@ import "../css/main.css";
 import Header from "./Header";
 import GpxiesAPI from "./GpxiesAPI";
 import Type from "./trackTypes.utils";
+import LoadingSpinner from "./LoadingSpinner";
 class LoadTrackPage {
   generateLayout() {
     this.gpxiesAPI = new GpxiesAPI();
@@ -98,11 +99,11 @@ class LoadTrackPage {
       ["id", "loadTrackPage_name"],
       ["name", "title"]
     );
-    const loadTrackPage_container = create(
+    this.loadTrackPage_title_container = create("div", "loadTrackPage_title_container", [create("h2", "loadTrackPage_title", "Загрузить новый трек")])
+    this.loadTrackPage_form =       create(
       "form",
-      "loadTrackPage_container",
-      [
-        create("h2", "loadTrackPage_title", "Загрузить новый трек"),
+      "loadTrackPage_form",
+      [this.loadTrackPage_title_container,
         create("div", "track_loading_container", [
           loading_button,
           this.loading_hiddenInput,
@@ -125,11 +126,14 @@ class LoadTrackPage {
       null,
       ["id", "uploadForm"],
       ["encType", "multipart/form-data"]
-    );
+    )
+    this.loadTrackPage_container = create("div","loadTrackPage_container",[
+      this.loadTrackPage_form 
+    ])
 
     const wraper = create("div", "loadTrackPage_wrapper", [
       header.generateLayout(),
-      loadTrackPage_container,
+      this.loadTrackPage_container,
     ]);
     this.addEventListeners();
     document.body.prepend(wraper);
@@ -160,7 +164,14 @@ class LoadTrackPage {
     );
     this.button_save.addEventListener("click", async (event) => {
       event.preventDefault();
-      const formElem = document.querySelector(".loadTrackPage_container");
+      const spinner = new LoadingSpinner()
+      /*spinner.generateLayout() */
+      //this.loadTrackPage_container.innerHTML = ""
+      //this.loadTrackPage_form.classList.add("loadTrackPage_form__hidden")
+      document.body.classList.add("body_modal")
+      document.body.prepend(spinner.generateLayout())
+      //this.loadTrackPage_container.append(spinner.generateLayout())
+      const formElem = document.querySelector(".loadTrackPage_form");
       const { hashString } = await this.gpxiesAPI.uploadTrack(formElem);
       const tracksData = {
         title: this.trackName_input.value,
@@ -169,10 +180,16 @@ class LoadTrackPage {
         isPrivate: this.private_checkbox.checked,
         hashString: hashString,
       };
-      const { result } = await this.gpxiesAPI.tracksDataUpload(tracksData);
-      console.log("result", result);
-      
+      const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
+      console.log("hashString1",hashString);
+      console.log("result1", result);
+     /* if(result.hashString){
+        this.successTrackLoad()
+      }*/
     });
+  }
+  successTrackLoad(){
+    this.loadTrackPage_title_container.append("Вы успешно загрузили трек!")
   }
   removeDisabledButtonAttribute() {
     this.button_save.removeAttribute("disabled");
@@ -180,6 +197,7 @@ class LoadTrackPage {
   addDisabledButtonAttribute() {
     this.button_save.setAttribute("disabled","disabled");
   }
+  
 }
 
 const loadTrackPage = new LoadTrackPage();

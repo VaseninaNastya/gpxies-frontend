@@ -125,6 +125,7 @@ body {
 @import "./HeaderMenu";
 @import "./FilterFromTo";
 @import "./TrackListPageButtonsBlock";
+@import "./LoadingSpinner";
 
 .container {
   width: 1000px;
