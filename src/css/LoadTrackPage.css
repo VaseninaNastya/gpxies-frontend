@@ -4,7 +4,7 @@
     width: 100%;
     height: 100vh;
     background-image: url(../../assets/img/background.png);
-    background-size: cover;
+    background-size: 100% auto;
     background-repeat: no-repeat
   }
 .loadTrackPage_wrapper header{
@@ -118,16 +118,7 @@
     justify-content: space-between;
 }
 
-.successMessage_container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 70%;
-}
-.successMessage_title{
-    color: #2d555a;
-}
+
 .button_editTrack{
     background-color:#54939b !important;
 }

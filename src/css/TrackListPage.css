@@ -1,14 +1,19 @@
 .table_wrapper {
   width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
   background-image: url(../../assets/img/background.png);
   background-repeat: repeat;
-  background-size: contain;
+  background-size: 100% auto;
+
 }
 
 .table_container {
   background-color: white;
   width: 1000px;
-  height: 6000px;
   margin: 0 auto;
 }
 .table_body_row,
