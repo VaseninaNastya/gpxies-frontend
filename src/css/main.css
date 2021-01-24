@@ -68,7 +68,9 @@ li {
   list-style: none;
 }
 body {
-  min-width: 1200px;
+  /*min-width: 1200px;*/
+  min-height: 100vh;
+ /* height: 1px;*/
   margin: 0 auto;
   width: 100%;
   font-size: 15px;
@@ -125,7 +127,7 @@ body {
 @import "./HeaderMenu";
 @import "./FilterFromTo";
 @import "./TrackListPageButtonsBlock";
-@import "./LoadingSpinner";
+@import "./LoadingTrackMessagePopap";
 
 .container {
   width: 1000px;

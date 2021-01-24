@@ -3,12 +3,12 @@ import "../css/main.css";
 import Header from "./Header";
 import GpxiesAPI from "./GpxiesAPI";
 import Type from "./trackTypes.utils";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingTrackMessagePopap from "./LoadingTrackMessagePopap";
 class LoadTrackPage {
   generateLayout() {
     this.gpxiesAPI = new GpxiesAPI();
-    const popup = new LoadingSpinner();
-    this.popap_container = popup.generateLayout()
+    const popup = new LoadingTrackMessagePopap();
+    this.popap_container = popup.generateMessageLayout();
     document.body.prepend(this.popap_container);
     const loading_button = create(
       "label",
@@ -144,12 +144,23 @@ class LoadTrackPage {
     document.body.prepend(wraper);
   }
   addEventListeners() {
-    document.querySelector(".button_newTrack").addEventListener("click",()=>{
+    /*document.querySelector(".button_newTrack").addEventListener("click",()=>{
       this.resetForm()
-    })
-    document.querySelector(".loadingSpinner_wrapper").addEventListener("click",()=>{
-      this.resetForm()
-    })
+    })*/
+    document
+      .querySelector(".loadingSpinner_wrapper")
+      .addEventListener("click", (e) => {
+        if (
+          Array.from(e.target.classList).includes("loadingSpinner_wrapper") ||
+          Array.from(e.target.classList).includes("button_newTrack")
+        ) {
+          console.log("работает!!!!!!!!!!");
+          this.resetForm();
+          //this.addDisabledButtonAttribute()
+          console.log("this.button_save", this.button_save);
+          //document.querySelector('.button_save').disabled=true;
+        }
+      });
     this.loading_hiddenInput.addEventListener(
       "change",
       () => {
@@ -161,10 +172,11 @@ class LoadTrackPage {
     );
     let loading_trackFileNameObserver = new MutationObserver(
       (mutationRecords) => {
-        if (mutationRecords[0]) {
+        console.log(mutationRecords[0].addedNodes.length, mutationRecords[0].removedNodes.length);
+        if (mutationRecords[0].addedNodes.length == 1) {
           this.removeDisabledButtonAttribute();
         }
-        if (!mutationRecords[0]) {
+        if (mutationRecords[0].removedNodes.length == 1) {
           this.addDisabledButtonAttribute();
         }
       }
@@ -189,29 +201,57 @@ class LoadTrackPage {
       console.log("result1", result);
 
       if (result.hashString) {
-        setTimeout(this.successTrackLoad(), 500);
+        setTimeout(this.successTrackLoadMessage(), 300);
+      } else {
+        setTimeout(this.errorTrackLoadMessage(), 300);
       }
     });
   }
-  resetForm(){
-    document.forms[0].reset()
-    this.popap_container.classList.add("loadingSpinner_wrapper__hidden")
-    document.querySelector(".loadingSpinner_img").classList.remove("loadingSpinner_img__hidden")
-    document.querySelector(".successMessage_container").classList.add("successMessage_container__hidden")
-    this.loading_trackFileName.innerHTML =""
+  resetForm() {
+    document.forms[0].reset();
+    this.popap_container.classList.add("loadingSpinner_wrapper__hidden");
+    document
+      .querySelector(".loadingSpinner_img")
+      .classList.remove("loadingSpinner_img__hidden");
+    if (document.querySelector(".successMessage_container")) {
+      document
+        .querySelector(".successMessage_container")
+        .classList.add("successMessage_container__hidden");
+    }
+    if (document.querySelector(".errorMessage_container")) {
+      document
+        .querySelector(".errorMessage_container")
+        .classList.add("errorMessage_container__hidden");
+    }
+    this.loading_trackFileName.innerHTML = null;
   }
   generatePopapLayout() {
-    this.popap_container.classList.remove("loadingSpinner_wrapper__hidden")
+    this.popap_container.classList.remove("loadingSpinner_wrapper__hidden");
   }
-  successTrackLoad() {
-    document.querySelector(".loadingSpinner_img").classList.add("loadingSpinner_img__hidden")
-    document.querySelector(".successMessage_container").classList.remove("successMessage_container__hidden")
+  successTrackLoadMessage() {
+    document
+      .querySelector(".loadingSpinner_img")
+      .classList.add("loadingSpinner_img__hidden");
+    document
+      .querySelector(".successMessage_container")
+      .classList.remove("successMessage_container__hidden");
+  }
+  errorTrackLoadMessage() {
+    document
+      .querySelector(".loadingSpinner_img")
+      .classList.add("loadingSpinner_img__hidden");
+    document
+      .querySelector(".errorMessage_container")
+      .classList.remove("errorMessage_container__hidden");
   }
   removeDisabledButtonAttribute() {
+    console.log('removeDisabledButtonAttribute');
     this.button_save.removeAttribute("disabled");
   }
   addDisabledButtonAttribute() {
-    this.button_save.setAttribute("disabled", "disabled");
+    console.log('addDisabledButtonAttribute');
+    // this.button_save.disabled = true;
+    this.button_save.setAttribute("disabled","disabled");
   }
 }
 
