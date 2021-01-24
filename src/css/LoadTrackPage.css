@@ -118,6 +118,17 @@
     justify-content: space-between;
 }
 
-.body_modal{
-    overflow: hidden
+.successMessage_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 70%;
 }
+.successMessage_title{
+    color: #2d555a;
+}
+.button_editTrack{
+    background-color:#54939b !important;
+}
+

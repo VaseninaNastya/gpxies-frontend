@@ -1,18 +1,39 @@
 import create from "./create";
-import tree from "../../assets/img/tree";
+import tree from "../../assets/img/tree.png";
 
 class LoadingSpinner {
   generateLayout() {
+    const successMessage = create(
+      "div",
+      "successMessage_container successMessage_container__hidden",
+      [
+        create("h3", "successMessage_title", "Вы успешно загрузили трек!"),
+        create(
+          "div",
+          "button__primary button_editTrack",
+          "Редактировать загруженный трек"
+        ),
+        create(
+          "div",
+          "button__primary button_newTrack",
+          "Загрузить новый трек"
+        ),
+      ]
+    );
     const loadingSpinner_container = create("div", "loadingSpinner_container", [
       create("img", "loadingSpinner_img", null, null, ["src", tree]),
-      create("img", "loadingSpinner_img", null, null, ["src", tree]),
-      create("img", "loadingSpinner_img", null, null, ["src", tree])
+      successMessage
     ]);
     const loadingSpinner_wrapper = create(
       "div",
-      "loadingSpinner_wrapper",
-      loadingSpinner_container
+      "loadingSpinner_wrapper loadingSpinner_wrapper__hidden",
+      loadingSpinner_container,
+      
     );
+
+    /*document.querySelector(".loadingSpinner_container").innerHTML = "";
+        document.querySelector(".loadingSpinner_container").append(successMessage);*/
+
     return loadingSpinner_wrapper;
   }
 }

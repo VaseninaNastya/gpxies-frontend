@@ -7,6 +7,9 @@ import LoadingSpinner from "./LoadingSpinner";
 class LoadTrackPage {
   generateLayout() {
     this.gpxiesAPI = new GpxiesAPI();
+    const popup = new LoadingSpinner();
+    this.popap_container = popup.generateLayout()
+    document.body.prepend(this.popap_container);
     const loading_button = create(
       "label",
       "loading_button",
@@ -24,10 +27,7 @@ class LoadTrackPage {
       ["accept", ".gpx"],
       ["name", "gpxFile"]
     );
-    this.loading_trackFileName = create(
-      "div",
-      "loading_trackFileName"
-    );
+    this.loading_trackFileName = create("div", "loading_trackFileName");
     this.button_save = create(
       "input",
       "button_save button__primary",
@@ -99,11 +99,16 @@ class LoadTrackPage {
       ["id", "loadTrackPage_name"],
       ["name", "title"]
     );
-    this.loadTrackPage_title_container = create("div", "loadTrackPage_title_container", [create("h2", "loadTrackPage_title", "Загрузить новый трек")])
-    this.loadTrackPage_form =       create(
+    this.loadTrackPage_title_container = create(
+      "div",
+      "loadTrackPage_title_container",
+      [create("h2", "loadTrackPage_title", "Загрузить новый трек")]
+    );
+    this.loadTrackPage_form = create(
       "form",
       "loadTrackPage_form",
-      [this.loadTrackPage_title_container,
+      [
+        this.loadTrackPage_title_container,
         create("div", "track_loading_container", [
           loading_button,
           this.loading_hiddenInput,
@@ -126,10 +131,10 @@ class LoadTrackPage {
       null,
       ["id", "uploadForm"],
       ["encType", "multipart/form-data"]
-    )
-    this.loadTrackPage_container = create("div","loadTrackPage_container",[
-      this.loadTrackPage_form 
-    ])
+    );
+    this.loadTrackPage_container = create("div", "loadTrackPage_container", [
+      this.loadTrackPage_form,
+    ]);
 
     const wraper = create("div", "loadTrackPage_wrapper", [
       header.generateLayout(),
@@ -139,6 +144,12 @@ class LoadTrackPage {
     document.body.prepend(wraper);
   }
   addEventListeners() {
+    document.querySelector(".button_newTrack").addEventListener("click",()=>{
+      this.resetForm()
+    })
+    document.querySelector(".loadingSpinner_wrapper").addEventListener("click",()=>{
+      this.resetForm()
+    })
     this.loading_hiddenInput.addEventListener(
       "change",
       () => {
@@ -148,29 +159,22 @@ class LoadTrackPage {
       },
       false
     );
-    let loading_trackFileNameObserver = new MutationObserver((mutationRecords) => {
-      if(mutationRecords[0]){
-        this.removeDisabledButtonAttribute()
-      }
-      if(!mutationRecords[0]){
-        this.addDisabledButtonAttribute()
-      }
-    })
-    loading_trackFileNameObserver.observe(
-      this.loading_trackFileName,
-      {
-        childList: true,  
+    let loading_trackFileNameObserver = new MutationObserver(
+      (mutationRecords) => {
+        if (mutationRecords[0]) {
+          this.removeDisabledButtonAttribute();
+        }
+        if (!mutationRecords[0]) {
+          this.addDisabledButtonAttribute();
+        }
       }
     );
+    loading_trackFileNameObserver.observe(this.loading_trackFileName, {
+      childList: true,
+    });
     this.button_save.addEventListener("click", async (event) => {
       event.preventDefault();
-      const spinner = new LoadingSpinner()
-      /*spinner.generateLayout() */
-      //this.loadTrackPage_container.innerHTML = ""
-      //this.loadTrackPage_form.classList.add("loadTrackPage_form__hidden")
-      document.body.classList.add("body_modal")
-      document.body.prepend(spinner.generateLayout())
-      //this.loadTrackPage_container.append(spinner.generateLayout())
+      this.generatePopapLayout();
       const formElem = document.querySelector(".loadTrackPage_form");
       const { hashString } = await this.gpxiesAPI.uploadTrack(formElem);
       const tracksData = {
@@ -181,23 +185,34 @@ class LoadTrackPage {
         hashString: hashString,
       };
       const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
-      console.log("hashString1",hashString);
+      console.log("hashString1", hashString);
       console.log("result1", result);
-     /* if(result.hashString){
-        this.successTrackLoad()
-      }*/
+
+      if (result.hashString) {
+        setTimeout(this.successTrackLoad(), 500);
+      }
     });
   }
-  successTrackLoad(){
-    this.loadTrackPage_title_container.append("Вы успешно загрузили трек!")
+  resetForm(){
+    document.forms[0].reset()
+    this.popap_container.classList.add("loadingSpinner_wrapper__hidden")
+    document.querySelector(".loadingSpinner_img").classList.remove("loadingSpinner_img__hidden")
+    document.querySelector(".successMessage_container").classList.add("successMessage_container__hidden")
+    this.loading_trackFileName.innerHTML =""
+  }
+  generatePopapLayout() {
+    this.popap_container.classList.remove("loadingSpinner_wrapper__hidden")
+  }
+  successTrackLoad() {
+    document.querySelector(".loadingSpinner_img").classList.add("loadingSpinner_img__hidden")
+    document.querySelector(".successMessage_container").classList.remove("successMessage_container__hidden")
   }
   removeDisabledButtonAttribute() {
     this.button_save.removeAttribute("disabled");
   }
   addDisabledButtonAttribute() {
-    this.button_save.setAttribute("disabled","disabled");
+    this.button_save.setAttribute("disabled", "disabled");
   }
-  
 }
 
 const loadTrackPage = new LoadTrackPage();
