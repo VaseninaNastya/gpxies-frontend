@@ -122,6 +122,7 @@ class TrackListPage {
 
   generateTableBodyLayout(arr) {
     arr.map((item) => {
+      
       const itemPrivateHidden = `icon_private${item.isPrivate}`;
       const date = this.getDate(item.created);
       const tableBodyString = create(
@@ -173,6 +174,11 @@ class TrackListPage {
   addEventListeners() {
     //console.log(document.querySelectorAll(".table_item"));
     //Delete track
+    /*window.addEventListener("resize",(e)=>{
+      if(document.documentElement.clientWidth>650){
+
+      }
+    })*/
     document
       .querySelector(".track_delete_button")
       .addEventListener("click", () => {
@@ -302,7 +308,6 @@ class TrackListPage {
     this.tracksToShow = this.tracksToShow
       .concat()
       .sort((a, b) => (a[parametr] > b[parametr] ? 1 : -1));
-    console.log("sss", this.tracksToShow[0].created);
     this.tableBody_container.innerHTML = "";
     this.generateTableBodyLayout(this.tracksToShow);
   }

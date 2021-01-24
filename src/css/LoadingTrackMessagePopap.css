@@ -59,3 +59,8 @@
     width: 0px;
     visibility: hidden;
 }
+
+@media (max-width: 650px) {
+    .loadingSpinner_container{
+        width: 90%;}
+  }

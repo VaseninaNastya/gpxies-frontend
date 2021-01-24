@@ -3,11 +3,10 @@
     position: relative;
     right: 0;
     top: 78px;
-    width: 220px;
+    width: 180px;
     background-color: white;
     transform: translate(0px,-105px);
     transition: transform 1s;
-
 }
 .headerMenu_item{
     height: 35px;
@@ -26,3 +25,24 @@
     transition: transform 0.2s;
     box-shadow: 0 0 100px rgba(0,0,0,0.2); /* Параметры тени */
 }
+
+@media (max-width: 650px) {
+    .headerMenu_container{
+        width: 140px;
+    }
+    .headerMenu_item{
+        font-size: 14px;
+    }
+}
+/*
+@media (max-width: 1000px) and (min-width: 650px)  {
+  .container {
+    width: 100vw;
+  }
+}
+
+@media (max-width: 650px) {
+.container {
+  width: 100vw;
+}
+}*/
