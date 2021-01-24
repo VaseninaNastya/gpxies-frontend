@@ -11,7 +11,7 @@ header {
   width: 100%;
   background-color: white;
 
- /* position: -webkit-sticky;
+  /* position: -webkit-sticky;
   position: sticky;
   top: 0; /* required */
 }
@@ -31,14 +31,14 @@ header {
   background-color: #40757c;
   border: none;
 }
-.logo{
-  color:#40757c;
+.logo {
+  color: #40757c;
   font-size: 25px;
   line-height: 28px;
   font-weight: 600;
   margin-left: 10px;
 }
-.header_userName{
+.header_userName {
   z-index: 20;
   background-color: white;
   position: relative;
@@ -56,19 +56,41 @@ header {
   color: black;
   background-color: #d5f0f3;
 }*/
-.header_userName:hover{
+.header_userName:hover {
   cursor: pointer;
 }
-.icon_triangle{
+.icon_triangle {
   width: 20px;
   height: 20px;
   filter: invert(1);
   transition: filter 0.1s;
 }
-.header_userName:hover .icon_triangle{
+.header_userName:hover .icon_triangle {
   filter: invert(0);
   transition: filter 0.1s;
 }
-.header_userName:hover{
+.header_userName:hover {
   color: black;
 }
+@media (max-width: 650px) {
+  .logo {
+    width: 0px;
+  }
+  .header_userName {
+    width: 150px;
+    right: -150px;
+  }
+}
+
+/*
+@media (max-width: 1000px) and (min-width: 650px)  {
+  .container {
+    width: 100vw;
+  }
+}
+
+@media (max-width: 650px) {
+.container {
+  width: 100vw;
+}
+}*/
