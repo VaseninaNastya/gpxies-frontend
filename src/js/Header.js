@@ -30,7 +30,7 @@ class Header {
         this.redirectLogout();
         localStorage.removeItem("gpxiesToken");
       }
-      if(e.target.innerHTML==="Показать список моих треков"){
+      if(e.target.innerHTML==="Cписок моих треков"){
         this.redirectTrackListPage()
       }
       if(e.target.innerHTML==="Загрузить трек"){
