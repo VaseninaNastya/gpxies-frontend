@@ -18,7 +18,11 @@
   }
   .filter_icons_container{
   margin-left: 5px;
-  height: 80%;
   display: flex;
   flex-direction: column;
+}
+@media (max-width: 650px) {
+  .table_header_item_date .filter_icons_container{
+    margin: 0px;
+  }
 }

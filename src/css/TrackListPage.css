@@ -19,7 +19,7 @@
 .table_body_row,
 .table_header_container {
   display: grid;
-  grid-template-columns: 100px 120px 120px 510px 150px;
+  grid-template-columns: 10% 12% 12% 51% 15%;
 }
 .table_body_row {
   background-color: white;
@@ -108,11 +108,11 @@
 .icon_private1 {
   height: 20px;
   width: 20px;
-  visibility: hidden;
 }
 .icon_private0{
   height: 20px;
   width: 20px;
+  visibility: hidden;
 }
 
 .table_item_name{
@@ -134,10 +134,61 @@
   .table_container {
     width: 100%;
   }
+  .table_body_row,
+.table_header_container {
+  grid-template-columns: 10% 17% 15% 40% 18%;
+}
+.table_header_container {
+  height: 70px;
+}
 }
 
 @media (max-width: 650px) {
+
   .table_container {
     width: 100%;
+  }
+  .table_header_container .table_item:last-child{
+    display: none;
+    padding: 0px;
+    border: none;
+  }
+  .table_body_row .table_item:last-child{
+display: none;
+padding: 0px;
+border: none;
+  }
+  .table_body_row,
+  .table_header_container {
+    grid-template-columns: 13% 20% 17% 50% 0px;
+  }
+  .table_header_container {
+    height: 70px;
+  }
+  .sport-choce{
+    width: 50px;
+  }
+  .icon_sports_table{
+    height: 30px;
+  }
+  .table_header_item_date{
+    flex-direction: column;
+  }
+  .table_header_item_name_container{
+    width: 80%;
+  }
+
+  .icon_private0, .icon_private1{
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .table_body_row,
+  .table_header_container {
+    grid-template-columns: 13% 18% 25% 44% 0px;
+  }
+  .table_item{
+    padding: 0 2px;
   }
 }

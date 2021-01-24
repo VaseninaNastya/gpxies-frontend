@@ -28,23 +28,10 @@
 
 @media (max-width: 650px) {
     .headerMenu_container{
-       /* z-index: 10;
-        position: relative;
-        right: 0;
-        top: 78px;*/
-        width: 150px;
-      /*  background-color: white;
-        transform: translate(0px,-105px);
-        transition: transform 1s;*/
+        width: 140px;
     }
     .headerMenu_item{
         font-size: 14px;
-       /* height: 35px;
-        display: flex;
-        text-align: right;
-        align-items: center;
-        padding-right: 7px;
-        justify-content: flex-end;*/
     }
 }
 /*
