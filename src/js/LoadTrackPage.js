@@ -3,12 +3,12 @@ import "../css/main.css";
 import Header from "./Header";
 import GpxiesAPI from "./GpxiesAPI";
 import Type from "./trackTypes.utils";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingTrackMessagePopap from "./LoadingTrackMessagePopap";
 class LoadTrackPage {
   generateLayout() {
     this.gpxiesAPI = new GpxiesAPI();
-    const popup = new LoadingSpinner();
-    this.popap_container = popup.generateLayout()
+    const popup = new LoadingTrackMessagePopap();
+    this.popap_container = popup.generateMessageLayout()
     document.body.prepend(this.popap_container);
     const loading_button = create(
       "label",
@@ -189,7 +189,9 @@ class LoadTrackPage {
       console.log("result1", result);
 
       if (result.hashString) {
-        setTimeout(this.successTrackLoad(), 500);
+        setTimeout(this.successTrackLoadMessage(), 500);
+      }else{
+        setTimeout(this.errorTrackLoadMessage(), 500);
       }
     });
   }
@@ -197,15 +199,24 @@ class LoadTrackPage {
     document.forms[0].reset()
     this.popap_container.classList.add("loadingSpinner_wrapper__hidden")
     document.querySelector(".loadingSpinner_img").classList.remove("loadingSpinner_img__hidden")
-    document.querySelector(".successMessage_container").classList.add("successMessage_container__hidden")
+    if(document.querySelector(".successMessage_container")){
+      document.querySelector(".successMessage_container").classList.add("successMessage_container__hidden")
+    }
+    if(document.querySelector(".errorMessage_container")){
+      document.querySelector(".errorMessage_container").classList.add("errorMessage_container__hidden")
+    }
     this.loading_trackFileName.innerHTML =""
   }
   generatePopapLayout() {
     this.popap_container.classList.remove("loadingSpinner_wrapper__hidden")
   }
-  successTrackLoad() {
+  successTrackLoadMessage() {
     document.querySelector(".loadingSpinner_img").classList.add("loadingSpinner_img__hidden")
     document.querySelector(".successMessage_container").classList.remove("successMessage_container__hidden")
+  }
+  errorTrackLoadMessage() {
+    document.querySelector(".loadingSpinner_img").classList.add("loadingSpinner_img__hidden")
+    document.querySelector(".errorMessage_container").classList.remove("errorMessage_container__hidden")
   }
   removeDisabledButtonAttribute() {
     this.button_save.removeAttribute("disabled");

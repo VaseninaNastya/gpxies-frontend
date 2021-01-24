@@ -125,7 +125,7 @@ body {
 @import "./HeaderMenu";
 @import "./FilterFromTo";
 @import "./TrackListPageButtonsBlock";
-@import "./LoadingSpinner";
+@import "./LoadingTrackMessagePopap";
 
 .container {
   width: 1000px;
