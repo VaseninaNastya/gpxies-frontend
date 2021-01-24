@@ -203,6 +203,7 @@ class TrackListPage {
             this.gpxiesAPI.deleteTrackById(deleteId);
           }
         });
+        this.hideButtonContainer() 
       });
     //Show and Hide Button Container
     this.tableBody_container.addEventListener("click", (e) => {

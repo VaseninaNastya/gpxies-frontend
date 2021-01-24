@@ -14,7 +14,6 @@
     z-index: 2;
     transform: translate(0,-100px);
     transition: transform 1s;
-    /*visibility: hidden;*/
     border-radius: 7px 0 0 7px;
 }
 .buttonsBlock_container_unhidden{
@@ -38,8 +37,6 @@
     cursor: pointer;
 }
 
-
-
 .track_dowload_button:hover, .track_delete_button:hover {
     color: white;
   }
@@ -51,13 +48,6 @@
     background-color:#47767c;
     border: none;
   }
-
-
-
-
-
-
-
 
 .buttonsBlock_container_unhidden{
     /*top: 0;*/
@@ -78,6 +68,13 @@
   }
  
   @media (max-width: 650px) {
+    .buttonsBlock_container{
+        top: 68px;
+    }
+
+
+
+
     .buttonsBlock_container{
         height: 90px;
         padding: 7px;

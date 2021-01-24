@@ -28,7 +28,7 @@
 
 @media (max-width: 650px) {
     .headerMenu_container{
-        width: 140px;
+        width: 150px;
     }
     .headerMenu_item{
         font-size: 14px;
