@@ -189,9 +189,9 @@ class LoadTrackPage {
       console.log("result1", result);
 
       if (result.hashString) {
-        setTimeout(this.successTrackLoadMessage(), 500);
+        setTimeout(this.successTrackLoadMessage(), 300);
       }else{
-        setTimeout(this.errorTrackLoadMessage(), 500);
+        setTimeout(this.errorTrackLoadMessage(), 300);
       }
     });
   }
