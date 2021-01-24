@@ -42,9 +42,9 @@ header {
   z-index: 20;
   background-color: white;
   position: relative;
-  right: -220px;
+  right: -180px;
   height: 100%;
-  width: 220px;
+  width: 180px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
