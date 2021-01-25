@@ -8,5 +8,15 @@ class TrackListPageButtonsBlock {
     ])
     return  this.buttonsBlock_container
   }
+  showButtonContainer() {
+    this.buttonsBlock_container.classList.add(
+      "buttonsBlock_container_unhidden"
+    );
+  }
+  hideButtonContainer() {
+    this.buttonsBlock_container.classList.remove(
+      "buttonsBlock_container_unhidden"
+    );
+  }
 }
 export default TrackListPageButtonsBlock
