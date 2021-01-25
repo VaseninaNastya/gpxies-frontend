@@ -104,13 +104,13 @@ class LoginPage {
     if (localStorage.getItem("gpxiesPassword")) {
       this.password_input.value = localStorage.getItem("gpxiesPassword");
       localStorage.removeItem("gpxiesPassword");
-    }else{
+    }/*else{
 
       const registrationErrorMessageNode = registrationMessage.generateErrorLayout()
       registrationErrorMessageNode.classList.remove("errorMessage_container", "errorMessage_container__hidden")
       registrationErrorMessageNode.classList.add("registrationMessage_container")
       this.login_form_container.prepend(registrationErrorMessageNode)
-    }
+    }*/
   }
 }
 const loginPage = new LoginPage();
