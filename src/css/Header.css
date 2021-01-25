@@ -51,7 +51,16 @@ header {
   margin-left: auto;
   color: rgb(110, 110, 110);
   padding-right: 5px;
+
 }
+
+.header_userName span{
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 /*.header_userName:hover{
   color: black;
   background-color: #d5f0f3;

@@ -10,7 +10,7 @@ import SearchBar from "./SearchBar";
 import FilterFromTo from "./FilterFromTo";
 import TrackListPageButtonsBlock from "./TrackListPageButtonsBlock";
 import MessagePopap from "./MessagePopap";
-import SportsNames from "./trackTypes.utils.js";
+import SportsNames from "./sportsTypesNames.utils.js";
 
 
 class TrackListPage {

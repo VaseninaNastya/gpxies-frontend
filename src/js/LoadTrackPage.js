@@ -192,6 +192,7 @@ class LoadTrackPage {
         hashString: hashString,
       };
       const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
+      console.log("result",result);
       if (result.hashString) {
         console.log("this.popupOk",this.popup);
         setTimeout(this.popup.showSuccessMessage(), 300);
