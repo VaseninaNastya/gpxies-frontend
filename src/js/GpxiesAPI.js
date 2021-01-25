@@ -61,8 +61,6 @@ class GpxiesAPI {
       })
       .catch((error) => Error(error));
   };
-
-
   async tracksDataUpload(tracksData) {
     return fetch(this.API_SERVER + "/tracks/", {
       method: "POST",
@@ -133,11 +131,11 @@ class GpxiesAPI {
     })
     .then((response) => {
       console.log("response", response);
-      return response.json();
+      return response;
     })
-    .then((jsonData) => {
+    /*.then((jsonData) => {
       return jsonData;
-    })
+    })*/
     .catch((error) => Error(error));
   }
 

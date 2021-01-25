@@ -9,11 +9,20 @@ import icon_private from "../../assets/img/icons_private.png";
 import SearchBar from "./SearchBar";
 import FilterFromTo from "./FilterFromTo";
 import TrackListPageButtonsBlock from "./TrackListPageButtonsBlock";
+import MessagePopap from "./MessagePopap";
+import SportsNames from "./sportsTypesNames.utils.js";
+
 
 class TrackListPage {
+  constructor(){
+    this.trackHashForDelete = []
+  }
   generateLayout() {
-    const trackListPageButtonsBlock = new TrackListPageButtonsBlock();
-    this.buttonsBlock_container = trackListPageButtonsBlock.generateLayout();
+    this.popup = new MessagePopap("Удаление прошло успешно.", [["button_returnToTrackList","Вернуться к списку треков"]], "Во время удаления произошла ошибка.",[["button_newTrack","Вернуться к списку треков"]]);
+    this.popap_container = this.popup.generateMessageLayout();
+    document.body.prepend(this.popap_container);
+    this.trackListPageButtonsBlock = new TrackListPageButtonsBlock();
+    this.buttonsBlock_container = this.trackListPageButtonsBlock.generateLayout();
     this.addTracksData();
     const header = new Header();
     this.tableBody_container = create("div", "table_body_container");
@@ -28,14 +37,14 @@ class TrackListPage {
     );
     this.addEventListeners();
   }
+  generatePopapLayout() {
+    this.popap_container.classList.remove("loadingSpinner_wrapper__hidden");
+  }
   generateTableHeaderLayout() {
     const iconsContainer = new FilterFromTo();
-    /*const iconsContainerData = new FilterFromTo(this.filterFromHight,this.filterFromLow,"created")
-    const iconsContainerDistance = new FilterFromTo(this.filterFromHight,this.filterFromLow,"distance")*/
     this.filter_name_icons_container = iconsContainer.generateLayout();
     this.filter_date_icons_container = iconsContainer.generateLayout();
     this.filter_distance_icons_container = iconsContainer.generateLayout();
-
     this.searchBar = new SearchBar();
     this.checkAllCheckbox = create("input", null, null, null, [
       "type",
@@ -119,10 +128,8 @@ class TrackListPage {
     const dateRes = day + "." + mounth + "." + year;
     return dateRes;
   }
-
   generateTableBodyLayout(arr) {
     arr.map((item) => {
-      
       const itemPrivateHidden = `icon_private${item.isPrivate}`;
       const date = this.getDate(item.created);
       const tableBodyString = create(
@@ -143,7 +150,7 @@ class TrackListPage {
             create("img", "icon_sports_table", null, null, [
               "src",
               Sports[item.type],
-            ]),
+            ],["alt",SportsNames[item.type]]),
           ]),
           create("div", "table_item", [create("span", null, date)]),
           create("div", "table_item table_item_name", [
@@ -151,7 +158,7 @@ class TrackListPage {
             create("img", `${itemPrivateHidden}`, null, null, [
               "src",
               icon_private,
-            ]),
+            ],["alt","приватный"]),
           ]),
           /*create("div", "table_item", [
           create("span", null, item.isPrivate.toString()),
@@ -172,17 +179,23 @@ class TrackListPage {
     });
   }
   addEventListeners() {
-    //console.log(document.querySelectorAll(".table_item"));
-    //Delete track
-    /*window.addEventListener("resize",(e)=>{
-      if(document.documentElement.clientWidth>650){
-
+    document
+    .querySelector(".loadingSpinner_wrapper")
+    .addEventListener("click", (e) => {
+      if (
+        Array.from(e.target.classList).includes("loadingSpinner_wrapper") ||
+        Array.from(e.target.classList).includes("button_returnToTrackList")
+      ) {
+        this.unchoiseAll()
+        this.checkAllCheckbox.checked = false
+        this.popup.hideMessages()
       }
-    })*/
+    });
     document
       .querySelector(".track_delete_button")
-      .addEventListener("click", () => {
-        Array.from(document.querySelectorAll(".checkbox_item")).map((item) => {
+      .addEventListener("click", () =>   {
+        this.popap_container.classList.remove("loadingSpinner_wrapper__hidden");
+        Array.from(document.querySelectorAll(".checkbox_item")).map( async (item) => {
           if (item.checked) {
             document
               .querySelector(
@@ -200,10 +213,18 @@ class TrackListPage {
             const deleteId = this.tracksToShow.find((item1) => {
               return item1.hashString == item.getAttribute("data_checkboxhash");
             }).id;
-            this.gpxiesAPI.deleteTrackById(deleteId);
+            
+            let result = await this.gpxiesAPI.deleteTrackById(deleteId);
+            console.log("result",result);
+            if(result.ok){
+              console.log("работает");
+              this.popup.showSuccessMessage()
+            }else{
+              this.popup.showErrorMessage()
+            }
           }
         });
-        this.hideButtonContainer() 
+        this.trackListPageButtonsBlock.hideButtonContainer() 
       });
     //Show and Hide Button Container
     this.tableBody_container.addEventListener("click", (e) => {
@@ -211,21 +232,20 @@ class TrackListPage {
         //console.log("e.target", e.target.querySelector(".checkbox_item").checked);
         e.target.querySelector(".checkbox_item").checked=!e.target.querySelector(".checkbox_item").checked
       }
-
      // if (e.target.className == "checkbox_item") {
         if (
           Array.from(document.querySelectorAll(".checkbox_item")).every(
             (item) => !item.checked
           )
         ) {
-          this.hideButtonContainer();
+          this.trackListPageButtonsBlock.hideButtonContainer();
         }
         if (
           Array.from(document.querySelectorAll(".checkbox_item")).some(
             (item) => item.checked
           )
         ) {
-          this.showButtonContainer();
+          this.trackListPageButtonsBlock.showButtonContainer();
         }
       //}
     });
@@ -237,11 +257,11 @@ class TrackListPage {
       if (this.checkAllCheckbox.checked) {
         this.checkAllCheckbox.checked = false;
         this.unchoiseAll();
-        this.hideButtonContainer();
+        this.trackListPageButtonsBlock.hideButtonContainer();
       } else {
         this.checkAllCheckbox.checked = true;
         this.choiseAll();
-        this.showButtonContainer();
+        this.trackListPageButtonsBlock.showButtonContainer();
       }
     });
     this.sportChoce_select.addEventListener("change", () => {
@@ -282,16 +302,6 @@ class TrackListPage {
       }
     });
   }
-  showButtonContainer() {
-    this.buttonsBlock_container.classList.add(
-      "buttonsBlock_container_unhidden"
-    );
-  }
-  hideButtonContainer() {
-    this.buttonsBlock_container.classList.remove(
-      "buttonsBlock_container_unhidden"
-    );
-  }
   filterBySportType() {
     this.tracksToShow = [];
     this.userTracks.map((item) => {
@@ -301,11 +311,8 @@ class TrackListPage {
     });
     this.tableBody_container.innerHTML = "";
     this.generateTableBodyLayout(this.tracksToShow);
-    console.log("this.userTracks", this.userTracks);
   }
   filterFromHight(parametr) {
-    console.log(this.tracksToShow[0].created);
-
     this.tracksToShow = this.tracksToShow
       .concat()
       .sort((a, b) => (a[parametr] > b[parametr] ? 1 : -1));
@@ -313,7 +320,6 @@ class TrackListPage {
     this.generateTableBodyLayout(this.tracksToShow);
   }
   filterFromLow(parametr) {
-    console.log(this.tracksToShow[0].created);
     this.tracksToShow = this.tracksToShow
       .concat()
       .sort((a, b) => (b[parametr] > a[parametr] ? 1 : -1));
@@ -322,17 +328,6 @@ class TrackListPage {
     this.generateTableBodyLayout(this.tracksToShow);
     //this.tracksToShow = this.userTracks.map((x) => x);
   }
-  /*deleteChoisen(){
-    const arr = []
-      document
-        .querySelectorAll(".checkbox_item")
-        .forEach((item) =>{
-          if(item.checked){
-
-          }
-        }
-
-  }*/
 }
 
 const trackListPage = new TrackListPage();

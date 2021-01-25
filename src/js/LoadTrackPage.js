@@ -3,12 +3,12 @@ import "../css/main.css";
 import Header from "./Header";
 import GpxiesAPI from "./GpxiesAPI";
 import Type from "./trackTypes.utils";
-import LoadingTrackMessagePopap from "./LoadingTrackMessagePopap";
+import MessagePopap from "./MessagePopap";
 class LoadTrackPage {
   generateLayout() {
     this.gpxiesAPI = new GpxiesAPI();
-    const popup = new LoadingTrackMessagePopap();
-    this.popap_container = popup.generateMessageLayout();
+    this.popup = new MessagePopap( "Вы успешно загрузили трек!", [["button_newTrack","Загрузить новый трек"],["button_editTrack","Редактировать трек"]], "Во время загрузки произошла ошибка.",[["button_newTrack","Загрузить новый трек"]]);
+    this.popap_container = this.popup.generateMessageLayout();
     document.body.prepend(this.popap_container);
     const loading_button = create(
       "label",
@@ -36,7 +36,6 @@ class LoadTrackPage {
       ["type", "submit"],
       ["disabled", "disabled"]
     );
-
     const header = new Header();
     this.button__prime = create("a", "button__primary", "Сохранить");
     this.private_checkbox = create(
@@ -154,11 +153,7 @@ class LoadTrackPage {
           Array.from(e.target.classList).includes("loadingSpinner_wrapper") ||
           Array.from(e.target.classList).includes("button_newTrack")
         ) {
-          console.log("работает!!!!!!!!!!");
           this.resetForm();
-          //this.addDisabledButtonAttribute()
-          console.log("this.button_save", this.button_save);
-          //document.querySelector('.button_save').disabled=true;
         }
       });
     this.loading_hiddenInput.addEventListener(
@@ -186,7 +181,7 @@ class LoadTrackPage {
     });
     this.button_save.addEventListener("click", async (event) => {
       event.preventDefault();
-      this.generatePopapLayout();
+      this.popap_container.classList.remove("loadingSpinner_wrapper__hidden");
       const formElem = document.querySelector(".loadTrackPage_form");
       const { hashString } = await this.gpxiesAPI.uploadTrack(formElem);
       const tracksData = {
@@ -197,19 +192,20 @@ class LoadTrackPage {
         hashString: hashString,
       };
       const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
-      console.log("hashString1", hashString);
-      console.log("result1", result);
-
+      console.log("result",result);
       if (result.hashString) {
-        setTimeout(this.successTrackLoadMessage(), 300);
+        console.log("this.popupOk",this.popup);
+        setTimeout(this.popup.showSuccessMessage(), 300);
       } else {
-        setTimeout(this.errorTrackLoadMessage(), 300);
+        console.log("error",this.popup);
+        setTimeout(this.popup.showErrorMessage(), 300);
       }
     });
   }
   resetForm() {
     document.forms[0].reset();
-    this.popap_container.classList.add("loadingSpinner_wrapper__hidden");
+    this.popup.hideMessages()
+    /*this.popap_container.classList.add("loadingSpinner_wrapper__hidden");
     document
       .querySelector(".loadingSpinner_img")
       .classList.remove("loadingSpinner_img__hidden");
@@ -222,35 +218,13 @@ class LoadTrackPage {
       document
         .querySelector(".errorMessage_container")
         .classList.add("errorMessage_container__hidden");
-    }
+    }*/
     this.loading_trackFileName.innerHTML = null;
   }
-  generatePopapLayout() {
-    this.popap_container.classList.remove("loadingSpinner_wrapper__hidden");
-  }
-  successTrackLoadMessage() {
-    document
-      .querySelector(".loadingSpinner_img")
-      .classList.add("loadingSpinner_img__hidden");
-    document
-      .querySelector(".successMessage_container")
-      .classList.remove("successMessage_container__hidden");
-  }
-  errorTrackLoadMessage() {
-    document
-      .querySelector(".loadingSpinner_img")
-      .classList.add("loadingSpinner_img__hidden");
-    document
-      .querySelector(".errorMessage_container")
-      .classList.remove("errorMessage_container__hidden");
-  }
   removeDisabledButtonAttribute() {
-    console.log('removeDisabledButtonAttribute');
     this.button_save.removeAttribute("disabled");
   }
   addDisabledButtonAttribute() {
-    console.log('addDisabledButtonAttribute');
-    // this.button_save.disabled = true;
     this.button_save.setAttribute("disabled","disabled");
   }
 }

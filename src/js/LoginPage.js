@@ -1,7 +1,7 @@
 import "../css/main.css";
 import create from "./create";
 import GpxiesAPI from "./GpxiesAPI";
-import SuccessRegistrationPopup from "./SuccessRegistrationPopup";
+import MessagePopap from "./MessagePopap";
 
 class LoginPage {
   generateLayout() {
@@ -91,16 +91,26 @@ class LoginPage {
     window.location = "/registration";
   }
   checkRegistration() {
-    let successMessage = new SuccessRegistrationPopup()
+    const registrationMessage = new MessagePopap("Вы успешно зарегистрировались!", null, "Во время регистрации пользователя произошла ошибка.",null)
+    //let successMessage = new SuccessRegistrationPopup()
+    const registrationSuccessMessageNode = registrationMessage.generateSuccessLayout()
+    registrationSuccessMessageNode.classList.remove("successMessage_container", "successMessage_container__hidden")
+    registrationSuccessMessageNode.classList.add("registrationMessage_container")
     if (localStorage.getItem("gpxiesEmail")) {
-      this.login_form_container.prepend(successMessage.generateLayout())
-      this.email_input.value = localStorage.getItem("gpxiesEmail");
+      this.login_form_container.prepend(registrationSuccessMessageNode)
+      this.email_input.value = localStorage.getItem("gpxiesEmail")
       localStorage.removeItem("gpxiesEmail");
     }
     if (localStorage.getItem("gpxiesPassword")) {
       this.password_input.value = localStorage.getItem("gpxiesPassword");
       localStorage.removeItem("gpxiesPassword");
-    }
+    }/*else{
+
+      const registrationErrorMessageNode = registrationMessage.generateErrorLayout()
+      registrationErrorMessageNode.classList.remove("errorMessage_container", "errorMessage_container__hidden")
+      registrationErrorMessageNode.classList.add("registrationMessage_container")
+      this.login_form_container.prepend(registrationErrorMessageNode)
+    }*/
   }
 }
 const loginPage = new LoginPage();

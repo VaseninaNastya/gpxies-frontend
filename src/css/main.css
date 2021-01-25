@@ -121,7 +121,6 @@ body {
 @import "./TrackListPage";
 @import "./ShowTrack";
 @import "./LoadTrackPage";
-@import "./SuccessRegistrationPopup";
 @import "./HeaderMenu";
 @import "./FilterFromTo";
 @import "./TrackListPageButtonsBlock";
