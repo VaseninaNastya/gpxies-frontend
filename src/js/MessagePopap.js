@@ -30,14 +30,16 @@ class MessagePopap {
         create("h3", "successMessage_title", this.successMessage),
       ]
     );
-    this.successButtons.map((item)=>{
-      const successButton =         create(
-        "div",
-        `button__primary ${item[0]}`,
-        item[1]
-      )
-      this.successMessageNode.append(successButton)
-    })
+    if(this.successButtons){
+      this.successButtons.map((item)=>{
+        const successButton =         create(
+          "div",
+          `button__primary ${item[0]}`,
+          item[1]
+        )
+        this.successMessageNode.append(successButton)
+      })
+    }
     return this.successMessageNode;
   }
   generateErrorLayout() {
@@ -48,14 +50,16 @@ class MessagePopap {
         create("h3", "errorMessage_title", this.errorMessage),
       ]
     );
-    this.errorButtons.map((item)=>{
-      const errorButton =         create(
-        "div",
-        `button__primary ${item[0]}`,
-        item[1]
-      )
-      this.errorMessageNode.append(errorButton)
-    })
+    if(this.errorButtons){
+      this.errorButtons.map((item)=>{
+        const errorButton =         create(
+          "div",
+          `button__primary ${item[0]}`,
+          item[1]
+        )
+        this.errorMessageNode.append(errorButton)
+      })
+    }
     return this.errorMessageNode ;
   }
   showSuccessMessage() {
@@ -66,6 +70,7 @@ class MessagePopap {
     this.loadingSpinner_img.classList.add("loadingSpinner_img__hidden");
     this.errorMessageNode.classList.remove("errorMessage_container__hidden");
   }
+
   hideMessages(){
     this.loadingSpinner_wrapper.classList.add("loadingSpinner_wrapper__hidden");
     this.loadingSpinner_img.classList.remove("loadingSpinner_img__hidden");

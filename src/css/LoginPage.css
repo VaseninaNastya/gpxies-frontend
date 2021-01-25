@@ -56,3 +56,15 @@
     display: flex;
     flex-direction: column;
 }
+.registrationMessage_container{
+    line-height: 20px;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    color: rgba(128, 128, 128);
+}
+.registrationMessage_container h3{
+        font-size: 15px;
+        line-height: 20px;
+}
