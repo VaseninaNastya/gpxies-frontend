@@ -10,6 +10,9 @@ import SearchBar from "./SearchBar";
 import FilterFromTo from "./FilterFromTo";
 import TrackListPageButtonsBlock from "./TrackListPageButtonsBlock";
 import MessagePopap from "./MessagePopap";
+import SportsNames from "./trackTypes.utils.js";
+
+
 class TrackListPage {
   constructor(){
     this.trackHashForDelete = []
@@ -42,7 +45,6 @@ class TrackListPage {
     this.filter_name_icons_container = iconsContainer.generateLayout();
     this.filter_date_icons_container = iconsContainer.generateLayout();
     this.filter_distance_icons_container = iconsContainer.generateLayout();
-
     this.searchBar = new SearchBar();
     this.checkAllCheckbox = create("input", null, null, null, [
       "type",
@@ -148,7 +150,7 @@ class TrackListPage {
             create("img", "icon_sports_table", null, null, [
               "src",
               Sports[item.type],
-            ]),
+            ],["alt",SportsNames[item.type]]),
           ]),
           create("div", "table_item", [create("span", null, date)]),
           create("div", "table_item table_item_name", [
@@ -156,7 +158,7 @@ class TrackListPage {
             create("img", `${itemPrivateHidden}`, null, null, [
               "src",
               icon_private,
-            ]),
+            ],["alt","приватный"]),
           ]),
           /*create("div", "table_item", [
           create("span", null, item.isPrivate.toString()),
