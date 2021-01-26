@@ -1,24 +1,23 @@
 import '../css/main.css';
-import create from "./create";
-import ShowTrackPageHeader from "./ShowTrackPageHeader";
-import Footer from "./Footer";
-import СompleteStatictics from "./СompleteStatictics";
+import create from './create';
+import ShowTrackPageHeader from './ShowTrackPageHeader';
+import Footer from './Footer';
+import СompleteStatictics from './СompleteStatictics';
 import Header from './Header';
 import WorldMap from './WorldMap';
 
 class ShowTrackPage {
   generateLayout() {
+    const hashString = window.location.pathname.toString().slice(6,);
+    console.log("HASH ",hashString);
 
-    console.log(window);
-
-    ///
     const completeStatictics = new СompleteStatictics();
     const showTrackPageHeader = new ShowTrackPageHeader();
     const header = new Header();
     const footer = new Footer();
-    const map = create("div", "map", null, null, ["id", "mapid"])
+    const map = create('div', 'map', null, null, ['id', 'mapid']);
     document.body.prepend(
-      create("div", "showTrackPage_wrapper", [
+      create('div', 'showTrackPage_wrapper', [
         header.generateLayout(),
         showTrackPageHeader.generateLayout(),
         map,
@@ -28,6 +27,11 @@ class ShowTrackPage {
     );
     this.worldMap = new WorldMap();
     this.worldMap.generateLayout();
+
+    this.showTrack(hashString);
+  }
+  async showTrack(hashString) {
+    console.log(hashString);
   }
 }
 

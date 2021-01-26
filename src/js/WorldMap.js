@@ -31,11 +31,12 @@ class WorldMap {
 
         let self = this;
         function onMapClick(e) {
-            self.geonamesAPI.getCountryName(e.latlng.lat, e.latlng.lng).then(countryCode => {
-                if (countryCode !== undefined) {
-                    document.querySelector('.mainContent_container').setAttribute('data-country', countryCode);
-                }
-            });
+            console.log(e.latlng.lat, e.latlng.lng);
+            // self.geonamesAPI.getCountryName(e.latlng.lat, e.latlng.lng).then(countryCode => {
+            //     if (countryCode !== undefined) {
+            //         document.querySelector('.mainContent_container').setAttribute('data-country', countryCode);
+            //     }
+            // });
         }
 
 
