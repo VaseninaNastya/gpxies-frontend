@@ -15,7 +15,7 @@
   background-color: white;
   width: 1000px;
   margin: 0 auto;
-  height:1px;
+  /*height:1px;*/
 }
 .table_body_row,
 .table_header_container {

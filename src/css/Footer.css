@@ -13,6 +13,9 @@ footer .container{
 footer .container a{
     color: rgb(110, 110, 110);
 }
+footer .container a:hover{
+    color: black;
+}
 .footer_img{
     height: 35px;
 }

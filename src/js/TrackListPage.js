@@ -11,12 +11,14 @@ import FilterFromTo from './FilterFromTo';
 import TrackListPageButtonsBlock from './TrackListPageButtonsBlock';
 import MessagePopap from './MessagePopap';
 import SportsNames from './sportsTypesNames.utils.js';
+import Footer from "./Footer";
 
 class TrackListPage {
   constructor() {
     this.trackHashForDelete = [];
   }
   generateLayout() {
+    const footer = new Footer();
     this.popup = new MessagePopap(
       'Удаление прошло успешно.',
       [['button_returnToTrackList', 'Вернуться к списку треков']],
@@ -37,7 +39,7 @@ class TrackListPage {
       this.tableBody,
     ]);
     document.body.prepend(
-      create('div', 'table_wrapper', [header.generateLayout(), tableContainer])
+      create('div', 'table_wrapper', [header.generateLayout(), tableContainer, footer.generateLayout()])
     );
     this.addEventListeners();
   }
@@ -195,6 +197,7 @@ class TrackListPage {
         ['data_rowhash', item.hashString]
       );
       this.tableBody_container.append(tableBodyString);
+
     });
   }
   addEventListeners() {
