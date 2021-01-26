@@ -68,7 +68,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'js/[name].bundle.js'
+    filename: '../js/[name].bundle.js'
   },
   plugins: [
     new HtmlWebpackPlugin({
