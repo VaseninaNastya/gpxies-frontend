@@ -169,7 +169,7 @@ class TrackListPage {
               'track_name_tableItem',
               create('a', null, item.title, null, [
                 'href',
-                '/show/' + item.hashString,
+                '/track/' + item.hashString,
               ])
             ),
             create(
