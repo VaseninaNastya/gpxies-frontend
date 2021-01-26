@@ -28,7 +28,7 @@ app.use('/mytracks', express.static(path.join(__dirname, 'dist/trackListPage.htm
 app.use('/upload', express.static(path.join(__dirname, 'dist/loadTrackPage.html')))
 
 
-app.use('/show/:hashString', (req, res, next) => {
+app.use('/track/:hashString', (req, res, next) => {
   
   // req.url = req.params.hashString;
   // res.send(__dirname + '/dist/showTrack.html')

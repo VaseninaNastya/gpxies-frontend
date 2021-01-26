@@ -55,6 +55,14 @@
 .icon_header {
   height: 40px;
 }
+
+
+.icon_private0{
+  height: 20px;
+  width: 20px;
+  visibility: hidden;
+}
+
 .trackDescription_title__primary {
   display: flex;
   align-items: center;
