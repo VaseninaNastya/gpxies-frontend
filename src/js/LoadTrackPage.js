@@ -148,6 +148,8 @@ class LoadTrackPage {
   }
   addEventListeners() {
     this.loading_button.addEventListener("click",()=>{
+      this.addDisabledButtonAttribute();
+      this.loading_hiddenInput.value = null
       this.loading_trackFileName.innerHTML = ""
       this.loading_trackFileName.append(this.spinner);
     })
@@ -158,41 +160,34 @@ class LoadTrackPage {
           Array.from(e.target.classList).includes("loadingSpinner_wrapper") ||
           Array.from(e.target.classList).includes("button_newTrack")
         ) {
+          this.addDisabledButtonAttribute();
           this.resetForm();
         }
       });
     this.loading_hiddenInput.addEventListener(
       "change",
       () => {
-
+console.log("skksksksЮЮЮЮЮЮЮЮЮЮЮ>>>>>>>");
         const fileList = this.loading_hiddenInput.files[0];
         const fileName = fileList.name;
         this.loading_trackFileName.innerHTML = ""
-        this.loading_trackFileName.append(fileName);
+        this.loading_trackFileName.append(create("span",null,fileName));
       },
       false
     );
     let loading_trackFileNameObserver = new MutationObserver(
       (mutationRecords) => {
-        if ((mutationRecords[0].addedNodes[0].className!= "icon_spinner")) {
-          console.log("mutationRecords[0].addedNodes",mutationRecords[0].addedNodes[0].className);
-          this.removeDisabledButtonAttribute();
+        if(mutationRecords[1]){
+          if(mutationRecords[1].addedNodes[0].tagName == "SPAN"){
+            this.removeDisabledButtonAttribute();
+          }
         }
-        if (mutationRecords[0].addedNodes[0].className!= "icon_spinner") {
-          this.addDisabledButtonAttribute();
-        }
-       /* if ((mutationRecords[0].addedNodes.length == 1)) {
-          console.log("mutationRecords[0].addedNodes",mutationRecords[0].addedNodes[0].className);
-          this.removeDisabledButtonAttribute();
-        }
-        if (mutationRecords[0].removedNodes.length == 1) {
-          this.addDisabledButtonAttribute();
-        }*/
       }
     );
     loading_trackFileNameObserver.observe(this.loading_trackFileName, {
+      
       childList: true,
-
+      addedNodes: true,
     });
     this.button_save.addEventListener("click", async (event) => {
       event.preventDefault();
@@ -215,6 +210,7 @@ class LoadTrackPage {
     });
   }
   resetForm() {
+    console.log("document.forms[0]",document.forms[0]);
     document.forms[0].reset();
     this.popup.hideMessages()
     this.loading_trackFileName.innerHTML = null;
