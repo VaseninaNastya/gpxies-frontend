@@ -20,11 +20,10 @@ class ShowTrackPageHeader {
     const headerContainer = create("div", "container",[
       create("div","trackDescription",[
         create("h2", "trackDescription_title__primary",[
+          create('img',"icon_header",null,null,["src", icon_walk]),
           create('span', "trackDescription_trackName","Название трека, "),
           create("span", "trackDescription_trackLength","407 км"),
-          create('img',"icon_header",null,null,["src", icon_walk]),
-          create('img',"icon_header",null,null,["src", icon_run]),
-          create('img',"icon_header",null,null,["src", icon_bike])
+          
         ]),
         create('h4', "trackDescription_title__secondary", [
           create("span", "trackDescription_authorName",[
