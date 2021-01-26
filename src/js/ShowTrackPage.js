@@ -9,7 +9,7 @@ import GpxiesAPI from './GpxiesAPI';
 
 class ShowTrackPage {
   generateLayout() {
-    const hashString = window.location.pathname.toString().slice(6);
+    const hashString = window.location.pathname.toString().slice(7);
     console.log('HASH ', hashString);
 
     const completeStatictics = new СompleteStatictics();
@@ -44,6 +44,9 @@ class ShowTrackPage {
     document.querySelector('.icon_header').src = `/img/icon_${result.type.toLowerCase()}.png`;
     document.querySelector('.trackDescription_authorName').innerHTML = `автор <a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
     document.querySelector('.trackDescription_data').innerHTML = `, загружено ${result.created}`;
+    if (result.isPrivate){
+      document.querySelector('.icon_private0').style.visibility="visible"
+    }
   }
 }
 
