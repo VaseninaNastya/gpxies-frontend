@@ -1,22 +1,28 @@
 import create from "./create";
+import wordsEn from "./wordsEn.utils";
+import wordsRu from "./wordsRu.utils";
 class ChooseLanguage{
     generateLayout() {
-        this.language_rus =  create("div","language_item","рус.",null,["id","rus"])
-        this.language_eng =  create("div","language_item","англ.",null,["id","eng"])
-        this.language_container = create("div","language_container",[this.language_rus,this.language_eng])
-        this.choiseLanguage()
+        this.language_ru =  create("div","language_item","рус.",null,["id","0"])
+        this.language_en =  create("div","language_item","англ.",null,["id","1"])
+        this.language_container = create("div","language_container",[this.language_ru,this.language_en])
+        if(localStorage.getItem("gpxiesChoosen_language")==1){
+            this.language_en.classList.add("choosen_language")
+        }else{
+            this.language_ru.classList.add("choosen_language")
+        }
         this.addEventListeners()
         return this.language_container
     }
-    choiseLanguage(){
-        if(localStorage.getItem("gpxiesChoosen_language")=="eng"){
-            console.log(localStorage.getItem("gpxiesChoosen_language"));
-            console.log("document.querySelector(`eng`)",  document.querySelector('.eng'));
-            this.language_eng.classList.add("choosen_language")
+    determinationLanguage() {
+        if(localStorage.getItem("gpxiesChoosen_language")){
+          this.choosen_language = localStorage.getItem("gpxiesChoosen_language")
         }else{
-            this.language_rus.classList.add("choosen_language")
+          localStorage.setItem("gpxiesChoosen_language", 0)
+          this.choosen_language = 0
         }
-    }
+        return this.choosen_language
+      }
     addEventListeners(){
         this.language_container.addEventListener("click",(e)=>{
             document.querySelector(".choosen_language").classList.remove("choosen_language")
@@ -24,5 +30,8 @@ class ChooseLanguage{
             e.target.classList.add("choosen_language")
         })
     }
+    denerateWordsData(){
+        return [[wordsRu],[wordsEn]]
+      }
 }
 export default ChooseLanguage
