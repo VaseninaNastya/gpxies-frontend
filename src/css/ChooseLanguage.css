@@ -1,0 +1,17 @@
+.choosen_language {
+  background-color: #54939b;
+  color: white;
+}
+.language_item {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 6px;
+  height: 100%;
+  width: 50%;
+}
+.language_container{
+    display: flex;
+    justify-content: space-around;
+}

@@ -4,13 +4,18 @@ import Header from "./Header";
 import GpxiesAPI from "./GpxiesAPI";
 import Type from "./trackTypes.utils";
 import MessagePopap from "./MessagePopap";
+import icon_spinner from "../../assets/img/icons_spinner.png";
+
+
+
 class LoadTrackPage {
   generateLayout() {
     this.gpxiesAPI = new GpxiesAPI();
     this.popup = new MessagePopap( "Вы успешно загрузили трек!", [["button_newTrack","Загрузить новый трек"],["button_editTrack","Редактировать трек"]], "Во время загрузки произошла ошибка.",[["button_newTrack","Загрузить новый трек"]]);
     this.popap_container = this.popup.generateMessageLayout();
     document.body.prepend(this.popap_container);
-    const loading_button = create(
+    this.spinner = create("img", "icon_spinner", null, null, ["src", icon_spinner])
+    this.loading_button = create(
       "label",
       "loading_button",
       "Выбрать файл",
@@ -109,7 +114,7 @@ class LoadTrackPage {
       [
         this.loadTrackPage_title_container,
         create("div", "track_loading_container", [
-          loading_button,
+          this.loading_button,
           this.loading_hiddenInput,
           this.loading_trackFileName,
         ]),
@@ -134,7 +139,6 @@ class LoadTrackPage {
     this.loadTrackPage_container = create("div", "loadTrackPage_container", [
       this.loadTrackPage_form,
     ]);
-
     const wraper = create("div", "loadTrackPage_wrapper", [
       header.generateLayout(),
       this.loadTrackPage_container,
@@ -143,9 +147,12 @@ class LoadTrackPage {
     document.body.prepend(wraper);
   }
   addEventListeners() {
-    /*document.querySelector(".button_newTrack").addEventListener("click",()=>{
-      this.resetForm()
-    })*/
+    this.loading_button.addEventListener("click",()=>{
+      this.addDisabledButtonAttribute();
+      this.loading_hiddenInput.value = null
+      this.loading_trackFileName.innerHTML = ""
+      this.loading_trackFileName.append(this.spinner);
+    })
     document
       .querySelector(".loadingSpinner_wrapper")
       .addEventListener("click", (e) => {
@@ -153,31 +160,34 @@ class LoadTrackPage {
           Array.from(e.target.classList).includes("loadingSpinner_wrapper") ||
           Array.from(e.target.classList).includes("button_newTrack")
         ) {
+          this.addDisabledButtonAttribute();
           this.resetForm();
         }
       });
     this.loading_hiddenInput.addEventListener(
       "change",
       () => {
+console.log("skksksksЮЮЮЮЮЮЮЮЮЮЮ>>>>>>>");
         const fileList = this.loading_hiddenInput.files[0];
         const fileName = fileList.name;
-        this.loading_trackFileName.append(fileName);
+        this.loading_trackFileName.innerHTML = ""
+        this.loading_trackFileName.append(create("span",null,fileName));
       },
       false
     );
     let loading_trackFileNameObserver = new MutationObserver(
       (mutationRecords) => {
-        console.log(mutationRecords[0].addedNodes.length, mutationRecords[0].removedNodes.length);
-        if (mutationRecords[0].addedNodes.length == 1) {
-          this.removeDisabledButtonAttribute();
-        }
-        if (mutationRecords[0].removedNodes.length == 1) {
-          this.addDisabledButtonAttribute();
+        if(mutationRecords[1]){
+          if(mutationRecords[1].addedNodes[0].tagName == "SPAN"){
+            this.removeDisabledButtonAttribute();
+          }
         }
       }
     );
     loading_trackFileNameObserver.observe(this.loading_trackFileName, {
+      
       childList: true,
+      addedNodes: true,
     });
     this.button_save.addEventListener("click", async (event) => {
       event.preventDefault();
@@ -192,33 +202,17 @@ class LoadTrackPage {
         hashString: hashString,
       };
       const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
-      console.log("result",result);
       if (result.hashString) {
-        console.log("this.popupOk",this.popup);
         setTimeout(this.popup.showSuccessMessage(), 300);
       } else {
-        console.log("error",this.popup);
         setTimeout(this.popup.showErrorMessage(), 300);
       }
     });
   }
   resetForm() {
+    console.log("document.forms[0]",document.forms[0]);
     document.forms[0].reset();
     this.popup.hideMessages()
-    /*this.popap_container.classList.add("loadingSpinner_wrapper__hidden");
-    document
-      .querySelector(".loadingSpinner_img")
-      .classList.remove("loadingSpinner_img__hidden");
-    if (document.querySelector(".successMessage_container")) {
-      document
-        .querySelector(".successMessage_container")
-        .classList.add("successMessage_container__hidden");
-    }
-    if (document.querySelector(".errorMessage_container")) {
-      document
-        .querySelector(".errorMessage_container")
-        .classList.add("errorMessage_container__hidden");
-    }*/
     this.loading_trackFileName.innerHTML = null;
   }
   removeDisabledButtonAttribute() {

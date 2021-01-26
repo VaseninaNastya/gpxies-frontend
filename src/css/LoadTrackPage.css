@@ -124,6 +124,24 @@
 .button_editTrack{
     background-color:#54939b !important;
 }
+@keyframes rotating {
+    0% {
+        transform: rotate(0turn);
+    }
+    /*50% {
+        transform: rotate(0.5turn)
+    }*/
+    100% {
+        transform: rotate(1turn)
+    }
+}
+
+
+.icon_spinner{
+    height: 25px;
+    animation: rotating 1.5s infinite;
+    filter: opacity(0.5);
+}
 
 @media (max-width: 1000px) and (min-width: 650px)  {
     .loadTrackPage_container{
