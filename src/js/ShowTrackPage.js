@@ -39,6 +39,7 @@ class ShowTrackPage {
     let userinfo = await this.gpxiesAPI.getUserInfo(result.user);
     console.log(result);
     console.log(userinfo);
+    document.title=`${result.title} - Gpxies.ru`;
     document.querySelector('.trackDescription_trackName').innerHTML = result.title;
     document.querySelector('.trackDescription_trackLength').innerHTML = `, (${result.distance} км) `;
     document.querySelector('.icon_header').src = `/img/icon_${result.type.toLowerCase()}.png`;
@@ -47,6 +48,11 @@ class ShowTrackPage {
     if (result.isPrivate){
       document.querySelector('.icon_private0').style.visibility="visible"
     }
+
+    // Show track on map
+    
+    this.worldMap.showGpx(hashString);
+
   }
 }
 
