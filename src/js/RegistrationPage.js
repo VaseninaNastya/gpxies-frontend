@@ -6,7 +6,7 @@ import ChooseLanguage from "./ChooseLanguage";
 class RegistrationPage {
   getWordsData() {
     const chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = chooseLanguageComponent.denerateWordsData();
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
     this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
     this.chooseLanguage_container.classList.add(
       "language_container_registration"

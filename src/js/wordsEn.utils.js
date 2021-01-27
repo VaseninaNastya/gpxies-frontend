@@ -27,4 +27,6 @@ module.exports = {
   date: "Data",
   title: "Title",
   distance: "Distance, km",
+  download: "download",
+  delete: "delete",
 };

@@ -20,9 +20,7 @@ class TrackListPage {
   }
   getWordsData(){
     const chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = chooseLanguageComponent.denerateWordsData();
-    //this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
-   // this.chooseLanguage_container.classList.add("language_container_login");
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
     this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
   }

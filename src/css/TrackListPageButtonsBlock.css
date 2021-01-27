@@ -33,7 +33,6 @@
     color: white;
     border-radius: 7px;
     border: none;
-    font-size: 16px;
     cursor: pointer;
 }
 
@@ -71,10 +70,6 @@
     .buttonsBlock_container{
         top: 68px;
     }
-
-
-
-
     .buttonsBlock_container{
         height: 90px;
         padding: 7px;

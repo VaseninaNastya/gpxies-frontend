@@ -26,5 +26,7 @@ module.exports = {
   typeOfSport: "Тип спорта",
   date: "Дата",
   title: "Название",
-  distance: "Дистанция, км",
+  distance: "Дистанция, км", 
+  download: "скачать",
+  delete: "удалить",
 };

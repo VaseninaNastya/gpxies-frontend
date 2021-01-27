@@ -30,7 +30,7 @@ class ChooseLanguage{
             e.target.classList.add("choosen_language")
         })
     }
-    denerateWordsData(){
+    generateWordsData(){
         return [[wordsRu],[wordsEn]]
       }
 }
