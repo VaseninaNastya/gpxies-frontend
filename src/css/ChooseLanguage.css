@@ -1,5 +1,5 @@
 .choosen_language {
-  background-color: #54939b;
+  background-color: rgb(179, 179, 179);
   color: white;
 }
 .language_item {
@@ -23,10 +23,6 @@
   margin: 0 auto 10px auto;
   border-radius: 5px;
   background-color: rgb(245, 245, 245);
-}
-.language_container_login .choosen_language,
-.language_container_registration .choosen_language{
-  background-color: rgb(179, 179, 179);
 }
 
 .language_container_login .language_item:first-child,

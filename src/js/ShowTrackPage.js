@@ -43,8 +43,8 @@ class ShowTrackPage {
     document.querySelector('.trackDescription_trackName').innerHTML = result.title;
     document.querySelector('.trackDescription_trackLength').innerHTML = `, (${result.distance} км) `;
     document.querySelector('.icon_header').src = `/img/icon_${result.type.toLowerCase()}.png`;
-    document.querySelector('.trackDescription_authorName').innerHTML = `автор <a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
-    document.querySelector('.trackDescription_data').innerHTML = `, загружено ${result.created}`;
+    document.querySelector('.trackDescription_authorName').innerHTML = `<a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
+    document.querySelector('.trackDescription_data').innerHTML = `${result.created}`;
     if (result.isPrivate){
       document.querySelector('.icon_private0').style.visibility="visible"
     }
@@ -52,7 +52,19 @@ class ShowTrackPage {
     // Show track on map
     
     this.worldMap.showGpx(hashString);
-
+    this.addEventListeners()
+  }
+  refreshLayout() {
+    document.body.innerHTML = "";
+    this.chooseLanguage = localStorage.getItem("gpxiesChoosen_language");
+    this.generateLayout();
+  }
+  addEventListeners() {
+    document
+    .querySelector(".language_container")
+    .addEventListener("click", () => {
+      this.refreshLayout();
+    });
   }
 }
 

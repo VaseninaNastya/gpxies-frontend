@@ -132,7 +132,6 @@ body {
   width: 1000px;
   margin: 0 auto;
   height: 100%;
-  /*padding: 0 10px;*/
 }
 /*@media (max-width: 1024px) and (min-width: 500px) {
     header{
@@ -154,13 +153,13 @@ body {
 
   @media (max-width: 1000px) and (min-width: 650px)  {
     .container {
-      width: 100vw;
+      width: 98vw;
     }
 }
 
 @media (max-width: 650px) {
   .container {
-    width: 100vw;
+    width: 98vw;
   }
 }
 

@@ -43,4 +43,10 @@ module.exports = {
   logout: "Log out",
   ru: "rus.",
   en: "eng.",
+  createVariation: 'create a variation',
+  addToBookmarks: 'add to bookmarks',
+  edit: "edit",
+  statistics: "statistics",
+  author:"author",
+  uploaded: "uploaded"
 };

@@ -43,4 +43,10 @@ module.exports = {
   logout: "Выйти",
   ru: "рус.",
   en: "англ.",
+  createVariation: 'создать вариант',
+  addToBookmarks: 'добавить в закладки',
+  edit: "Редактировать",
+  statistics: "статистика",
+  author:"aвтор",
+  uploaded: "загружено"
 };
