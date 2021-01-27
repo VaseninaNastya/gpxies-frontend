@@ -11,8 +11,8 @@ class TrackListPageButtonsBlock {
   generateLayout() {
     this.getWordsData()
     this.buttonsBlock_container = create('div',"buttonsBlock_container",[
-      create('div', "track_dowload_button",`${this.wordsChooseArr[0].download}`),
-      create('div', "track_delete_button", `${this.wordsChooseArr[0].delete}`),
+      create('div', "track_dowload_button",`${this.wordsChooseArr.download}`),
+      create('div', "track_delete_button", `${this.wordsChooseArr.delete}`),
     ])
     return  this.buttonsBlock_container
   }

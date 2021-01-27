@@ -18,13 +18,13 @@ class LoadTrackPage {
     this.getWordsData();
     this.gpxiesAPI = new GpxiesAPI();
     this.popup = new MessagePopap(
-      `${this.wordsChooseArr[0].success_trackLoad_message}`,
+      `${this.wordsChooseArr.success_trackLoad_message}`,
       [
-        ["button_newTrack", `${this.wordsChooseArr[0].button_newTrack}`],
-        ["button_editTrack",`${this.wordsChooseArr[0].button_editTrack}`],
+        ["button_newTrack", `${this.wordsChooseArr.button_newTrack}`],
+        ["button_editTrack",`${this.wordsChooseArr.button_editTrack}`],
       ],
-      `${this.wordsChooseArr[0].error_trackLoad_message}`,
-      [["button_newTrack", `${this.wordsChooseArr[0].button_newTrack}`]]
+      `${this.wordsChooseArr.error_trackLoad_message}`,
+      [["button_newTrack", `${this.wordsChooseArr.button_newTrack}`]]
     );
     this.popap_container = this.popup.generateMessageLayout();
     document.body.prepend(this.popap_container);
@@ -35,7 +35,7 @@ class LoadTrackPage {
     this.loading_button = create(
       "label",
       "loading_button",
-      `${this.wordsChooseArr[0].selectFile}`,
+      `${this.wordsChooseArr.selectFile}`,
       null,
       ["for", "load_track_file_input"]
     );
@@ -53,11 +53,11 @@ class LoadTrackPage {
     this.button_save = create(
       "input",
       "button_save button__primary",
-      `${this.wordsChooseArr[0].send}`,
+      `${this.wordsChooseArr.send}`,
       null,
       ["type", "submit"],
       ["disabled", "disabled"],
-      ["value",  `${this.wordsChooseArr[0].send}`],
+      ["value", `${this.wordsChooseArr.send}`],
     );
     const header = new Header();
     this.button__prime = create("a", "button__primary", "Сохранить");
@@ -76,7 +76,7 @@ class LoadTrackPage {
       "private_checkbox_container",
       [
         this.private_checkbox,
-        create("label", "private_checkbox_label",`${this.wordsChooseArr[0].privateTrack}`, null, [
+        create("label", "private_checkbox_label",`${this.wordsChooseArr.privateTrack}`, null, [
           "for",
           "private_checkbox",
         ]),
@@ -97,14 +97,14 @@ class LoadTrackPage {
         create(
           "option",
           null,
-          `${this.wordsChooseArr[0].bike}`,
+          `${this.wordsChooseArr.bike}`,
           null,
           ["value", Type.Bike],
           ["selected", "selected"]
         ),
-        create("option", null, `${this.wordsChooseArr[0].run}`, null, ["value", Type.Run]),
-        create("option", null, `${this.wordsChooseArr[0].hike}`, null, ["value", Type.Hike]),
-        create("option", null, `${this.wordsChooseArr[0].other}`, null, ["value", Type.Other]),
+        create("option", null, `${this.wordsChooseArr.run}`, null, ["value", Type.Run]),
+        create("option", null, `${this.wordsChooseArr.hike}`, null, ["value", Type.Hike]),
+        create("option", null, `${this.wordsChooseArr.other}`, null, ["value", Type.Other]),
       ],
       null,
       ["id", "sport_selector"],
@@ -115,7 +115,7 @@ class LoadTrackPage {
       "loadTrackPage_name",
       null,
       null,
-      ["placeholder", `${this.wordsChooseArr[0].trackTitle}`],
+      ["placeholder", `${this.wordsChooseArr.trackTitle}`],
       ["type", "text"],
       ["required", "required"],
       ["id", "loadTrackPage_name"],
@@ -124,7 +124,7 @@ class LoadTrackPage {
     this.loadTrackPage_title_container = create(
       "div",
       "loadTrackPage_title_container",
-      [create("h2", "loadTrackPage_title", `${this.wordsChooseArr[0].button_newTrack}`)]
+      [create("h2", "loadTrackPage_title", `${this.wordsChooseArr.button_newTrack}`)]
     );
     this.loadTrackPage_form = create(
       "form",
@@ -142,7 +142,7 @@ class LoadTrackPage {
           this.private_checkbox_container,
         ]),
         create("div", "track_description_textarea_container", [
-          create("label", "track_description_label", `${this.wordsChooseArr[0].trackDescription}`, null, [
+          create("label", "track_description_label", `${this.wordsChooseArr.trackDescription}`, null, [
             "for",
             "track_description_textarea",
           ]),

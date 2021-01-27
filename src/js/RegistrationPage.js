@@ -19,7 +19,7 @@ class RegistrationPage {
     this.button__prime = create(
       "a",
       "button__primary",
-      `${this.wordsChooseArr[0].signUp}`
+      `${this.wordsChooseArr.signUp}`
     );
     this.password = create(
       "input",
@@ -33,12 +33,12 @@ class RegistrationPage {
     this.password_description = create(
       "div",
       "password_description__hidden password_description",
-      `${this.wordsChooseArr[0].error_password_signUp_message}`
+      `${this.wordsChooseArr.error_password_signUp_message}`
     );
     this.duplicate_email_description = create(
       "div",
       "duplicate_email_description__hidden duplicate_email_description",
-      `${this.wordsChooseArr[0].error_email_signUp_message}`
+      `${this.wordsChooseArr.error_email_signUp_message}`
     );
     this.confirm_password = create(
       "input",
@@ -52,12 +52,12 @@ class RegistrationPage {
     this.confirm_password_description = create(
       "div",
       "confirm_password_description__hidden confirm_password_description",
-      `${this.wordsChooseArr[0].error_email_proof_signUp_message}`
+      `${this.wordsChooseArr.error_email_proof_signUp_message}`
     );
     this.registration_form_loginLink = create(
       "div",
       "registration_form_loginLink",
-      `${this.wordsChooseArr[0].enter}`
+      `${this.wordsChooseArr.enter}`
     );
     this.login_description = create("div", "login_description");
     this.email_description = create("div", "email_description");
@@ -65,10 +65,10 @@ class RegistrationPage {
       create(
         "h3",
         "registration_form_title",
-        `${this.wordsChooseArr[0].registration}`
+        `${this.wordsChooseArr.registration}`
       ),
       create("div", "registration_form_container", [
-        create("label", null, `${this.wordsChooseArr[0].yourLogin}`, null, ["for", "loginField"]),
+        create("label", null, `${this.wordsChooseArr.yourLogin}`, null, ["for", "loginField"]),
         create(
           "input",
           null,
@@ -91,13 +91,13 @@ class RegistrationPage {
         ),
         this.duplicate_email_description,
         this.email_description,
-        create("label", null, `${this.wordsChooseArr[0].password}`, null, ["for", "password"]),
+        create("label", null, `${this.wordsChooseArr.password}`, null, ["for", "password"]),
         this.password,
         this.password_description,
         create(
           "label",
           null,
-          `${this.wordsChooseArr[0].confirmThePassword}`,
+          `${this.wordsChooseArr.confirmThePassword}`,
           null,
           ["for", "confirmPassword"]
         ),

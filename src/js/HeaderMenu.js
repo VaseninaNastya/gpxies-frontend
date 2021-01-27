@@ -14,9 +14,9 @@ class HeaderMenu {
   generateLayout() {
     this.getWordsData()
     const headerMenu_container = create("div", "headerMenu_container", [
-      create("div","headerMenu_item downloadTrack",`${this.wordsChooseArr[0].downloadTrack}`),
-      create("div", "headerMenu_item trackList", `${this.wordsChooseArr[0].trackList}`),
-      create("div", "headerMenu_item logout", `${this.wordsChooseArr[0].logout}`),
+      create("div","headerMenu_item downloadTrack",`${this.wordsChooseArr.downloadTrack}`),
+      create("div", "headerMenu_item trackList", `${this.wordsChooseArr.trackList}`),
+      create("div", "headerMenu_item logout", `${this.wordsChooseArr.logout}`),
       this.chooseLanguage_container,
     ]);
     return headerMenu_container;

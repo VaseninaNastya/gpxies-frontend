@@ -28,10 +28,10 @@ class TrackListPage {
     this.getWordsData()
     const footer = new Footer();
     this.popup = new MessagePopap(
-      `${this.wordsChooseArr[0].success_trackDelete_message}`,
-      [['button_returnToTrackList', `${this.wordsChooseArr[0].button_returnToTrackList}`]],
-      `${this.wordsChooseArr[0].error_trackDelete_message}`,
-      [['button_returnToTrackList', `${this.wordsChooseArr[0].button_returnToTrackList}`]]
+      `${this.wordsChooseArr.success_trackDelete_message}`,
+      [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]],
+      `${this.wordsChooseArr.error_trackDelete_message}`,
+      [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]]
     );
     this.popap_container = this.popup.generateMessageLayout();
     document.body.prepend(this.popap_container);
@@ -68,37 +68,37 @@ class TrackListPage {
       'select',
       'sport-choce',
       [
-        create('option', null,  `${this.wordsChooseArr[0].all}`, null, ['value', '']),
-        create('option', null,  `${this.wordsChooseArr[0].bike}`, null, ['value', Type.Bike]),
-        create('option', null,  `${this.wordsChooseArr[0].run}`, null, ['value', Type.Run]),
-        create('option', null,  `${this.wordsChooseArr[0].hike}`, null, ['value', Type.Hike]),
-        create('option', null,  `${this.wordsChooseArr[0].other}`, null, ['value', Type.Other]),
+        create('option', null,  `${this.wordsChooseArr.all}`, null, ['value', '']),
+        create('option', null,  `${this.wordsChooseArr.bike}`, null, ['value', Type.Bike]),
+        create('option', null,  `${this.wordsChooseArr.run}`, null, ['value', Type.Run]),
+        create('option', null,  `${this.wordsChooseArr.hike}`, null, ['value', Type.Hike]),
+        create('option', null,  `${this.wordsChooseArr.other}`, null, ['value', Type.Other]),
       ],
       null,
       ['id', 'sport-choce']
     );
     this.table_item_checkAllCheckbox = create('div', 'table_item', [
-      create('div', null, `${this.wordsChooseArr[0].allTracks}`),
+      create('div', null, `${this.wordsChooseArr.allTracks}`),
       this.checkAllCheckbox,
     ]);
     this.tableHeader = create('div', 'table_header_container', [
       this.table_item_checkAllCheckbox,
       create('div', 'table_item table_header_item_sport-choce', [
-        create('span', null, `${this.wordsChooseArr[0].typeOfSport}`),
+        create('span', null, `${this.wordsChooseArr.typeOfSport}`),
         this.sportChoce_select,
       ]),
       create('div', 'table_item table_header_item_date', [
-        create('span', null, `${this.wordsChooseArr[0].date}`),
+        create('span', null, `${this.wordsChooseArr.date}`),
         this.filter_date_icons_container,
       ]),
       create('div', 'table_item table_header_item_name', [
         create('div', 'table_header_item_name_container', [
-          create('label', null, `${this.wordsChooseArr[0].title}`, null, ['for', 'filter_name']),
+          create('label', null, `${this.wordsChooseArr.title}`, null, ['for', 'filter_name']),
         ]),
       ]),
       create('div', 'table_item table_header_item_distance', [
         
-        create('div', null, `${this.wordsChooseArr[0].distance}`),
+        create('div', null, `${this.wordsChooseArr.distance}`),
         this.filter_distance_icons_container,
       ]),
     ]);

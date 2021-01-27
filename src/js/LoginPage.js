@@ -18,12 +18,12 @@ class LoginPage {
     this.button__prime = create(
       "div",
       "button__primary",
-      `${this.wordsChooseArr[0].login}`
+      `${this.wordsChooseArr.login}`
     );
     this.error_description = create(
       "div",
       "error_description error_description_hidden",
-      `${this.wordsChooseArr[0].login_error_description}`
+      `${this.wordsChooseArr.login_error_description}`
     );
     this.email_input = create(
       "input",
@@ -46,7 +46,7 @@ class LoginPage {
     this.login_form_registrationPageLink = create(
       "div",
       "login_form_registrationLink",
-      `${this.wordsChooseArr[0].registration}`
+      `${this.wordsChooseArr.registration}`
     );
     (this.login_form_container = create("div", "login_form_container", [
       create("label", null, "email", null, ["for", "emailField"]),
@@ -55,7 +55,7 @@ class LoginPage {
       create(
         "label",
         "login_form_password",
-        `${this.wordsChooseArr[0].password}`,
+        `${this.wordsChooseArr.password}`,
         null,
         ["for", "password"]
       ),
@@ -66,7 +66,7 @@ class LoginPage {
         create(
           "h3",
           "login_form_title",
-          `${this.wordsChooseArr[0].enter}`
+          `${this.wordsChooseArr.enter}`
         ),
         this.login_form_container,
         create("div", "login_form_buttoncontainer", [
@@ -124,9 +124,9 @@ class LoginPage {
   }
   checkRegistration() {
     const registrationMessage = new MessagePopap(
-      `${this.wordsChooseArr[0].success_registration_message}`,
+      `${this.wordsChooseArr.success_registration_message}`,
       null,
-      `${this.wordsChooseArr[0].error_registration_message}`,
+      `${this.wordsChooseArr.error_registration_message}`,
       null
     );
     const registrationSuccessMessageNode = registrationMessage.generateSuccessLayout();
