@@ -29,4 +29,13 @@ module.exports = {
   distance: "Дистанция, км", 
   download: "скачать",
   delete: "удалить",
+  success_trackLoad_message:"Вы успешно загрузили трек!",
+  error_trackLoad_message:"Во время загрузки произошла ошибка.",
+  button_newTrack: "Загрузить новый трек",
+  button_editTrack: "Редактировать трек",
+  selectFile: "Выбрать файл",
+  send: "Отправить",
+  privateTrack: "Приватный трек",
+  trackTitle: "Название трека",
+  trackDescription:"Oписание трека",
 };

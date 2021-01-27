@@ -29,4 +29,13 @@ module.exports = {
   distance: "Distance, km",
   download: "download",
   delete: "delete",
+  success_trackLoad_message:"You have successfully uploaded a track!",
+  error_trackLoad_message:"An error occurred during the download.",
+  button_newTrack: "Upload a new track",
+  button_editTrack: "Edit track",
+  selectFile: "Select file",
+  send: "Send",
+  privateTrack: "Private track",
+  trackTitle: "Track title",
+  trackDescription:"Track description",
 };

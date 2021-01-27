@@ -5,20 +5,37 @@ import GpxiesAPI from "./GpxiesAPI";
 import Type from "./trackTypes.utils";
 import MessagePopap from "./MessagePopap";
 import icon_spinner from "../../assets/img/icons_spinner.png";
-
-
+import ChooseLanguage from "./ChooseLanguage";
 
 class LoadTrackPage {
+  getWordsData() {
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
+  }
   generateLayout() {
+    this.getWordsData();
     this.gpxiesAPI = new GpxiesAPI();
-    this.popup = new MessagePopap( "Вы успешно загрузили трек!", [["button_newTrack","Загрузить новый трек"],["button_editTrack","Редактировать трек"]], "Во время загрузки произошла ошибка.",[["button_newTrack","Загрузить новый трек"]]);
+    this.popup = new MessagePopap(
+      `${this.wordsChooseArr[0].success_trackLoad_message}`,
+      [
+        ["button_newTrack", `${this.wordsChooseArr[0].button_newTrack}`],
+        ["button_editTrack",`${this.wordsChooseArr[0].button_editTrack}`],
+      ],
+      `${this.wordsChooseArr[0].error_trackLoad_message}`,
+      [["button_newTrack", `${this.wordsChooseArr[0].button_newTrack}`]]
+    );
     this.popap_container = this.popup.generateMessageLayout();
     document.body.prepend(this.popap_container);
-    this.spinner = create("img", "icon_spinner", null, null, ["src", icon_spinner])
+    this.spinner = create("img", "icon_spinner", null, null, [
+      "src",
+      icon_spinner,
+    ]);
     this.loading_button = create(
       "label",
       "loading_button",
-      "Выбрать файл",
+      `${this.wordsChooseArr[0].selectFile}`,
       null,
       ["for", "load_track_file_input"]
     );
@@ -36,10 +53,11 @@ class LoadTrackPage {
     this.button_save = create(
       "input",
       "button_save button__primary",
-      "Отправить",
+      `${this.wordsChooseArr[0].send}`,
       null,
       ["type", "submit"],
-      ["disabled", "disabled"]
+      ["disabled", "disabled"],
+      ["value",  `${this.wordsChooseArr[0].send}`],
     );
     const header = new Header();
     this.button__prime = create("a", "button__primary", "Сохранить");
@@ -58,7 +76,7 @@ class LoadTrackPage {
       "private_checkbox_container",
       [
         this.private_checkbox,
-        create("label", "private_checkbox_label", "Приватный трек", null, [
+        create("label", "private_checkbox_label",`${this.wordsChooseArr[0].privateTrack}`, null, [
           "for",
           "private_checkbox",
         ]),
@@ -79,14 +97,14 @@ class LoadTrackPage {
         create(
           "option",
           null,
-          "Велосипед",
+          `${this.wordsChooseArr[0].bike}`,
           null,
           ["value", Type.Bike],
           ["selected", "selected"]
         ),
-        create("option", null, "Бег", null, ["value", Type.Run]),
-        create("option", null, "Ходьба", null, ["value", Type.Hike]),
-        create("option", null, "Другое", null, ["value", Type.Other]),
+        create("option", null, `${this.wordsChooseArr[0].run}`, null, ["value", Type.Run]),
+        create("option", null, `${this.wordsChooseArr[0].hike}`, null, ["value", Type.Hike]),
+        create("option", null, `${this.wordsChooseArr[0].other}`, null, ["value", Type.Other]),
       ],
       null,
       ["id", "sport_selector"],
@@ -97,7 +115,7 @@ class LoadTrackPage {
       "loadTrackPage_name",
       null,
       null,
-      ["placeholder", "Название трека"],
+      ["placeholder", `${this.wordsChooseArr[0].trackTitle}`],
       ["type", "text"],
       ["required", "required"],
       ["id", "loadTrackPage_name"],
@@ -106,7 +124,7 @@ class LoadTrackPage {
     this.loadTrackPage_title_container = create(
       "div",
       "loadTrackPage_title_container",
-      [create("h2", "loadTrackPage_title", "Загрузить новый трек")]
+      [create("h2", "loadTrackPage_title", `${this.wordsChooseArr[0].button_newTrack}`)]
     );
     this.loadTrackPage_form = create(
       "form",
@@ -124,7 +142,7 @@ class LoadTrackPage {
           this.private_checkbox_container,
         ]),
         create("div", "track_description_textarea_container", [
-          create("label", "track_description_label", "Oписание трека", null, [
+          create("label", "track_description_label", `${this.wordsChooseArr[0].trackDescription}`, null, [
             "for",
             "track_description_textarea",
           ]),
@@ -143,16 +161,21 @@ class LoadTrackPage {
       header.generateLayout(),
       this.loadTrackPage_container,
     ]);
-    this.addEventListeners();
     document.body.prepend(wraper);
+        this.addEventListeners();
   }
   addEventListeners() {
-    this.loading_button.addEventListener("click",()=>{
+    document
+    .querySelector(".language_container")
+    .addEventListener("click", () => {
+      this.refreshLayout();
+    });
+    this.loading_button.addEventListener("click", () => {
       this.addDisabledButtonAttribute();
-      this.loading_hiddenInput.value = null
-      this.loading_trackFileName.innerHTML = ""
+      this.loading_hiddenInput.value = null;
+      this.loading_trackFileName.innerHTML = "";
       this.loading_trackFileName.append(this.spinner);
-    })
+    });
     document
       .querySelector(".loadingSpinner_wrapper")
       .addEventListener("click", (e) => {
@@ -167,25 +190,23 @@ class LoadTrackPage {
     this.loading_hiddenInput.addEventListener(
       "change",
       () => {
-console.log("skksksksЮЮЮЮЮЮЮЮЮЮЮ>>>>>>>");
         const fileList = this.loading_hiddenInput.files[0];
         const fileName = fileList.name;
-        this.loading_trackFileName.innerHTML = ""
-        this.loading_trackFileName.append(create("span",null,fileName));
+        this.loading_trackFileName.innerHTML = "";
+        this.loading_trackFileName.append(create("span", null, fileName));
       },
       false
     );
     let loading_trackFileNameObserver = new MutationObserver(
       (mutationRecords) => {
-        if(mutationRecords[1]){
-          if(mutationRecords[1].addedNodes[0].tagName == "SPAN"){
+        if (mutationRecords[1]) {
+          if (mutationRecords[1].addedNodes[0].tagName == "SPAN") {
             this.removeDisabledButtonAttribute();
           }
         }
       }
     );
     loading_trackFileNameObserver.observe(this.loading_trackFileName, {
-      
       childList: true,
       addedNodes: true,
     });
@@ -209,17 +230,22 @@ console.log("skksksksЮЮЮЮЮЮЮЮЮЮЮ>>>>>>>");
       }
     });
   }
+  refreshLayout() {
+    document.body.innerHTML = "";
+    this.chooseLanguage = localStorage.getItem("gpxiesChoosen_language");
+    this.generateLayout();
+  }
   resetForm() {
-    console.log("document.forms[0]",document.forms[0]);
+    console.log("document.forms[0]", document.forms[0]);
     document.forms[0].reset();
-    this.popup.hideMessages()
+    this.popup.hideMessages();
     this.loading_trackFileName.innerHTML = null;
   }
   removeDisabledButtonAttribute() {
     this.button_save.removeAttribute("disabled");
   }
   addDisabledButtonAttribute() {
-    this.button_save.setAttribute("disabled","disabled");
+    this.button_save.setAttribute("disabled", "disabled");
   }
 }
 
