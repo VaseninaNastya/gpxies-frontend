@@ -8,6 +8,10 @@
     border-radius: 7px;
     box-shadow: 0 0 100px rgba(0,0,0,0.2); /* Параметры тени */
 }
+.login_form .button__primary{
+    text-align: center;
+    width: 50%;
+}
 .login_form_buttoncontainer{
     display: flex;
     flex-direction: column;

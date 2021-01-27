@@ -1,10 +1,26 @@
 import "../css/main.css";
 import create from "./create";
 import GpxiesAPI from "./GpxiesAPI";
+import ChooseLanguage from "./ChooseLanguage";
+
 class RegistrationPage {
-  
+  getWordsData() {
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.denerateWordsData();
+    this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
+    this.chooseLanguage_container.classList.add(
+      "language_container_registration"
+    );
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
+  }
   generateLayout() {
-    this.button__prime = create("a", "button__primary", "Зарегистрироваться");
+    this.getWordsData();
+    this.button__prime = create(
+      "a",
+      "button__primary",
+      `${this.wordsChooseArr[0].signUp}`
+    );
     this.password = create(
       "input",
       null,
@@ -17,12 +33,12 @@ class RegistrationPage {
     this.password_description = create(
       "div",
       "password_description__hidden password_description",
-      "Минимальная длина пароля - 6 знаков. Язык пароля - английский. Пароль должен содержать не менее одной прописной буквы и не менее одной цифры"
+      `${this.wordsChooseArr[0].error_password_signUp_message}`
     );
     this.duplicate_email_description = create(
       "div",
       "duplicate_email_description__hidden duplicate_email_description",
-      "Этот email или этот логин уже зарегистрирован"
+      `${this.wordsChooseArr[0].error_email_signUp_message}`
     );
     this.confirm_password = create(
       "input",
@@ -36,15 +52,23 @@ class RegistrationPage {
     this.confirm_password_description = create(
       "div",
       "confirm_password_description__hidden confirm_password_description",
-      "Пароль и его подтверждение должны совпадать"
+      `${this.wordsChooseArr[0].error_email_proof_signUp_message}`
     );
-    this.registration_form_loginLink =  create("div", "registration_form_loginLink", "Вход");
+    this.registration_form_loginLink = create(
+      "div",
+      "registration_form_loginLink",
+      `${this.wordsChooseArr[0].enter}`
+    );
     this.login_description = create("div", "login_description");
     this.email_description = create("div", "email_description");
-    this.registration_form =       create("form", "registration_form", [
-      create("h3", "registration_form_title", "Регистрация"),
+    this.registration_form = create("form", "registration_form", [
+      create(
+        "h3",
+        "registration_form_title",
+        `${this.wordsChooseArr[0].registration}`
+      ),
       create("div", "registration_form_container", [
-        create("label", null, "логин", null, ["for", "loginField"]),
+        create("label", null, `${this.wordsChooseArr[0].yourLogin}`, null, ["for", "loginField"]),
         create(
           "input",
           null,
@@ -67,13 +91,16 @@ class RegistrationPage {
         ),
         this.duplicate_email_description,
         this.email_description,
-        create("label", null, "пароль", null, ["for", "password"]),
+        create("label", null, `${this.wordsChooseArr[0].password}`, null, ["for", "password"]),
         this.password,
         this.password_description,
-        create("label", null, "подтвердите пароль", null, [
-          "for",
-          "confirmPassword",
-        ]),
+        create(
+          "label",
+          null,
+          `${this.wordsChooseArr[0].confirmThePassword}`,
+          null,
+          ["for", "confirmPassword"]
+        ),
         this.confirm_password,
         this.confirm_password_description,
       ]),
@@ -81,15 +108,11 @@ class RegistrationPage {
         this.button__prime,
         this.registration_form_loginLink,
       ]),
-    ])
-      const wrapper = create("div", "wrapper",
-      this.registration_form
-      )
-    document.body.prepend(
-      wrapper
-    );
-    this.addSendFormButtonEventListener();
-    this.addLoginPageLinkEventListener()
+      this.chooseLanguage_container,
+    ]);
+    const wrapper = create("div", "wrapper", this.registration_form);
+    document.body.prepend(wrapper);
+    this.addListeners();
   }
   validateСonfirmPassword() {
     if (this.password.value != this.confirm_password.value) {
@@ -117,7 +140,12 @@ class RegistrationPage {
       }
     }
   }
-  addSendFormButtonEventListener() {
+  refreshLayout() {
+    document.body.innerHTML = "";
+    this.chooseLanguage = localStorage.getItem("gpxiesChoosen_language");
+    this.generateLayout();
+  }
+  addListeners() {
     this.button__prime.addEventListener("click", async (e) => {
       e.preventDefault();
       this.clearLoginErrors();
@@ -135,14 +163,16 @@ class RegistrationPage {
       );
       await this.showLoginErrorsMessages();
       await this.showDuplicateEmailErrorsMessages();
-      await this.addRegisteredDataAtLocalStorage()
+      await this.addRegisteredDataAtLocalStorage();
     });
-  }
-  addLoginPageLinkEventListener(){
-    this.registration_form_loginLink.addEventListener("click", ()=>{
-      this.redirectToLoginPage()
-    }
-    )
+    this.registration_form_loginLink.addEventListener("click", () => {
+      this.redirectToLoginPage();
+    });
+    document
+      .querySelector(".language_container")
+      .addEventListener("click", () => {
+        this.refreshLayout();
+      });
   }
   showLoginErrorsMessages() {
     if (this.gpxiesAPIAnswer.errors) {
@@ -173,11 +203,14 @@ class RegistrationPage {
   addRegisteredDataAtLocalStorage() {
     if (this.gpxiesAPIAnswer.ok) {
       localStorage.setItem("gpxiesEmail", this.userRegistrationData.email);
-      localStorage.setItem("gpxiesPassword", this.userRegistrationData.password);
-      this.redirectToLoginPage()
+      localStorage.setItem(
+        "gpxiesPassword",
+        this.userRegistrationData.password
+      );
+      this.redirectToLoginPage();
     }
   }
-  redirectToLoginPage(){
+  redirectToLoginPage() {
     window.location = "loginPage.html";
   }
   clearLoginErrors() {
@@ -188,7 +221,6 @@ class RegistrationPage {
       this.email_description.innerHTML = "";
     }
   }
-
 }
 const registrationPage = new RegistrationPage();
 registrationPage.generateLayout();

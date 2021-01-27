@@ -10,26 +10,30 @@
   padding-bottom: 6px;
   height: 100%;
   width: 50%;
+  cursor: pointer;
 }
 .language_container{
     display: flex;
     justify-content: space-around;
 }
-.language_container_login{
+.language_container_login,
+.language_container_registration{
   width: 30%;
   height: 22px;
   margin: 0 auto 10px auto;
   border-radius: 5px;
   background-color: rgb(245, 245, 245);
- /* background-color: #d5f0f3;*/
 }
-.language_container_login .choosen_language{
+.language_container_login .choosen_language,
+.language_container_registration .choosen_language{
   background-color: rgb(179, 179, 179);
 }
 
-.language_container_login .language_item:first-child {
+.language_container_login .language_item:first-child,
+.language_container_registration .language_item:first-child{
   border-radius: 5px 0 0 5px;
 }
-.language_container_login .language_item:last-child {
+.language_container_login .language_item:last-child,
+.language_container_registration .language_item:last-child {
   border-radius: 0 5px 5px 0;
 }

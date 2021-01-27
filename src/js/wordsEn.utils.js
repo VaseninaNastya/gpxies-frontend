@@ -3,6 +3,13 @@ module.exports = {
   password: "password",
   login: "Login",
   registration: "Registration",
-  login_error_description: "Login or password not registered"
+  login_error_description: "Login or password not registered",
+  success_registration_message: "You have successfully registered!",
+  error_registration_message: "An error occurred while registering the user.",
+  signUp:"Sign Up",
+  error_password_signUp_message: "The minimum password length is 6 characters. The password language is English. The password must contain at least one uppercase letter and at least one number.",
+  error_email_signUp_message:"This email or this login is already registered.",
+  error_email_proof_signUp_message:"The password and its confirmation must match.",
+  confirmThePassword: "Confirm the password",
+  yourLogin: "login",
 };
-

@@ -3,5 +3,13 @@ module.exports = {
   password: "пароль",
   login: "Войти",
   registration: "Регистрация",
-  login_error_description: "Логин или пароль не зарегистрированы"
+  login_error_description: "Логин или пароль не зарегистрированы",
+  success_registration_message: "Вы успешно зарегистрировались!",
+  error_registration_message:"Во время регистрации пользователя произошла ошибка.",
+  signUp:"Зарегистрироваться",
+  error_password_signUp_message: "Минимальная длина пароля - 6 знаков. Язык пароля - английский. Пароль должен содержать не менее одной прописной буквы и не менее одной цифры",
+  error_email_signUp_message:"Этот email или этот логин уже зарегистрирован.",
+  error_email_proof_signUp_message:"Пароль и его подтверждение должны совпадать.",
+  confirmThePassword: "подтвердите пароль",
+  yourLogin: "логин",
 };
