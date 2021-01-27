@@ -41,4 +41,6 @@ module.exports = {
   downloadTrack: "Download the track",
   trackList:"List of my tracks",
   logout: "Log out",
+  ru: "rus.",
+  en: "eng.",
 };
