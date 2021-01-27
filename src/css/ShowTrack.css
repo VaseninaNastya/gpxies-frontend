@@ -4,3 +4,6 @@
   background-size: cover;
   background-repeat: no-repeat
 }
+.map{
+  z-index: 5;
+}
