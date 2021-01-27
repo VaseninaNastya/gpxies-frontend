@@ -26,12 +26,5 @@ class TrackListPageButtonsBlock {
       "buttonsBlock_container_unhidden"
     );
   }
-  /*addEventListeners() {
-    document
-      .querySelector(".language_container")
-      .addEventListener("click", () => {
-        this.refreshLayout();
-      });
-  }*/
 }
 export default TrackListPageButtonsBlock
