@@ -6,6 +6,7 @@ import Type from "./trackTypes.utils";
 import MessagePopap from "./MessagePopap";
 import icon_spinner from "../../assets/img/icons_spinner.png";
 import ChooseLanguage from "./ChooseLanguage";
+import Footer from "./Footer";
 
 class LoadTrackPage {
   getWordsData() {
@@ -26,6 +27,7 @@ class LoadTrackPage {
       `${this.wordsChooseArr.error_trackLoad_message}`,
       [["button_newTrack", `${this.wordsChooseArr.button_newTrack}`]]
     );
+    const footer = new Footer();
     this.popap_container = this.popup.generateMessageLayout();
     document.body.prepend(this.popap_container);
     this.spinner = create("img", "icon_spinner", null, null, [
@@ -160,6 +162,7 @@ class LoadTrackPage {
     const wraper = create("div", "loadTrackPage_wrapper", [
       header.generateLayout(),
       this.loadTrackPage_container,
+      footer.generateLayout(),
     ]);
     document.body.prepend(wraper);
         this.addEventListeners();
