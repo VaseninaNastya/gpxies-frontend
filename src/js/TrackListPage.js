@@ -12,18 +12,28 @@ import TrackListPageButtonsBlock from './TrackListPageButtonsBlock';
 import MessagePopap from './MessagePopap';
 import SportsNames from './sportsTypesNames.utils.js';
 import Footer from "./Footer";
+import ChooseLanguage from "./ChooseLanguage";
 
 class TrackListPage {
   constructor() {
     this.trackHashForDelete = [];
   }
+  getWordsData(){
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.denerateWordsData();
+    //this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
+   // this.chooseLanguage_container.classList.add("language_container_login");
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
+  }
   generateLayout() {
+    this.getWordsData()
     const footer = new Footer();
     this.popup = new MessagePopap(
-      'Удаление прошло успешно.',
-      [['button_returnToTrackList', 'Вернуться к списку треков']],
-      'Во время удаления произошла ошибка.',
-      [['button_newTrack', 'Вернуться к списку треков']]
+      `${this.wordsChooseArr[0].success_trackDelete_message}`,
+      [['button_returnToTrackList', `${this.wordsChooseArr[0].button_returnToTrackList}`]],
+      `${this.wordsChooseArr[0].error_trackDelete_message}`,
+      [['button_returnToTrackList', `${this.wordsChooseArr[0].button_returnToTrackList}`]]
     );
     this.popap_container = this.popup.generateMessageLayout();
     document.body.prepend(this.popap_container);
@@ -60,42 +70,47 @@ class TrackListPage {
       'select',
       'sport-choce',
       [
-        create('option', null, 'Все', null, ['value', '']),
-        create('option', null, 'Велосипед', null, ['value', Type.Bike]),
-        create('option', null, 'Бег', null, ['value', Type.Run]),
-        create('option', null, 'Ходьба', null, ['value', Type.Hike]),
-        create('option', null, 'Другой', null, ['value', Type.Other]),
+        create('option', null,  `${this.wordsChooseArr[0].all}`, null, ['value', '']),
+        create('option', null,  `${this.wordsChooseArr[0].bike}`, null, ['value', Type.Bike]),
+        create('option', null,  `${this.wordsChooseArr[0].run}`, null, ['value', Type.Run]),
+        create('option', null,  `${this.wordsChooseArr[0].hike}`, null, ['value', Type.Hike]),
+        create('option', null,  `${this.wordsChooseArr[0].other}`, null, ['value', Type.Other]),
       ],
       null,
       ['id', 'sport-choce']
     );
     this.table_item_checkAllCheckbox = create('div', 'table_item', [
-      create('div', null, 'Всe треки'),
+      create('div', null, `${this.wordsChooseArr[0].allTracks}`),
       this.checkAllCheckbox,
     ]);
     this.tableHeader = create('div', 'table_header_container', [
       this.table_item_checkAllCheckbox,
       create('div', 'table_item table_header_item_sport-choce', [
-        create('span', null, 'Вид спорта'),
+        create('span', null, `${this.wordsChooseArr[0].typeOfSport}`),
         this.sportChoce_select,
       ]),
       create('div', 'table_item table_header_item_date', [
-        create('span', null, 'Дата'),
+        create('span', null, `${this.wordsChooseArr[0].date}`),
         this.filter_date_icons_container,
       ]),
       create('div', 'table_item table_header_item_name', [
         create('div', 'table_header_item_name_container', [
-          create('label', null, 'Название', null, ['for', 'filter_name']),
+          create('label', null, `${this.wordsChooseArr[0].title}`, null, ['for', 'filter_name']),
         ]),
       ]),
       create('div', 'table_item table_header_item_distance', [
-        create('div', null, 'Дистанция, км'),
+        
+        create('div', null, `${this.wordsChooseArr[0].distance}`),
         this.filter_distance_icons_container,
       ]),
     ]);
     return this.tableHeader;
   }
-
+  refreshLayout() {
+    document.body.innerHTML = "";
+    this.chooseLanguage = localStorage.getItem("gpxiesChoosen_language");
+    this.generateLayout();
+  }
   choiseAll() {
     document
       .querySelectorAll('.checkbox_item')
@@ -202,6 +217,11 @@ class TrackListPage {
   }
   addEventListeners() {
     document
+      .querySelector(".language_container")
+      .addEventListener("click", () => {
+        this.refreshLayout();
+      });
+    document
       .querySelector('.loadingSpinner_wrapper')
       .addEventListener('click', (e) => {
         if (
@@ -238,11 +258,8 @@ class TrackListPage {
                   item1.hashString == item.getAttribute('data_checkboxhash')
                 );
               }).id;
-
               let result = await this.gpxiesAPI.deleteTrackById(deleteId);
-              console.log('result', result);
               if (result.ok) {
-                console.log('работает');
                 this.popup.showSuccessMessage();
               } else {
                 this.popup.showErrorMessage();
