@@ -38,4 +38,7 @@ module.exports = {
   privateTrack: "Private track",
   trackTitle: "Track title",
   trackDescription:"Track description",
+  downloadTrack: "Download the track",
+  trackList:"List of my tracks",
+  logout: "Log out",
 };

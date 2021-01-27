@@ -1,20 +1,25 @@
 import ChooseLanguage from "./ChooseLanguage";
 import create from "./create";
 
+
 class HeaderMenu {
+  getWordsData(){
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
+    this.chooseLanguage_container.classList.add("headerMenu_item")
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
+  }
   generateLayout() {
-    const chooseLanguage = new ChooseLanguage()
-    const chooseLanguage_container = chooseLanguage.generateLayout()
-   // chooseLanguage.choiseLanguage()
-    chooseLanguage_container.classList.add("headerMenu_item")
+    this.getWordsData()
     const headerMenu_container = create("div", "headerMenu_container", [
-      create("div","headerMenu_item","Загрузить трек"),
-      create("div", "headerMenu_item", "Cписок моих треков"),
-      create("div", "headerMenu_item logout", "Выйти"),
-      chooseLanguage_container,
+      create("div","headerMenu_item downloadTrack",`${this.wordsChooseArr[0].downloadTrack}`),
+      create("div", "headerMenu_item trackList", `${this.wordsChooseArr[0].trackList}`),
+      create("div", "headerMenu_item logout", `${this.wordsChooseArr[0].logout}`),
+      this.chooseLanguage_container,
     ]);
     return headerMenu_container;
   }
-
 }
 export default HeaderMenu;
