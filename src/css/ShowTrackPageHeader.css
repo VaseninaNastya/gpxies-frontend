@@ -1,3 +1,12 @@
+.trackDescription{
+  width: 65%;
+}
+
+
+.trackDescription_trackName, .trackDescription_trackLength{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .trackDescription_menu_item {
   border-left: solid 2px rgba(128, 128, 128, 0.3);
   outline: none; /* убирать контур в Mozilla */
@@ -40,6 +49,7 @@
 }
 .trackDescription_statistic {
   margin-left: auto;
+  margin-right:1px;
   align-self: end;
   width: 150px;
   padding-left: 10px;
@@ -67,6 +77,16 @@
   display: flex;
   align-items: center;
   line-height: 35px;
+  justify-content: left;
+  
+}
+.trackDescription_title__secondary{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.trackDescription_authorName_container{
+margin-right: 10px;
 }
 /*.trackDescription_title__secondary span{
   line-height: 20px;

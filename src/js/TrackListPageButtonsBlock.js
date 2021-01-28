@@ -1,10 +1,18 @@
 import "../css/main.css";
 import create from "./create";
+import ChooseLanguage from "./ChooseLanguage";
 class TrackListPageButtonsBlock {
+  getWordsData(){
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
+  }
   generateLayout() {
+    this.getWordsData()
     this.buttonsBlock_container = create('div',"buttonsBlock_container",[
-      create('div', "track_dowload_button", "скачать"),
-      create('div', "track_delete_button", "удалить"),
+      create('div', "track_dowload_button",`${this.wordsChooseArr.download}`),
+      create('div', "track_delete_button", `${this.wordsChooseArr.delete}`),
     ])
     return  this.buttonsBlock_container
   }

@@ -10,7 +10,10 @@
   background-size: 100% auto;
 
 }
-
+.table_wrapper footer{
+  position: absolute;
+  bottom: 0;
+}
 .table_container {
   background-color: white;
   width: 1000px;

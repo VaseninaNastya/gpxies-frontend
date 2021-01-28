@@ -1,8 +1,7 @@
 .headerMenu_container{
     z-index: 10;
     position: relative;
-    right: 0;
-    top: 95px;
+    top: 94px;
     width: 180px;
     background-color: white;
     transform: translate(0px,-140px);

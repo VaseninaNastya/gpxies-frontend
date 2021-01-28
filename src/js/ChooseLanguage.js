@@ -3,8 +3,11 @@ import wordsEn from "./wordsEn.utils";
 import wordsRu from "./wordsRu.utils";
 class ChooseLanguage{
     generateLayout() {
-        this.language_ru =  create("div","language_item","рус.",null,["id","0"])
-        this.language_en =  create("div","language_item","англ.",null,["id","1"])
+        const wordsArr = this.generateWordsData()
+        const chooseLanguage = this.determinationLanguage()
+        const wordsChooseArr = wordsArr[chooseLanguage];
+        this.language_ru =  create("div","language_item",`${wordsChooseArr.ru}`,null,["id","0"])
+        this.language_en =  create("div","language_item",`${wordsChooseArr.en}`,null,["id","1"])
         this.language_container = create("div","language_container",[this.language_ru,this.language_en])
         if(localStorage.getItem("gpxiesChoosen_language")==1){
             this.language_en.classList.add("choosen_language")
@@ -30,8 +33,8 @@ class ChooseLanguage{
             e.target.classList.add("choosen_language")
         })
     }
-    denerateWordsData(){
-        return [[wordsRu],[wordsEn]]
-      }
+    generateWordsData(){
+        return [wordsRu,wordsEn]
+    }
 }
 export default ChooseLanguage

@@ -119,8 +119,14 @@
     align-items: center;
     justify-content: space-between;
 }
+.button_save{
+    min-width: 20%;
+}
 
-
+.loadTrackPage_wrapper footer{
+    position: absolute;
+    bottom: 0;
+}
 .button_editTrack{
     background-color:#54939b !important;
 }

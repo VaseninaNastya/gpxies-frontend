@@ -26,14 +26,16 @@ class Header {
   }
   logoutButtonAddEventListener() {
     this.headerMenu_node.addEventListener("click", (e) => {
-      if(e.target.innerHTML==="Выйти"){
+      //downloadTrack
+      console.log("e.target",Array.from(e.target.classList));
+      if(Array.from(e.target.classList).includes("logout")){
         this.redirectLogout();
         localStorage.removeItem("gpxiesToken");
       }
-      if(e.target.innerHTML==="Cписок моих треков"){
+      if(Array.from(e.target.classList).includes("trackList")){
         this.redirectTrackListPage()
       }
-      if(e.target.innerHTML==="Загрузить трек"){
+      if(Array.from(e.target.classList).includes("downloadTrack")){
         this.redirectLoadTrackPage()
       }
     }); }
@@ -56,7 +58,6 @@ class Header {
       this.showOutMenu()
     })
   }
- 
   showMenu(){
     document.querySelector(".headerMenu_container").classList.toggle("headerMenu_container_opened")
   }
