@@ -84,10 +84,11 @@ header {
 @media (max-width: 650px) {
   .logo {
     width: 0px;
+    margin: 0;
   }
   .header_userName {
-    width: 150px;
-    right: -150px;
+    width: 140px;
+    right: -140px;
   }
 }
 

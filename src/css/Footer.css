@@ -10,10 +10,10 @@ footer .container{
     justify-content: space-between;
 }
 
-footer .container a{
+footer a{
     color: rgb(110, 110, 110);
 }
-footer .container a:hover{
+footer a:hover{
     color: black;
 }
 .footer_img{

@@ -7,15 +7,10 @@ class Footer {
       null,
       create("img", "footer_img", null, null, ["src", rslogo]),
       null,
-      [
-        "href",
-        "https://rs.school/js/",
-      ]
+      ["href", "https://rs.school/js/"]
     );
 
-    const footer = create(
-      "footer",
-      null,
+    const footer = create("footer",null, [
       create("div", "container", [
         create("a", null, "Vasenina Nastya", null, [
           "href",
@@ -26,8 +21,8 @@ class Footer {
           "https://github.com/nikolai-minkevich",
         ]),
         img,
-      ])
-    );
+      ]),
+    ]);
     return footer;
   }
 }

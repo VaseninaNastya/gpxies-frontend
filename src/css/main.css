@@ -130,7 +130,9 @@ body {
 
 
 .container {
-  width: 1000px;
+  padding: 0 10px;
+  max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
 }
@@ -150,19 +152,19 @@ body {
       flex-direction: column
     }
   }*/
-
+/*
 
   @media (max-width: 1000px) and (min-width: 650px)  {
     .container {
-      width: 98vw;
+      width: 100%;
     }
 }
 
 @media (max-width: 650px) {
   .container {
-    width: 98vw;
+    width: 100%;
   }
-}
+}*/
 
 
 

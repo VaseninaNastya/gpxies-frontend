@@ -1,9 +1,12 @@
-.trackDescription{
-  width: 65%;
+.trackDescription {
+  width: 100%;
 }
 
-
-.trackDescription_trackName, .trackDescription_trackLength{
+.trackDescription_container {
+  width: 70%;
+}
+.trackDescription_trackName,
+.trackDescription_trackLength {
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -23,10 +26,11 @@
 }
 .trackDescription_menu {
   display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   margin: 5px 0;
 }
 .trackDescription_menu_item:hover {
-  /* background: linear-gradient(to left, purple, crimson, orangered, gold);*/
   background-color: rgb(245, 245, 245);
   cursor: pointer;
   color: black;
@@ -38,22 +42,18 @@
 
 .showTrack_header {
   background-color: white;
-  height: 105px;
 }
 
-.showTrack_header .container {
+.showTrack_header {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 .trackDescription_statistic {
-  margin-left: auto;
-  margin-right:1px;
+  margin-right: 1px;
   align-self: end;
-  width: 150px;
+  width: 130px;
   padding-left: 10px;
-  /*background: linear-gradient(to left,rgba(255, 68, 0, 0.8), rgba(255, 68, 0, 0.5));*/
   background: rgba(255, 68, 0);
   color: white;
   height: 100%;
@@ -66,8 +66,7 @@
   height: 40px;
 }
 
-
-.icon_private0{
+.icon_private0 {
   height: 20px;
   width: 20px;
   visibility: hidden;
@@ -78,17 +77,26 @@
   align-items: center;
   line-height: 35px;
   justify-content: left;
-  
+  flex-wrap: wrap;
 }
-.trackDescription_title__secondary{
+.trackDescription_title__secondary {
   display: flex;
   justify-content: left;
   align-items: center;
+  flex-wrap: wrap;
 }
-.trackDescription_authorName_container{
-margin-right: 10px;
+.trackDescription_authorName_container {
+  margin-right: 10px;
 }
-/*.trackDescription_title__secondary span{
-  line-height: 20px;
-  height: 20px;
-}*/
+
+@media (max-width: 650px) {
+  .trackDescription_container {
+    width: 100%;
+  }
+  .trackDescription_statistic {
+    display: none;
+  }
+  .trackDescription_trackLength {
+    font-size: 18px;
+  }
+}
