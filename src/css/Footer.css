@@ -1,7 +1,7 @@
 footer{
     background-color: hsl(53, 40%, 84%);
-    padding: 10px;
-    height: 65px;
+   /* padding: 10px;*/
+   height: 7vh;
     width: 100%;
 }
 footer .container{

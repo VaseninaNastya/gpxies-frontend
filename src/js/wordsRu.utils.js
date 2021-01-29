@@ -48,5 +48,6 @@ module.exports = {
   edit: "Редактировать",
   statistics: "статистика",
   author:"aвтор",
-  uploaded: "загружено"
+  uploaded: "загружено",
+  fullStatistics: "Полная статистика",
 };

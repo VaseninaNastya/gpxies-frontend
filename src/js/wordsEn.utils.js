@@ -48,5 +48,6 @@ module.exports = {
   edit: "edit",
   statistics: "statistics",
   author:"author",
-  uploaded: "uploaded"
+  uploaded: "uploaded",
+  fullStatistics: "Full statistics",
 };

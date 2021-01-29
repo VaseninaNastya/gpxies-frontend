@@ -1,5 +1,5 @@
 .сompleteStatictics {
-  padding: 10px;
+ /* padding: 0 10px;*/
   height: 65px;
 }
 
@@ -11,4 +11,5 @@
 .сompleteStatictics_wrapper {
   width: 100%;
   background-color: hsl(53, 40%, 84%);
+  height: 7vh;
 }

@@ -42,35 +42,37 @@ class ShowTrackPageHeader {
       create("li", "trackDescription_statistic_item", "4000 точек"),
       create("li", "trackDescription_statistic_item", "25 wpt"),
     ]);
-    const headerContainer = create("div", "showTrack_header container", [
-      create("div", "trackDescription_container",[
-        create("div", "trackDescription", [
-          create("h2", "trackDescription_title__primary", [
-            create("img", "icon_header", null, null, ["src", icon_walk]),
-            create("span", "trackDescription_trackName", "Название"),
-            create("span", "trackDescription_trackLength", "407 км"),
-            create(
-              "img",
-              "icon_private0",
-              null,
-              null,
-              ["src", icon_private],
-              ["title", "Трек приватный"]
-            ),
-          ]),
-          create("div", "trackDescription_title__secondary", [
-            create("div", "trackDescription_authorName_container", [
-              create("span", null, `${this.wordsChooseArr.author}: `),
-              create("span", "trackDescription_authorName"),
+    const headerContainer = create("div", "showTrack_header", [
+      create("div","container",[
+        create("div", "trackDescription_container",[
+          create("div", "trackDescription", [
+            create("h2", "trackDescription_title__primary", [
+              create("img", "icon_header", null, null, ["src", icon_walk]),
+              create("span", "trackDescription_trackName", "Название"),
+              create("span", "trackDescription_trackLength", "407 км"),
+              create(
+                "img",
+                "icon_private0",
+                null,
+                null,
+                ["src", icon_private],
+                ["title", "Трек приватный"]
+              ),
             ]),
-            create("div", "trackDescription_data_container", [
-              create("span", null, `${this.wordsChooseArr.uploaded}: `),
-              create("span", "trackDescription_data")]),
+            create("div", "trackDescription_title__secondary", [
+              create("div", "trackDescription_authorName_container", [
+                create("span", null, `${this.wordsChooseArr.author}: `),
+                create("span", "trackDescription_authorName"),
+              ]),
+              create("div", "trackDescription_data_container", [
+                create("span", null, `${this.wordsChooseArr.uploaded}: `),
+                create("span", "trackDescription_data")]),
+            ]),
           ]),
+          menu
         ]),
-        menu
-      ]),
-      statisticsSmall,
+        statisticsSmall,
+      ])
     ]);
     return headerContainer;
   }

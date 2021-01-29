@@ -1,7 +1,10 @@
 .showTrackPage_wrapper {
   width: 100%;
   background-color: white;
+  height: 100vh;
 }
-.map{
-  z-index: 5;
+.map {
+  height: calc(73vh - 50px);
+  width: 100%;
+  z-index: 1;
 }
