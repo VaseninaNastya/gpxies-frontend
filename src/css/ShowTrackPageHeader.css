@@ -3,7 +3,7 @@
 }
 
 .trackDescription_container {
-  width: 70%;
+  width: 80%;
 }
 .trackDescription_trackName,
 .trackDescription_trackLength {
@@ -13,9 +13,7 @@
 .trackDescription_menu_item {
   border-left: solid 2px rgba(128, 128, 128, 0.3);
   outline: none; /* убирать контур в Mozilla */
-  padding: 3px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 3px 10px;
   box-sizing: border-box;
   display: block;
   font-size: 14px;
@@ -40,11 +38,10 @@
   background-color: rgb(223, 223, 223);
 }
 
-
-.showTrack_header{
-  height: 13vh;
+.showTrack_header {
+  height: 100px;
 }
-.showTrack_header .container{
+.showTrack_header .container {
   background-color: white;
   display: flex;
   justify-content: space-between;
@@ -53,7 +50,7 @@
 .trackDescription_statistic {
   margin-right: 1px;
   align-self: end;
-  width: 130px;
+  width: 120px;
   padding-left: 10px;
   background: rgba(255, 68, 0);
   color: white;
@@ -89,15 +86,49 @@
 .trackDescription_authorName_container {
   margin-right: 10px;
 }
-
+@media (max-width: 1000px) and (min-width: 650px) {
+  .trackDescription_container {
+    padding-left: 10px;
+  }
+  /*.trackDescription_menu{
+    width: 70%;
+  }*/
+  /*.showTrack_header{
+    height: 120px;
+  }*/
+}
 @media (max-width: 650px) {
+  .showTrack_header {
+    height: 70px;
+  }
   .trackDescription_container {
     width: 100%;
+    margin-left: 10px;
   }
   .trackDescription_statistic {
     display: none;
   }
-  .trackDescription_trackLength {
-    font-size: 18px;
+
+  .trackDescription_title__primary {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .trackDescription_title__primary img {
+    height: 20px;
+  }
+  .trackDescription_menu_item {
+    font-size: 12px;
+  }
+  .trackDescription_menu_item{
+    padding: 0px 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .trackDescription_menu{
+    width: 80%;
+  }
+  .showTrack_header {
+    height: 85px;
   }
 }

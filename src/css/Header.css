@@ -81,10 +81,17 @@ header {
 .header_userName:hover {
   color: black;
 }
+@media (max-width: 1000px) and (min-width: 650px)  {
+  .logo{
+    margin-left: 10px;
+  }
+}
+
 @media (max-width: 650px) {
   .logo {
     width: 0px;
     margin: 0;
+    margin-left: 10px;
   }
   .header_userName {
     width: 140px;

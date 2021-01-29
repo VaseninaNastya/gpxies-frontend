@@ -15,7 +15,7 @@ class СompleteStatictics {
     const сompleteStatictics = create(
       "div", "сompleteStatictics_wrapper",[
         create("div", "сompleteStatictics container", [
-          create("h4", null, `${this.wordsChooseArr.fullStatistics}`),
+          create("h5", null, `${this.wordsChooseArr.fullStatistics}`),
           create("div", "сompleteStatictics_container", [
             create("span", null, "407 км"),
             create("span", null, "4000 точек"),

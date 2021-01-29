@@ -24,11 +24,11 @@ class ShowTrackPageHeader {
         "trackDescription_menu_item",
         `${this.wordsChooseArr.createVariation}`
       ),
-      create(
+      /*create(
         "li",
         "trackDescription_menu_item",
         `${this.wordsChooseArr.addToBookmarks}`
-      ),
+      ),*/
       create("li", "trackDescription_menu_item", `${this.wordsChooseArr.edit}`),
       create(
         "li",
@@ -37,7 +37,7 @@ class ShowTrackPageHeader {
       ),
     ]);
     const statisticsSmall = create("ul", "trackDescription_statistic", [
-      create("h4", null, `${this.wordsChooseArr.statistics}`),
+      create("h5", null, `${this.wordsChooseArr.statistics}`),
       create("li", "trackDescription_statistic_item", "407 км"),
       create("li", "trackDescription_statistic_item", "4000 точек"),
       create("li", "trackDescription_statistic_item", "25 wpt"),

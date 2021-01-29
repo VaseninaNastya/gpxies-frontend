@@ -42,10 +42,13 @@ h2 {
 h3 {
   font-size: 25px;
 }
-h4,
+h4 {
+  font-size: 20px;
+}
+
 h5,
 h6 {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 ul,
