@@ -1,7 +1,7 @@
 footer{
     background-color: hsl(53, 40%, 84%);
-    padding: 10px;
-    height: 65px;
+   /* padding: 10px;*/
+   height: 50px;
     width: 100%;
 }
 footer .container{
@@ -10,12 +10,36 @@ footer .container{
     justify-content: space-between;
 }
 
-footer .container a{
+footer a{
     color: rgb(110, 110, 110);
+    margin-right: 5px;
 }
-footer .container a:hover{
+footer a:hover{
     color: black;
 }
 .footer_img{
     height: 35px;
 }
+@media (max-width: 1000px) and (min-width: 650px) {
+    footer .container{
+      padding: 0 10px;
+    }
+  }
+  @media (max-width: 650px) {
+    footer .container{
+        padding: 0 10px;
+    }
+    .footer_img{
+        height: 30px;
+    }
+  }
+  
+  @media (max-width: 420px) {
+    footer .container{
+        padding: 0 10px;
+    }
+    .footer_img{
+        height: 20px;
+    }
+  
+  }

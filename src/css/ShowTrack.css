@@ -1,7 +1,27 @@
 .showTrackPage_wrapper {
   width: 100%;
   background-color: white;
+  height: 100vh;
 }
-.map{
-  z-index: 5;
+.map {
+  height: calc(100vh - 265px);
+  width: 100%;
+  z-index: 1;
+}
+
+@media (max-width: 1000px) and (min-width: 650px) {
+  .map {
+    height: calc(100vh - 265px);
+  }
+}
+@media (max-width: 650px) {
+  .map {
+    height: calc(100vh - 235px);
+  }
+}
+
+@media (max-width: 420px) {
+  .map {
+    height: calc(100vh - 250px);
+  }
 }

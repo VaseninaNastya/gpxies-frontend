@@ -39,7 +39,7 @@ module.exports = {
   trackTitle: "Название трека",
   trackDescription:"Oписание трека",
   downloadTrack: "Загрузить трек",
-  trackList:"Cписок моих треков",
+  trackList:"Cписок треков",
   logout: "Выйти",
   ru: "рус.",
   en: "англ.",
@@ -48,5 +48,6 @@ module.exports = {
   edit: "Редактировать",
   statistics: "статистика",
   author:"aвтор",
-  uploaded: "загружено"
+  uploaded: "загружено",
+  fullStatistics: "Полная статистика",
 };

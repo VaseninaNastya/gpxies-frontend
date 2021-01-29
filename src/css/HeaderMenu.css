@@ -30,7 +30,7 @@
 
 @media (max-width: 650px) {
     .headerMenu_container{
-        width: 150px;
+        width: 140px;
     }
     .headerMenu_item{
         font-size: 14px;

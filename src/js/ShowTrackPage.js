@@ -40,8 +40,8 @@ class ShowTrackPage {
     console.log(result);
     console.log(userinfo);
     document.title=`${result.title} - Gpxies.ru`;
-    document.querySelector('.trackDescription_trackName').innerHTML = result.title;
-    document.querySelector('.trackDescription_trackLength').innerHTML = `, (${result.distance} км) `;
+    document.querySelector('.trackDescription_trackName').innerHTML = `${result.title}, `;
+    document.querySelector('.trackDescription_trackLength').innerHTML = `(${result.distance} км) `;
     document.querySelector('.icon_header').src = `/img/icon_${result.type.toLowerCase()}.png`;
     document.querySelector('.trackDescription_authorName').innerHTML = `<a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
     document.querySelector('.trackDescription_data').innerHTML = `${result.created}`;

@@ -16,7 +16,7 @@ a:active {
   color: black;
 }
 html {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
@@ -42,10 +42,13 @@ h2 {
 h3 {
   font-size: 25px;
 }
-h4,
+h4 {
+  font-size: 20px;
+}
+
 h5,
 h6 {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 ul,
@@ -97,11 +100,7 @@ body {
   border: none;
 }
 
-.map {
-  height: 500px;
-  width: 100%;
-  z-index: 1;
-}
+
 
 .wrapper {
   margin: 0 auto;
@@ -130,7 +129,8 @@ body {
 
 
 .container {
-  width: 1000px;
+  max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
 }
@@ -150,19 +150,19 @@ body {
       flex-direction: column
     }
   }*/
-
+/*
 
   @media (max-width: 1000px) and (min-width: 650px)  {
     .container {
-      width: 98vw;
+      width: 100%;
     }
 }
 
 @media (max-width: 650px) {
   .container {
-    width: 98vw;
+    width: 100%;
   }
-}
+}*/
 
 
 
