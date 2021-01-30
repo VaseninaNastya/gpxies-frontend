@@ -3,7 +3,7 @@ import '../css/main.css';
 import Header from './Header';
 import GpxiesAPI from './GpxiesAPI';
 import Type from './utils/trackTypes.utils';
-import MessagePopap from './MessagePopap';
+import MessagePopup from './MessagePopup';
 import icon_spinner from '../../assets/img/icons_spinner.png';
 import ChooseLanguage from './ChooseLanguage';
 import Footer from './Footer';
@@ -19,7 +19,7 @@ class LoadTrackPage {
   generateLayout() {
     this.getWordsData();
     this.gpxiesAPI = new GpxiesAPI();
-    this.popup = new MessagePopap(
+    this.popup = new MessagePopup(
       `${this.wordsChooseArr.success_trackLoad_message}`,
       [
         ['button_newTrack', `${this.wordsChooseArr.button_newTrack}`],

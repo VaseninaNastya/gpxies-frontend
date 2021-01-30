@@ -2,7 +2,7 @@ import "../css/main.css";
 import ChooseLanguage from "./ChooseLanguage";
 import create from "./utils/create.utils";
 import GpxiesAPI from "./GpxiesAPI";
-import MessagePopap from "./MessagePopap";
+import MessagePopup from "./MessagePopup";
 
 class LoginPage {
   getWordsData(){
@@ -123,7 +123,7 @@ class LoginPage {
     window.location = "/registration";
   }
   checkRegistration() {
-    const registrationMessage = new MessagePopap(
+    const registrationMessage = new MessagePopup(
       `${this.wordsChooseArr.success_registration_message}`,
       null,
       `${this.wordsChooseArr.error_registration_message}`,

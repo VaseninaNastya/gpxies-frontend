@@ -1,7 +1,7 @@
 import create from "./utils/create.utils";
 import tree from "../../assets/img/tree.png";
 
-class MessagePopap {
+class MessagePopup {
   constructor(successMessage, successButtons, errorMessage, errorButtons){
     this.successMessage = successMessage, 
     this.successButtons = successButtons, 
@@ -86,5 +86,5 @@ class MessagePopap {
     }
   }
 }
-export default MessagePopap;
+export default MessagePopup;
 

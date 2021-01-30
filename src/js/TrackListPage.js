@@ -9,7 +9,7 @@ import icon_private from '../../assets/img/icons_private.png';
 import SearchBar from './SearchBar';
 import FilterFromTo from './FilterFromTo';
 import TrackListPageButtonsBlock from './TrackListPageButtonsBlock';
-import MessagePopap from './MessagePopap';
+import MessagePopup from './MessagePopup';
 import SportsNames from './utils/sportsTypesNames.utils.js';
 import Footer from "./Footer";
 import ChooseLanguage from "./ChooseLanguage";
@@ -27,7 +27,7 @@ class TrackListPage {
   generateLayout() {
     this.getWordsData();
     const footer = new Footer();
-    this.popup = new MessagePopap(
+    this.popup = new MessagePopup(
       `${this.wordsChooseArr.success_trackDelete_message}`,
       [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]],
       `${this.wordsChooseArr.error_trackDelete_message}`,
