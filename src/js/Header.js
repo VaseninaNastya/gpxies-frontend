@@ -1,4 +1,4 @@
-import create from "./create";
+import create from "./utils/create.utils";
 import icon_triangle from "../../assets/img/icon_triangle.png";
 import HeaderMenu from "./HeaderMenu";
 class Header {
@@ -26,7 +26,7 @@ class Header {
   }
   logoutButtonAddEventListener() {
     this.headerMenu_node.addEventListener("click", (e) => {
-      //downloadTrack
+      //uploadTrack
       console.log("e.target",Array.from(e.target.classList));
       if(Array.from(e.target.classList).includes("logout")){
         this.redirectLogout();
@@ -35,7 +35,7 @@ class Header {
       if(Array.from(e.target.classList).includes("trackList")){
         this.redirectTrackListPage()
       }
-      if(Array.from(e.target.classList).includes("downloadTrack")){
+      if(Array.from(e.target.classList).includes("uploadTrack")){
         this.redirectLoadTrackPage()
       }
     }); }

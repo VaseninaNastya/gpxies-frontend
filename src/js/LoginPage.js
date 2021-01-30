@@ -1,8 +1,8 @@
 import "../css/main.css";
 import ChooseLanguage from "./ChooseLanguage";
-import create from "./create";
+import create from "./utils/create.utils";
 import GpxiesAPI from "./GpxiesAPI";
-import MessagePopap from "./MessagePopap";
+import MessagePopup from "./MessagePopup";
 
 class LoginPage {
   getWordsData(){
@@ -82,7 +82,7 @@ class LoginPage {
   }
   refreshLayout() {
     document.body.innerHTML = "";
-    this.chooseLanguage = localStorage.getItem("gpxiesChoosen_language");
+    this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
   addEventListeners() {
@@ -123,7 +123,7 @@ class LoginPage {
     window.location = "/registration";
   }
   checkRegistration() {
-    const registrationMessage = new MessagePopap(
+    const registrationMessage = new MessagePopup(
       `${this.wordsChooseArr.success_registration_message}`,
       null,
       `${this.wordsChooseArr.error_registration_message}`,

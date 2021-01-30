@@ -1,6 +1,6 @@
-import create from "./create";
-import wordsEn from "./wordsEn.utils";
-import wordsRu from "./wordsRu.utils";
+import create from "./utils/create.utils";
+import wordsEn from "./utils/wordsEn.utils";
+import wordsRu from "./utils/wordsRu.utils";
 class ChooseLanguage{
     generateLayout() {
         const wordsArr = this.generateWordsData()
@@ -9,28 +9,28 @@ class ChooseLanguage{
         this.language_ru =  create("div","language_item",`${wordsChooseArr.ru}`,null,["id","0"])
         this.language_en =  create("div","language_item",`${wordsChooseArr.en}`,null,["id","1"])
         this.language_container = create("div","language_container",[this.language_ru,this.language_en])
-        if(localStorage.getItem("gpxiesChoosen_language")==1){
-            this.language_en.classList.add("choosen_language")
+        if(localStorage.getItem("gpxiesChosen_language")==1){
+            this.language_en.classList.add("chosen_language")
         }else{
-            this.language_ru.classList.add("choosen_language")
+            this.language_ru.classList.add("chosen_language")
         }
         this.addEventListeners()
         return this.language_container
     }
     determinationLanguage() {
-        if(localStorage.getItem("gpxiesChoosen_language")){
-          this.choosen_language = localStorage.getItem("gpxiesChoosen_language")
+        if(localStorage.getItem("gpxiesChosen_language")){
+          this.chosen_language = localStorage.getItem("gpxiesChosen_language")
         }else{
-          localStorage.setItem("gpxiesChoosen_language", 0)
-          this.choosen_language = 0
+          localStorage.setItem("gpxiesChosen_language", 0)
+          this.chosen_language = 0
         }
-        return this.choosen_language
+        return this.chosen_language
       }
     addEventListeners(){
         this.language_container.addEventListener("click",(e)=>{
-            document.querySelector(".choosen_language").classList.remove("choosen_language")
-            localStorage.setItem("gpxiesChoosen_language",e.target.getAttribute("id"))
-            e.target.classList.add("choosen_language")
+            document.querySelector(".chosen_language").classList.remove("chosen_language")
+            localStorage.setItem("gpxiesChosen_language",e.target.getAttribute("id"))
+            e.target.classList.add("chosen_language")
         })
     }
     generateWordsData(){

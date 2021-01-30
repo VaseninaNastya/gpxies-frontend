@@ -1,4 +1,4 @@
-import create from "./create";
+import create from "./utils/create.utils";
 import ChooseLanguage from "./ChooseLanguage";
 
 class СompleteStatictics {

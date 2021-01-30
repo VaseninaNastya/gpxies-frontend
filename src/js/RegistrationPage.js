@@ -1,5 +1,5 @@
 import "../css/main.css";
-import create from "./create";
+import create from "./utils/create.utils";
 import GpxiesAPI from "./GpxiesAPI";
 import ChooseLanguage from "./ChooseLanguage";
 
@@ -142,7 +142,7 @@ class RegistrationPage {
   }
   refreshLayout() {
     document.body.innerHTML = "";
-    this.chooseLanguage = localStorage.getItem("gpxiesChoosen_language");
+    this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
   addListeners() {

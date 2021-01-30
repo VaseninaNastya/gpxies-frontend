@@ -1,9 +1,9 @@
-import create from './create';
+import create from './utils/create.utils';
 import '../css/main.css';
 import Header from './Header';
 import GpxiesAPI from './GpxiesAPI';
-import Type from './trackTypes.utils';
-import MessagePopap from './MessagePopap';
+import Type from './utils/trackTypes.utils';
+import MessagePopup from './MessagePopup';
 import icon_spinner from '../../assets/img/icons_spinner.png';
 import ChooseLanguage from './ChooseLanguage';
 import Footer from './Footer';
@@ -19,7 +19,7 @@ class LoadTrackPage {
   generateLayout() {
     this.getWordsData();
     this.gpxiesAPI = new GpxiesAPI();
-    this.popup = new MessagePopap(
+    this.popup = new MessagePopup(
       `${this.wordsChooseArr.success_trackLoad_message}`,
       [
         ['button_newTrack', `${this.wordsChooseArr.button_newTrack}`],
@@ -29,8 +29,8 @@ class LoadTrackPage {
       [['button_newTrack', `${this.wordsChooseArr.button_newTrack}`]]
     );
     const footer = new Footer();
-    this.popap_container = this.popup.generateMessageLayout();
-    document.body.prepend(this.popap_container);
+    this.popup_container = this.popup.generateMessageLayout();
+    document.body.prepend(this.popup_container);
     this.spinner = create('img', 'icon_spinner', null, null, ['src', icon_spinner]);
     this.loading_button = create('label', 'loading_button', `${this.wordsChooseArr.selectFile}`, null, ['for', 'load_track_file_input']);
     this.loading_hiddenInput = create(
@@ -174,7 +174,7 @@ class LoadTrackPage {
         distance = e.target.get_distance();
       });
 
-      this.popap_container.classList.remove('loadingSpinner_wrapper__hidden');
+      this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
       const formElem = document.querySelector('.loadTrackPage_form');
       const { hashString } = await this.gpxiesAPI.uploadTrack(formElem);
       const tracksData = {
@@ -195,7 +195,7 @@ class LoadTrackPage {
   }
   refreshLayout() {
     document.body.innerHTML = '';
-    this.chooseLanguage = localStorage.getItem('gpxiesChoosen_language');
+    this.chooseLanguage = localStorage.getItem('gpxiesChosen_language');
     this.generateLayout();
   }
   resetForm() {

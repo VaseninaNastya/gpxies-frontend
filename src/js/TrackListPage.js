@@ -1,16 +1,16 @@
 import '../css/main.css';
-import create from './create';
+import create from './utils/create.utils';
 import GpxiesAPI from './GpxiesAPI';
 import Header from './Header';
-import Type from './trackTypes.utils';
-import Mounth from './mounth.utils';
-import Sports from './sportTypes.utils';
+import Type from './utils/trackTypes.utils';
+import Mounth from './utils/mounth.utils';
+import Sports from './utils/sportTypes.utils';
 import icon_private from '../../assets/img/icons_private.png';
 import SearchBar from './SearchBar';
 import FilterFromTo from './FilterFromTo';
 import TrackListPageButtonsBlock from './TrackListPageButtonsBlock';
-import MessagePopap from './MessagePopap';
-import SportsNames from './sportsTypesNames.utils.js';
+import MessagePopup from './MessagePopup';
+import SportsNames from './utils/sportsTypesNames.utils.js';
 import Footer from "./Footer";
 import ChooseLanguage from "./ChooseLanguage";
 
@@ -25,16 +25,16 @@ class TrackListPage {
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
   }
   generateLayout() {
-    this.getWordsData()
+    this.getWordsData();
     const footer = new Footer();
-    this.popup = new MessagePopap(
+    this.popup = new MessagePopup(
       `${this.wordsChooseArr.success_trackDelete_message}`,
       [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]],
       `${this.wordsChooseArr.error_trackDelete_message}`,
       [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]]
     );
-    this.popap_container = this.popup.generateMessageLayout();
-    document.body.prepend(this.popap_container);
+    this.popup_container = this.popup.generateMessageLayout();
+    document.body.prepend(this.popup_container);
     this.trackListPageButtonsBlock = new TrackListPageButtonsBlock();
     this.buttonsBlock_container = this.trackListPageButtonsBlock.generateLayout();
     this.addTracksData();
@@ -51,8 +51,8 @@ class TrackListPage {
     );
     this.addEventListeners();
   }
-  generatePopapLayout() {
-    this.popap_container.classList.remove('loadingSpinner_wrapper__hidden');
+  generatePopupLayout() {
+    this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
   }
   generateTableHeaderLayout() {
     const iconsContainer = new FilterFromTo();
@@ -106,15 +106,15 @@ class TrackListPage {
   }
   refreshLayout() {
     document.body.innerHTML = "";
-    this.chooseLanguage = localStorage.getItem("gpxiesChoosen_language");
+    this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
-  choiseAll() {
+  chooseAll() {
     document
       .querySelectorAll('.checkbox_item')
       .forEach((item) => (item.checked = true));
   }
-  unchoiseAll() {
+  unchooseAll() {
     document
       .querySelectorAll('.checkbox_item')
       .forEach((item) => (item.checked = false));
@@ -198,7 +198,7 @@ class TrackListPage {
           create("span", null, item.isPrivate.toString()),
         ]),*/
           create('div', 'table_item', [
-            create('span', null, (item.distance/1000).toFixed(1).toString()),
+            create('span', null, (item.distance/1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}` ),
           ]),
           /* create("div", "table_item table_body_item_action-list", [
           create("a", null, "Редактировать"),
@@ -226,7 +226,7 @@ class TrackListPage {
           Array.from(e.target.classList).includes('loadingSpinner_wrapper') ||
           Array.from(e.target.classList).includes('button_returnToTrackList')
         ) {
-          this.unchoiseAll();
+          this.unchooseAll();
           this.checkAllCheckbox.checked = false;
           this.popup.hideMessages();
         }
@@ -234,7 +234,7 @@ class TrackListPage {
     document
       .querySelector('.track_delete_button')
       .addEventListener('click', () => {
-        this.popap_container.classList.remove('loadingSpinner_wrapper__hidden');
+        this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
         Array.from(document.querySelectorAll('.checkbox_item')).map(
           async (item) => {
             if (item.checked) {
@@ -299,20 +299,20 @@ class TrackListPage {
       }
       if (this.checkAllCheckbox.checked) {
         this.checkAllCheckbox.checked = false;
-        this.unchoiseAll();
+        this.unchooseAll();
         this.trackListPageButtonsBlock.hideButtonContainer();
       } else {
         this.checkAllCheckbox.checked = true;
-        this.choiseAll();
+        this.chooseAll();
         this.trackListPageButtonsBlock.showButtonContainer();
       }
     });
     this.sportChoce_select.addEventListener('change', () => {
       this.searchBar_input.value = '';
-      this.unchoiseAll();
+      this.unchooseAll();
       this.checkAllCheckbox.checked = false;
-      this.sportType_choisen = this.sportChoce_select.value;
-      if (this.sportType_choisen) {
+      this.sportType_chosen = this.sportChoce_select.value;
+      if (this.sportType_chosen) {
         this.filterBySportType();
       } else {
         this.tableBody_container.innerHTML = '';
@@ -348,7 +348,7 @@ class TrackListPage {
   filterBySportType() {
     this.tracksToShow = [];
     this.userTracks.map((item) => {
-      if (item.type == this.sportType_choisen) {
+      if (item.type == this.sportType_chosen) {
         this.tracksToShow.push(item);
       }
     });
