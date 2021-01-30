@@ -3,18 +3,20 @@ import ChooseLanguage from "./ChooseLanguage";
 import create from "./utils/create.utils";
 import GpxiesAPI from "./GpxiesAPI";
 import MessagePopup from "./MessagePopup";
+import Footer from "./Footer";
 
 class LoginPage {
-  getWordsData(){
+  getWordsData() {
     const chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = chooseLanguageComponent.generateWordsData();
     this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
     this.chooseLanguage_container.classList.add("language_container_login");
     this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
-    this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
+    this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   generateLayout() {
-    this.getWordsData()
+    const footer = new Footer();
+    this.getWordsData();
     this.button__prime = create(
       "div",
       "button__primary",
@@ -48,7 +50,7 @@ class LoginPage {
       "login_form_registrationLink",
       `${this.wordsChooseArr.registration}`
     );
-    (this.login_form_container = create("div", "login_form_container", [
+    this.login_form_container = create("div", "login_form_container", [
       create("label", null, "email", null, ["for", "emailField"]),
       this.email_input,
       this.error_description,
@@ -61,21 +63,20 @@ class LoginPage {
       ),
       this.password_input,
       create("a", null, null, null, ["href", "#"]),
-    ])),
-      (this.login_form = create("form", "login_form", [
-        create(
-          "h3",
-          "login_form_title",
-          `${this.wordsChooseArr.enter}`
-        ),
-        this.login_form_container,
-        create("div", "login_form_buttoncontainer", [
-          this.button__prime,
-          this.login_form_registrationPageLink,
-        ]),
-        this.chooseLanguage_container,
-      ]));
-    const wrapper = create("div", "wrapper", this.login_form);
+    ]);
+    this.login_form = create("form", "login_form", [
+      create("h3", "login_form_title", `${this.wordsChooseArr.enter}`),
+      this.login_form_container,
+      create("div", "login_form_buttoncontainer", [
+        this.button__prime,
+        this.login_form_registrationPageLink,
+      ]),
+      this.chooseLanguage_container,
+    ]);
+    const wrapper = create("div", "login_wrapper wrapper", [
+      this.login_form,
+      footer.generateLayout(),
+    ]);
     document.body.prepend(wrapper);
     this.checkRegistration();
     this.addEventListeners();
@@ -145,7 +146,7 @@ class LoginPage {
     if (localStorage.getItem("gpxiesPassword")) {
       this.password_input.value = localStorage.getItem("gpxiesPassword");
       localStorage.removeItem("gpxiesPassword");
-    } 
+    }
   }
 }
 const loginPage = new LoginPage();

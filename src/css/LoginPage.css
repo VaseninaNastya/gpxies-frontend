@@ -72,3 +72,7 @@
         font-size: 15px;
         line-height: 20px;
 }
+.login_wrapper footer {
+    position: absolute;
+    bottom: 0;
+}

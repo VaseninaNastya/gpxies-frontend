@@ -57,3 +57,7 @@
     flex-direction: column;
 }
 
+.registration_wrapper footer {
+    position: absolute;
+    bottom: 0;
+}
