@@ -20,6 +20,7 @@ class Footer {
           "href",
           "https://github.com/nikolai-minkevich",
         ]),
+        create("span", null, "2021"),
         img,
       ]),
     ]);
