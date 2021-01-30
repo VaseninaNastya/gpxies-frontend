@@ -33,8 +33,8 @@ class TrackListPage {
       `${this.wordsChooseArr.error_trackDelete_message}`,
       [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]]
     );
-    this.popap_container = this.popup.generateMessageLayout();
-    document.body.prepend(this.popap_container);
+    this.popup_container = this.popup.generateMessageLayout();
+    document.body.prepend(this.popup_container);
     this.trackListPageButtonsBlock = new TrackListPageButtonsBlock();
     this.buttonsBlock_container = this.trackListPageButtonsBlock.generateLayout();
     this.addTracksData();
@@ -51,8 +51,8 @@ class TrackListPage {
     );
     this.addEventListeners();
   }
-  generatePopapLayout() {
-    this.popap_container.classList.remove('loadingSpinner_wrapper__hidden');
+  generatePopupLayout() {
+    this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
   }
   generateTableHeaderLayout() {
     const iconsContainer = new FilterFromTo();
@@ -234,7 +234,7 @@ class TrackListPage {
     document
       .querySelector('.track_delete_button')
       .addEventListener('click', () => {
-        this.popap_container.classList.remove('loadingSpinner_wrapper__hidden');
+        this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
         Array.from(document.querySelectorAll('.checkbox_item')).map(
           async (item) => {
             if (item.checked) {
