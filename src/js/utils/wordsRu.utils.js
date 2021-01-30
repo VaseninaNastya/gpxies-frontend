@@ -38,7 +38,7 @@ module.exports = {
   privateTrack: "Приватный трек",
   trackTitle: "Название трека",
   trackDescription:"Oписание трека",
-  downloadTrack: "Загрузить трек",
+  uploadTrack: "Загрузить трек",
   trackList:"Cписок треков",
   logout: "Выйти",
   ru: "рус.",
