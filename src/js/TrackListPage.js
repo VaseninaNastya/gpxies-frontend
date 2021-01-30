@@ -25,7 +25,7 @@ class TrackListPage {
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
   }
   generateLayout() {
-    this.getWordsData()
+    this.getWordsData();
     const footer = new Footer();
     this.popup = new MessagePopap(
       `${this.wordsChooseArr.success_trackDelete_message}`,
@@ -198,7 +198,7 @@ class TrackListPage {
           create("span", null, item.isPrivate.toString()),
         ]),*/
           create('div', 'table_item', [
-            create('span', null, (item.distance/1000).toFixed(1).toString()),
+            create('span', null, (item.distance/1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}` ),
           ]),
           /* create("div", "table_item table_body_item_action-list", [
           create("a", null, "Редактировать"),

@@ -6,11 +6,12 @@ import СompleteStatictics from './СompleteStatictics';
 import Header from './Header';
 import WorldMap from './WorldMap';
 import GpxiesAPI from './GpxiesAPI';
+import ChooseLanguage from "./ChooseLanguage";
 
 class ShowTrackPage {
   generateLayout() {
+    this.getWordsData();
     const hashString = window.location.pathname.toString().slice(7);
-    console.log('HASH ', hashString);
 
     const completeStatictics = new СompleteStatictics();
     const showTrackPageHeader = new ShowTrackPageHeader();
@@ -33,6 +34,12 @@ class ShowTrackPage {
       this.showTrack(hashString);
     }, 1000);
   }
+  getWordsData(){
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
+  }
   async showTrack(hashString) {
     console.log(hashString);
     let result = await this.gpxiesAPI.getTrackById(hashString);
@@ -41,7 +48,7 @@ class ShowTrackPage {
     console.log(userinfo);
     document.title=`${result.title} - Gpxies.ru`;
     document.querySelector('.trackDescription_trackName').innerHTML = `${result.title}, `;
-    document.querySelector('.trackDescription_trackLength').innerHTML = `(${result.distance} км) `;
+    document.querySelector('.trackDescription_trackLength').innerHTML = (result.distance/1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}`;
     document.querySelector('.icon_header').src = `/img/icon_${result.type.toLowerCase()}.png`;
     document.querySelector('.trackDescription_authorName').innerHTML = `<a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
     document.querySelector('.trackDescription_data').innerHTML = `${result.created}`;
