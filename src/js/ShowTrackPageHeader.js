@@ -38,18 +38,18 @@ class ShowTrackPageHeader {
     ]);
     const statisticsSmall = create("ul", "trackDescription_statistic", [
       create("h5", null, `${this.wordsChooseArr.statistics}`),
-      create("li", "trackDescription_statistic_item", "407 км"),
-      create("li", "trackDescription_statistic_item", "4000 точек"),
-      create("li", "trackDescription_statistic_item", "25 wpt"),
+      create("li", "trackDescription_statistic_item", ""),
+      create("li", "trackDescription_statistic_item", ""),
+      create("li", "trackDescription_statistic_item", ""),
     ]);
     const headerContainer = create("div", "showTrack_header", [
       create("div","container",[
         create("div", "trackDescription_container",[
           create("div", "trackDescription", [
             create("h2", "trackDescription_title__primary", [
-              create("img", "icon_header", null, null, ["src", icon_walk]),
-              create("span", "trackDescription_trackName", "Название"),
-              create("span", "trackDescription_trackLength", "407 км"),
+              create("img", "icon_header", null, null, ["src", ""]),
+              create("span", "trackDescription_trackName", ""),
+              create("span", "trackDescription_trackLength", ""),
               create(
                 "img",
                 "icon_private0",
