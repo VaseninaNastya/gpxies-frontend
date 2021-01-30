@@ -109,12 +109,12 @@ class TrackListPage {
     this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
-  choiseAll() {
+  chooseAll() {
     document
       .querySelectorAll('.checkbox_item')
       .forEach((item) => (item.checked = true));
   }
-  unchoiseAll() {
+  unchooseAll() {
     document
       .querySelectorAll('.checkbox_item')
       .forEach((item) => (item.checked = false));
@@ -226,7 +226,7 @@ class TrackListPage {
           Array.from(e.target.classList).includes('loadingSpinner_wrapper') ||
           Array.from(e.target.classList).includes('button_returnToTrackList')
         ) {
-          this.unchoiseAll();
+          this.unchooseAll();
           this.checkAllCheckbox.checked = false;
           this.popup.hideMessages();
         }
@@ -299,20 +299,20 @@ class TrackListPage {
       }
       if (this.checkAllCheckbox.checked) {
         this.checkAllCheckbox.checked = false;
-        this.unchoiseAll();
+        this.unchooseAll();
         this.trackListPageButtonsBlock.hideButtonContainer();
       } else {
         this.checkAllCheckbox.checked = true;
-        this.choiseAll();
+        this.chooseAll();
         this.trackListPageButtonsBlock.showButtonContainer();
       }
     });
     this.sportChoce_select.addEventListener('change', () => {
       this.searchBar_input.value = '';
-      this.unchoiseAll();
+      this.unchooseAll();
       this.checkAllCheckbox.checked = false;
-      this.sportType_choisen = this.sportChoce_select.value;
-      if (this.sportType_choisen) {
+      this.sportType_chosen = this.sportChoce_select.value;
+      if (this.sportType_chosen) {
         this.filterBySportType();
       } else {
         this.tableBody_container.innerHTML = '';
@@ -348,7 +348,7 @@ class TrackListPage {
   filterBySportType() {
     this.tracksToShow = [];
     this.userTracks.map((item) => {
-      if (item.type == this.sportType_choisen) {
+      if (item.type == this.sportType_chosen) {
         this.tracksToShow.push(item);
       }
     });
