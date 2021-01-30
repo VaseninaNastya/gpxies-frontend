@@ -2,6 +2,7 @@ import "../css/main.css";
 import create from "./utils/create.utils";
 import GpxiesAPI from "./GpxiesAPI";
 import ChooseLanguage from "./ChooseLanguage";
+import Footer from "./Footer";
 
 class RegistrationPage {
   getWordsData() {
@@ -15,6 +16,7 @@ class RegistrationPage {
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   generateLayout() {
+    const footer = new Footer();
     this.getWordsData();
     this.button__prime = create(
       "a",
@@ -110,7 +112,7 @@ class RegistrationPage {
       ]),
       this.chooseLanguage_container,
     ]);
-    const wrapper = create("div", "wrapper", this.registration_form);
+    const wrapper = create("div", "wrapper registration_wrapper", [this.registration_form,       footer.generateLayout()]);
     document.body.prepend(wrapper);
     this.addListeners();
   }
