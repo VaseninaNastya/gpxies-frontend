@@ -82,7 +82,7 @@ class LoginPage {
   }
   refreshLayout() {
     document.body.innerHTML = "";
-    this.chooseLanguage = localStorage.getItem("gpxiesChoosen_language");
+    this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
   addEventListeners() {
