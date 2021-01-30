@@ -152,9 +152,6 @@ class LoadTrackPage {
         const fileName = fileList.name;
         this.loading_trackFileName.innerHTML = '';
         this.loading_trackFileName.append(create('span', null, fileName));
-
-
-
       },
       false
     );
@@ -173,11 +170,10 @@ class LoadTrackPage {
       event.preventDefault();
       let distance = 0;
       let gpx = URL.createObjectURL(this.loading_hiddenInput.files[0]);
-      let gpxMeta = new L.GPX(gpx, { async: true })
-        .on('loaded', function (e) {
-          distance = parseInt(e.target.get_distance());
-        });
-     
+      let gpxMeta = new L.GPX(gpx, { async: true }).on('loaded', function (e) {
+        distance = e.target.get_distance();
+      });
+
       this.popap_container.classList.remove('loadingSpinner_wrapper__hidden');
       const formElem = document.querySelector('.loadTrackPage_form');
       const { hashString } = await this.gpxiesAPI.uploadTrack(formElem);

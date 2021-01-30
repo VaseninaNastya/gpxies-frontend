@@ -198,7 +198,7 @@ class TrackListPage {
           create("span", null, item.isPrivate.toString()),
         ]),*/
           create('div', 'table_item', [
-            create('span', null, item.distance.toString()),
+            create('span', null, (item.distance/1000).toFixed(1).toString()),
           ]),
           /* create("div", "table_item table_body_item_action-list", [
           create("a", null, "Редактировать"),
