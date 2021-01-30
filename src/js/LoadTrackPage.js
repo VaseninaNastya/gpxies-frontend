@@ -1,8 +1,8 @@
-import create from './create.utils';
+import create from './utils/create.utils';
 import '../css/main.css';
 import Header from './Header';
 import GpxiesAPI from './GpxiesAPI';
-import Type from './trackTypes.utils';
+import Type from './utils/trackTypes.utils';
 import MessagePopap from './MessagePopap';
 import icon_spinner from '../../assets/img/icons_spinner.png';
 import ChooseLanguage from './ChooseLanguage';

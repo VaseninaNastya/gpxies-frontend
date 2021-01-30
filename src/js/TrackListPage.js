@@ -1,16 +1,16 @@
 import '../css/main.css';
-import create from './create.utils';
+import create from './utils/create.utils';
 import GpxiesAPI from './GpxiesAPI';
 import Header from './Header';
-import Type from './trackTypes.utils';
-import Mounth from './mounth.utils';
-import Sports from './sportTypes.utils';
+import Type from './utils/trackTypes.utils';
+import Mounth from './utils/mounth.utils';
+import Sports from './utils/sportTypes.utils';
 import icon_private from '../../assets/img/icons_private.png';
 import SearchBar from './SearchBar';
 import FilterFromTo from './FilterFromTo';
 import TrackListPageButtonsBlock from './TrackListPageButtonsBlock';
 import MessagePopap from './MessagePopap';
-import SportsNames from './sportsTypesNames.utils.js';
+import SportsNames from './utils/sportsTypesNames.utils.js';
 import Footer from "./Footer";
 import ChooseLanguage from "./ChooseLanguage";
 

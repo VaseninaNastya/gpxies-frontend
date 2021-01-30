@@ -1,4 +1,4 @@
-import create from "./create.utils";
+import create from "./utils/create.utils";
 import rslogo from "../../assets/img/logo-rs.png";
 class Footer {
   generateLayout() {

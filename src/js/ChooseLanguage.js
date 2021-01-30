@@ -1,6 +1,6 @@
-import create from "./create.utils";
-import wordsEn from "./wordsEn.utils";
-import wordsRu from "./wordsRu.utils";
+import create from "./utils/create.utils";
+import wordsEn from "./utils/wordsEn.utils";
+import wordsRu from "./utils/wordsRu.utils";
 class ChooseLanguage{
     generateLayout() {
         const wordsArr = this.generateWordsData()
