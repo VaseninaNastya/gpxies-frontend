@@ -83,10 +83,11 @@ class LoginPage {
   }
   refreshLayout() {
     document.body.innerHTML = "";
+    document.body.removeEventListener("keydown", this.onPress);
     this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
-  async handleEventLogin (e) {
+  async handleEventLogin(e) {
     e.preventDefault();
     let userData = {
       email: document.querySelector("#emailField").value,
@@ -104,14 +105,51 @@ class LoginPage {
       localStorage.setItem("gpxiesUserName", res.username);
       localStorage.setItem("gpxiesToken", res.token);
       localStorage.setItem("gpxiesUserId", res.id);
-     this.redirectToTrackListPage();
+      this.redirectToTrackListPage();
+    }
+  }
+  hotkeyChangeLanguage() {
+    if (localStorage.getItem("gpxiesChosen_language") == 0) {
+      localStorage.setItem("gpxiesChosen_language", 1);
+      console.log("this.chooseLanguage", this.chooseLanguage);
+    } else {
+      localStorage.setItem("gpxiesChosen_language", 0);
+      console.log("this.chooseLanguage", this.chooseLanguage);
+    }
+    this.shiftLeft = false;
+    this.altKey = false;
+  }
+  handleBodyKeypress(e) {
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.code == "Enter") {
+      this.handleEventLogin(e);
+    }
+    if (e.shiftKey) {
+      this.shiftKey = true;
+    }
+    if (e.altKey) {
+      this.altKey = true;
+    }
+    if (e.shiftKey && this.altKey) {
+      this.hotkeyChangeLanguage();
+      this.refreshLayout();
+      this.shiftKey = false;
+      this.altKey = false;
+    }
+    if (e.altKey && this.shiftKey) {
+      this.hotkeyChangeLanguage();
+      this.refreshLayout();
+      this.shiftKey = false;
+      this.altKey = false;
     }
   }
   addEventListeners() {
-    document.addEventListener('keydown',  (e)=>{ if(e.code == "Enter"){
+    this.onPress = this.handleBodyKeypress.bind(this);
+
+    document.body.addEventListener("keydown", this.onPress );
+    this.button__prime.addEventListener("click", (e) =>
       this.handleEventLogin(e)
-    }});
-    this.button__prime.addEventListener("click", (e)=>  this.handleEventLogin(e));
+    );
     this.login_form_registrationPageLink.addEventListener("click", () => {
       this.redirectToRegistrationPage();
     });
