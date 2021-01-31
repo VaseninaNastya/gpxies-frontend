@@ -1,7 +1,7 @@
 class GpxiesAPI {
   constructor() {
     // this.API_SERVER = 'https://api.gpxies.ru';
-    this.API_SERVER = "http://127.0.0.1:3003";
+    this.API_SERVER = 'http://127.0.0.1:3003';
   }
   /*  Users   */
   async userRegistration(userRegistrationData) {
@@ -149,16 +149,17 @@ class GpxiesAPI {
       })
       .catch((error) => Error(error));
   }
-  async deleteTrackById(id) {
+  async deleteTrackById(tracksToDelete) {
     return (
-      fetch(this.API_SERVER + '/tracks/id/' + id, {
-        method: 'DELETE',
+      fetch(this.API_SERVER + '/tracks/delete', {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36',
           Referer: 'https://api.gpxies.ru',
           Authorization: 'Bearer ' + localStorage.getItem('gpxiesToken'),
         },
+        body: JSON.stringify(tracksToDelete),
       })
         .then((response) => {
           console.log('response', response);
@@ -181,7 +182,7 @@ class GpxiesAPI {
       },
     })
       .then((response) => {
-        console.log('RSP',response);
+        console.log('RSP', response);
         return response.json();
       })
       .catch((error) => Error(error));
