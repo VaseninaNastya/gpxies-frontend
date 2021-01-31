@@ -19,6 +19,7 @@ footer a:hover{
 }
 .footer_img{
     height: 35px;
+    margin-left: 5px;
 }
 @media (max-width: 1000px) and (min-width: 650px) {
     footer .container{

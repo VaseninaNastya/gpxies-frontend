@@ -62,6 +62,7 @@
 }
 .icon_header {
   height: 40px;
+  margin-right: 5px;
 }
 
 .icon_private0 {
@@ -110,7 +111,7 @@
   }
 
   .trackDescription_title__primary {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 20px;
   }
   .trackDescription_title__primary img {

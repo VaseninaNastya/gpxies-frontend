@@ -86,28 +86,32 @@ class LoginPage {
     this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
+  async handleEventLogin (e) {
+    e.preventDefault();
+    let userData = {
+      email: document.querySelector("#emailField").value,
+      password: document.querySelector("#password").value,
+    };
+    this.gpxiesAPI = new GpxiesAPI();
+    let res = await this.gpxiesAPI.userLogin(userData);
+    console.log("res", res);
+    if (res.type == "error") {
+      this.error_description.classList.remove("error_description_hidden");
+    } else {
+      this.error_description.classList.add("error_description_hidden");
+    }
+    if (res.token) {
+      localStorage.setItem("gpxiesUserName", res.username);
+      localStorage.setItem("gpxiesToken", res.token);
+      localStorage.setItem("gpxiesUserId", res.id);
+     this.redirectToTrackListPage();
+    }
+  }
   addEventListeners() {
-    this.button__prime.addEventListener("click", async (e) => {
-      e.preventDefault();
-      let userData = {
-        email: document.querySelector("#emailField").value,
-        password: document.querySelector("#password").value,
-      };
-      this.gpxiesAPI = new GpxiesAPI();
-      let res = await this.gpxiesAPI.userLogin(userData);
-      console.log("res", res);
-      if (res.type == "error") {
-        this.error_description.classList.remove("error_description_hidden");
-      } else {
-        this.error_description.classList.add("error_description_hidden");
-      }
-      if (res.token) {
-        localStorage.setItem("gpxiesUserName", res.username);
-        localStorage.setItem("gpxiesToken", res.token);
-        localStorage.setItem("gpxiesUserId", res.id);
-        this.redirectToTrackListPage();
-      }
-    });
+    document.addEventListener('keydown',  (e)=>{ if(e.code == "Enter"){
+      this.handleEventLogin(e)
+    }});
+    this.button__prime.addEventListener("click", (e)=>  this.handleEventLogin(e));
     this.login_form_registrationPageLink.addEventListener("click", () => {
       this.redirectToRegistrationPage();
     });
