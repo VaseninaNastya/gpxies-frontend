@@ -178,7 +178,7 @@ class LoadTrackPage {
       const formElem = document.querySelector('.loadTrackPage_form');
       const { hashString } = await this.gpxiesAPI.uploadTrack(formElem);
       const tracksData = {
-        title: this.trackName_input.value,
+        title: this.trackName_input.value || `New track ${new Date().toISOString()}`,
         type: this.sport_selector.value,
         description: this.track_description_textarea.value,
         isPrivate: this.private_checkbox.checked,

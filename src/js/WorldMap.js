@@ -1,6 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import GPX from 'leaflet-gpx';
+import GpxiesAPI from './GpxiesAPI';
 
 class WorldMap {
   constructor(mapid = 'mapid') {
@@ -54,8 +55,12 @@ class WorldMap {
 
   setupListeners() {}
 
-  showGpx(hashString) {
+  async showGpx(hashString) {
     console.log('hashString', hashString);
+    // let trackPoints = [];
+    // const gpxiesAPI = new GpxiesAPI();
+    // let result = await gpxiesAPI.getTrackPoints(hashString);
+    // console.log('result',result);
   }
 
   // Trick for clear all layer and objects from map
