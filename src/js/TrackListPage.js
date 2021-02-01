@@ -241,13 +241,21 @@ class TrackListPage {
         let res = await this.gpxiesAPI.downloadTrack(item);
         console.log(res);
       })
+      
+      
+
+
+      // if (result.ok) {
+      //   this.popup.showSuccessMessage();
+      // } else {
+      //   this.popup.showErrorMessage();
+      // }
        this.trackListPageButtonsBlock.hideButtonContainer();
     }
-    this.unchooseAll();
   }
   handleBodyKeypress(e) {
     let shift,
-      alt= null;
+      alt = null;
     if (e.stopPropagation) e.stopPropagation();
     if (e.code == 'Delete') {
       this.handleEventDeleteTrack();
@@ -258,6 +266,7 @@ class TrackListPage {
     if (e.altKey) {
       alt = true;
     }
+
     if (e.code == 'KeyD') {
       console.log('работаddут');
       this.handleEventDownloadTrack(e);
