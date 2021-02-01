@@ -9,6 +9,7 @@ import ChooseLanguage from './ChooseLanguage';
 import Footer from './Footer';
 import Auth from './utils/auth.utils';
 import GetDate from './utils/getDate.utils'
+import BlockPageLayout from './BlockPageLayout';
 
 
 class LoadTrackPage {
@@ -26,21 +27,23 @@ class LoadTrackPage {
     if (!auth) {
       window.location = '/login';
     }
-
+    //create('div', 'track_name_tableItem', create('a', null, item.title, null, ['href', '/track/' + item.hashString])),
     this.getWordsData();
     this.gpxiesAPI = new GpxiesAPI();
+    this.blockPageLayout = new BlockPageLayout()
     this.popup = new MessagePopup(
       `${this.wordsChooseArr.success_trackLoad_message}`,
       [
         ['button_newTrack', `${this.wordsChooseArr.button_newTrack}`],
-        ['button_editTrack', `${this.wordsChooseArr.button_editTrack}`],
+        ['button_viewTrack', `${this.wordsChooseArr.button_viewTrack}`],
       ],
       `${this.wordsChooseArr.error_trackLoad_message}`,
       [['button_newTrack', `${this.wordsChooseArr.button_newTrack}`]]
     );
     const footer = new Footer();
+    document.body.prepend(this.blockPageLayout.generateMessageLayout());
     this.popup_container = this.popup.generateMessageLayout();
-    document.body.prepend(this.popup_container);
+    document.querySelector(".loadingSpinner_wrapper").append(this.popup_container)
     this.spinner = create('img', 'icon_spinner', null, null, ['src', icon_spinner]);
     this.loading_button = create('label', 'loading_button', `${this.wordsChooseArr.selectFile}`, null, ['for', 'load_track_file_input']);
     this.loading_hiddenInput = create(
@@ -173,9 +176,13 @@ class LoadTrackPage {
       this.loading_trackFileName.append(this.spinner);
     });
     document.querySelector('.loadingSpinner_wrapper').addEventListener('click', (e) => {
+      console.log("hf,jjjfjf>>>>>>>>>>>>>>");
       if (Array.from(e.target.classList).includes('loadingSpinner_wrapper') || Array.from(e.target.classList).includes('button_newTrack')) {
         this.addDisabledButtonAttribute();
         this.resetForm();
+      }
+      if(Array.from(e.target.classList).includes('button_viewTrack')){
+        window.location = '/track/' + this.hashString;
       }
     });
     this.loading_hiddenInput.addEventListener(
@@ -203,10 +210,9 @@ class LoadTrackPage {
   }
   async loadTrack(event){
     event.preventDefault();
-    this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
+    document.querySelector(".loadingSpinner_wrapper").classList.remove('loadingSpinner_wrapper__hidden');
     const formElem = document.querySelector('.loadTrackPage_form');
     const { hashString, distance, points } = await this.gpxiesAPI.uploadTrack(formElem);
-
     const tracksData = {
       title: this.trackName_input.value || `New track ${GetDate(new Date().toISOString())}`,
       type: this.sport_selector.value,
@@ -216,6 +222,7 @@ class LoadTrackPage {
       distance: distance,
       points: points,
     };
+    this.hashString = hashString
     const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
     if (result.hashString) {
       setTimeout(this.popup.showSuccessMessage(), 300);

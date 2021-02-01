@@ -8,9 +8,11 @@ import WorldMap from './WorldMap';
 import GpxiesAPI from './GpxiesAPI';
 import ChooseLanguage from "./ChooseLanguage";
 import GetDate from './utils/getDate.utils'
+import MessagePopup from './MessagePopup';
 
 class ShowTrackPage {
   generateLayout() {
+
     this.getWordsData();
     const hashString = window.location.pathname.toString().slice(7);
 
@@ -42,11 +44,11 @@ class ShowTrackPage {
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   async showTrack(hashString) {
-    console.log(hashString);
+  //console.log(hashString);
     let result = await this.gpxiesAPI.getTrackById(hashString);
     let userinfo = await this.gpxiesAPI.getUserInfo(result.user);
-    console.log(result);
-    console.log(userinfo);
+   // console.log(result);
+    //console.log(userinfo);
     document.title = `${result.title} - Gpxies.ru`;
     document.querySelector('.trackDescription_trackName').innerHTML = `${result.title}, `;
     document.querySelector('.trackDescription_trackLength').innerHTML =
@@ -59,7 +61,7 @@ class ShowTrackPage {
     }
     console.log(document.querySelector('.item_download'));
     document.querySelector('.item_download').addEventListener('click', async () => {
-      console.log(hashString);
+     // console.log(hashString);
       this.gpxiesAPI.downloadTrack(hashString);
     });
 

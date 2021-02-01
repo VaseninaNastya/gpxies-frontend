@@ -50,5 +50,6 @@ module.exports = {
   author:"author",
   uploaded: "uploaded",
   fullStatistics: "Full statistics",
-  km: "km"
+  km: "km",
+  button_viewTrack: "View track",
 };
