@@ -14,6 +14,7 @@ import SportsNames from "./utils/sportsTypesNames.utils.js";
 import Footer from "./Footer";
 import ChooseLanguage from "./ChooseLanguage";
 
+
 class TrackListPage {
   constructor() {
     this.trackHashForDelete = [];
@@ -56,6 +57,7 @@ class TrackListPage {
       this.buttonsBlock_container,
       this.tableBody,
     ]);
+
     document.body.prepend(
       create("div", "table_wrapper", [
         header.generateLayout(),
@@ -63,6 +65,7 @@ class TrackListPage {
         footer.generateLayout(),
       ])
     );
+
     this.addEventListeners();
   }
   generatePopupLayout() {
@@ -74,14 +77,17 @@ class TrackListPage {
     this.filter_date_icons_container = iconsContainer.generateLayout();
     this.filter_distance_icons_container = iconsContainer.generateLayout();
     this.searchBar = new SearchBar();
+
     this.checkAllCheckbox = create("input", null, null, null, [
       "type",
       "checkbox",
     ]);
+
     this.sportChoce_select = create(
       "select",
       "sport-choce",
       [
+
         create("option", null, `${this.wordsChooseArr.all}`, null, [
           "value",
           "",
@@ -102,6 +108,7 @@ class TrackListPage {
           "value",
           Type.Other,
         ]),
+
       ],
       null,
       ["id", "sport-choce"]
@@ -128,19 +135,22 @@ class TrackListPage {
           ]),
         ]),
       ]),
+
       create("div", "table_item table_header_item_distance", [
         create("div", null, `${this.wordsChooseArr.distance}`),
+
         this.filter_distance_icons_container,
       ]),
     ]);
     return this.tableHeader;
   }
   refreshLayout() {
-    document.body.innerHTML = "";
-    this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
+    document.body.innerHTML = '';
+    this.chooseLanguage = localStorage.getItem('gpxiesChosen_language');
     this.generateLayout();
   }
   chooseAll() {
+
     document
       .querySelectorAll(".checkbox_item")
       .forEach((item) => (item.checked = true));
@@ -163,6 +173,7 @@ class TrackListPage {
       document
         .querySelector(".table_header_item_name")
         .append(this.filter_name_icons_container);
+
       // TODO: Copying of arrays!
       this.tracksToShow = this.userTracks.map((x) => x);
       console.log("this.tracksToShow111", this.tracksToShow);
@@ -186,6 +197,7 @@ class TrackListPage {
         "div",
         "table_body_row",
         [
+
           create("div", "table_item table_item_checkbox", [
             create(
               "input",
@@ -224,10 +236,12 @@ class TrackListPage {
               ["src", icon_private],
               ["alt", "приватный"]
             ),
+
           ]),
           /*create("div", "table_item", [
           create("span", null, item.isPrivate.toString()),
         ]),*/
+
           create("div", "table_item", [
             create(
               "span",
@@ -235,7 +249,7 @@ class TrackListPage {
               (item.distance / 1000).toFixed(1).toString() +
                 ` ${this.wordsChooseArr.km}`
             ),
-          ]),
+
           /* create("div", "table_item table_body_item_action-list", [
           create("a", null, "Редактировать"),
           create("a", null, "Удалить"),
@@ -288,6 +302,7 @@ class TrackListPage {
     }
   }
   addEventListeners() {
+
     document
       .querySelector(".language_container")
       .addEventListener("click", () => {
@@ -315,11 +330,13 @@ class TrackListPage {
       if (e.code == "Delete") {
         this.handleEventDeleteTrack();
       }
+
     });
     //Show and Hide Button Container
     this.tableBody_container.addEventListener("click", (e) => {
       if (Array.from(e.target.classList).includes("table_item_checkbox")) {
         //console.log("e.target", e.target.querySelector(".checkbox_item").checked);
+
         e.target.querySelector(
           ".checkbox_item"
         ).checked = !e.target.querySelector(".checkbox_item").checked;
@@ -337,13 +354,16 @@ class TrackListPage {
           (item) => item.checked
         )
       ) {
+
         this.trackListPageButtonsBlock.showButtonContainer();
       }
       //}
     });
+
     //Chose and unchose all.
     this.table_item_checkAllCheckbox.addEventListener("click", (e) => {
       if (e.target.tagName == "INPUT") {
+
         this.checkAllCheckbox.checked = !this.checkAllCheckbox.checked;
       }
       if (this.checkAllCheckbox.checked) {
@@ -405,6 +425,7 @@ class TrackListPage {
     this.generateTableBodyLayout(this.tracksToShow);
   }
   filterFromHight(parametr) {
+
     this.tracksToShow = this.tracksToShow
       .concat()
       .sort((a, b) => (a[parametr] > b[parametr] ? 1 : -1));
@@ -417,6 +438,7 @@ class TrackListPage {
       .sort((a, b) => (b[parametr] > a[parametr] ? 1 : -1));
     console.log("sss", this.tracksToShow[0].created);
     this.tableBody_container.innerHTML = "";
+
     this.generateTableBodyLayout(this.tracksToShow);
     //this.tracksToShow = this.userTracks.map((x) => x);
   }
