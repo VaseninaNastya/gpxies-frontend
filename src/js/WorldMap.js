@@ -51,10 +51,11 @@ class WorldMap {
   async showGpx(hashString) {
     console.log('hashString', hashString);
 
-    let trackPoints = [];
     const gpxiesAPI = new GpxiesAPI();
     let track = await gpxiesAPI.getTrackPoints(hashString);
-    this.drawTrack(track.gpx.trk);
+    setTimeout(() => {
+      this.drawTrack(track.gpx.trk);
+    }, 2000);
   }
 
   drawTrack(tracks) {
