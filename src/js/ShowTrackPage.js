@@ -15,7 +15,7 @@ import icon_spinner from '../../assets/img/icons_spinner.png';
 class ShowTrackPage {
   generateLayout() {
     this.getWordsData();
-    this.loadingSpinner_img = create("img", "icon_spinner", null, null, [
+    this.loadingSpinner_img = create("img", "icon_spinner showTrackPage_icon_spinner", null, null, [
       "src",
       icon_spinner,
     ]);
@@ -27,6 +27,12 @@ class ShowTrackPage {
     document.body.prepend(this.blockPageLayoutNode);
     const completeStatictics = new СompleteStatictics();
     const showTrackPageHeader = new ShowTrackPageHeader();
+    this.popup = new MessagePopup(
+      `${this.wordsChooseArr.success_trackDelete_message}`,
+      [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]],
+      `${this.wordsChooseArr.error_trackDelete_message}`,
+      [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]]
+    );
     const header = new Header();
     const footer = new Footer();
     const map = create("div", "map", null, null, ["id", "mapid"]);
@@ -44,7 +50,7 @@ class ShowTrackPage {
     this.gpxiesAPI = new GpxiesAPI();
     setTimeout(() => {
       this.showTrack(hashString);
-    }, 1000);
+    }, 800);
   }
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();

@@ -18,7 +18,7 @@
     top:0px;
     z-index: 60;
 }
-.loadingSpinner_wrapper img{
+.showTrackPage_icon_spinner{
     position: relative;
     top: 200px;
     left: calc(50% - 50px);
