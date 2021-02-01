@@ -25,9 +25,9 @@ class TrackListPage {
   }
 
   getWordsData() {
-    const chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = chooseLanguageComponent.generateWordsData();
-    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = this.chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   generateLayout() {
@@ -111,8 +111,9 @@ class TrackListPage {
     return this.tableHeader;
   }
   refreshLayout() {
-    document.body.innerHTML = '';
-    this.chooseLanguage = localStorage.getItem('gpxiesChosen_language');
+    document.body.innerHTML = "";
+    document.body.removeEventListener("keydown", this.onPress);
+    this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
   chooseAll() {
@@ -205,29 +206,50 @@ class TrackListPage {
       this.trackListPageButtonsBlock.hideButtonContainer();
     }
   }
-  addEventListeners() {
-    document.querySelector('.language_container').addEventListener('click', () => {
-      this.refreshLayout();
-    });
-    document.querySelector('.loadingSpinner_wrapper').addEventListener('click', (e) => {
-      if (
-        Array.from(e.target.classList).includes('loadingSpinner_wrapper') ||
-        Array.from(e.target.classList).includes('button_returnToTrackList')
-      ) {
-        this.unchooseAll();
-        this.checkAllCheckbox.checked = false;
-        this.popup.hideMessages();
-      }
-    });
-    document.querySelector('.track_delete_button').addEventListener('click', () => {
+  handleBodyKeypress(e){
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.code == "Delete") {
       this.handleEventDeleteTrack();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.code == 'Delete') {
+    }   
+    let alt,shift = null;
+    if (e.shiftKey) {
+      shift = true;
+    }
+    if (e.altKey) {
+      alt = true;
+    }
+    if ((e.shiftKey && alt)||(e.altKey && shift)) {
+      this.chooseLanguageComponent.hotkeyChangeLanguage();
+      this.refreshLayout();
+      shift = false;
+      alt = false;
+    }
+  }
+  addEventListeners() {
+    document
+      .querySelector(".language_container")
+      .addEventListener("click", () => {
+        this.refreshLayout();
+      });
+    document
+      .querySelector(".loadingSpinner_wrapper")
+      .addEventListener("click", (e) => {
+        if (
+          Array.from(e.target.classList).includes("loadingSpinner_wrapper") ||
+          Array.from(e.target.classList).includes("button_returnToTrackList")
+        ) {
+          this.unchooseAll();
+          this.checkAllCheckbox.checked = false;
+          this.popup.hideMessages();
+        }
+      });
+    document
+      .querySelector(".track_delete_button")
+      .addEventListener("click", () => {
         this.handleEventDeleteTrack();
-      }
-    });
+      });
+      this.onPress = this.handleBodyKeypress.bind(this);
+      document.body.addEventListener("keydown", this.onPress );
     //Show and Hide Button Container
     this.tableBody_container.addEventListener('click', (e) => {
       if (Array.from(e.target.classList).includes('table_item_checkbox')) {
