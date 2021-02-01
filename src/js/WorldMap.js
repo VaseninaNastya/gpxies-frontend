@@ -56,6 +56,7 @@ class WorldMap {
     setTimeout(() => {
       this.drawTrack(track.gpx.trk);
     }, 2000);
+    return track
   }
 
   drawTrack(tracks) {
