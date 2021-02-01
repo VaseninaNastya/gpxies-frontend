@@ -147,26 +147,31 @@ class RegistrationPage {
     this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
+  async handleEventRegistration(e){
+    e.preventDefault();
+    this.clearLoginErrors();
+    this.validatePassword();
+    this.validateСonfirmPassword();
+    this.userRegistrationData = {
+      username: document.querySelector("#loginField").value,
+      email: document.querySelector("#emailField").value,
+      password: document.querySelector("#password").value,
+      confirm_password: document.querySelector("#confirmPassword").value,
+    };
+    this.gpxiesAPI = new GpxiesAPI();
+    this.gpxiesAPIAnswer = await this.gpxiesAPI.userRegistration(
+      this.userRegistrationData
+    );
+    await this.showLoginErrorsMessages();
+    await this.showDuplicateEmailErrorsMessages();
+    await this.addRegisteredDataAtLocalStorage();
+  }
   addListeners() {
-    this.button__prime.addEventListener("click", async (e) => {
-      e.preventDefault();
-      this.clearLoginErrors();
-      this.validatePassword();
-      this.validateСonfirmPassword();
-      this.userRegistrationData = {
-        username: document.querySelector("#loginField").value,
-        email: document.querySelector("#emailField").value,
-        password: document.querySelector("#password").value,
-        confirm_password: document.querySelector("#confirmPassword").value,
-      };
-      this.gpxiesAPI = new GpxiesAPI();
-      this.gpxiesAPIAnswer = await this.gpxiesAPI.userRegistration(
-        this.userRegistrationData
-      );
-      await this.showLoginErrorsMessages();
-      await this.showDuplicateEmailErrorsMessages();
-      await this.addRegisteredDataAtLocalStorage();
+    this.button__prime.addEventListener("click", (e) => {this.handleEventRegistration(e)
     });
+    document.addEventListener('keydown',  (e)=>{ if(e.code == "Enter"){
+      this.handleEventRegistration(e)
+    }});
     this.registration_form_loginLink.addEventListener("click", () => {
       this.redirectToLoginPage();
     });
