@@ -7,10 +7,7 @@ import Auth from "./utils/auth.utils";
 
 class RegistrationPage {
   constructor() {
-    const auth = new Auth().checkAuth();
-    if (auth.ok) {
-      window.location = '/mytracks';
-    } 
+   
   }
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
@@ -22,7 +19,12 @@ class RegistrationPage {
     this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
-  generateLayout() {
+  async generateLayout() {
+    const auth = await new Auth().checkAuth();
+    if (auth) {
+      window.location = '/mytracks';
+    } 
+
     const footer = new Footer();
     this.getWordsData();
     this.button__prime = create(

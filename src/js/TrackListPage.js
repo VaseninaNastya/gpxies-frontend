@@ -16,13 +16,7 @@ import ChooseLanguage from './ChooseLanguage';
 import Auth from './utils/auth.utils';
 
 class TrackListPage {
-  constructor() {
-    const auth = new Auth().checkAuth();
-    if (!auth.ok) {
-      window.location = '/login';
-    }
-    this.trackHashForDelete = [];
-  }
+  constructor() {}
 
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
@@ -30,7 +24,13 @@ class TrackListPage {
     this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
-  generateLayout() {
+  async generateLayout() {
+    let auth = await new Auth().checkAuth();
+    if (!auth) {
+      window.location = '/login';
+    }
+    this.trackHashForDelete = [];
+
     this.getWordsData();
     const footer = new Footer();
     this.popup = new MessagePopup(
@@ -149,31 +149,31 @@ class TrackListPage {
     arr.map((item) => {
       const itemPrivateHidden = `icon_private${item.isPrivate}`;
       const date = this.getDate(item.created);
-      const tableBodyString = create('div', 'table_body_row', [
-        create('div', 'table_item table_item_checkbox', [
-          create('input', 'checkbox_item', null, null, ['type', 'checkbox'], ['data_checkboxhash', item.hashString]),
-        ]),
-        create('div', 'table_item', [
-          create('img', 'icon_sports_table', null, null, ['src', Sports[item.type]], ['alt', SportsNames[item.type]]),
-        ]),
-        create('div', 'table_item', [create('span', null, date)]),
-        create('div', 'table_item table_item_name', [
-          create('div', 'track_name_tableItem', create('a', null, item.title, null, ['href', '/track/' + item.hashString])),
-          create('img', `${itemPrivateHidden}`, null, null, ['src', icon_private], ['alt', 'приватный']),
-        ]),
-        create(
-          'div',
-          'table_item',
-          [create('span', null, (item.distance / 1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}`)],
-          null,
-          ['data_rowhash', item.hashString]
-        ),
-      ]);
+      const tableBodyString = create(
+        'div',
+        'table_body_row',
+        [
+          create('div', 'table_item table_item_checkbox', [
+            create('input', 'checkbox_item', null, null, ['type', 'checkbox'], ['data_checkboxhash', item.hashString]),
+          ]),
+          create('div', 'table_item', [
+            create('img', 'icon_sports_table', null, null, ['src', Sports[item.type]], ['alt', SportsNames[item.type]]),
+          ]),
+          create('div', 'table_item', [create('span', null, date)]),
+          create('div', 'table_item table_item_name', [
+            create('div', 'track_name_tableItem', create('a', null, item.title, null, ['href', '/track/' + item.hashString])),
+            create('img', `${itemPrivateHidden}`, null, null, ['src', icon_private], ['alt', 'приватный']),
+          ]),
+          create('div', 'table_item', [create('span', null, (item.distance / 1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}`)]),
+        ],
+        null,
+        ['data_rowhash', item.hashString]
+      );
 
       this.tableBody_container.append(tableBodyString);
     });
   }
-  handleEventDeleteTrack() {
+  async handleEventDeleteTrack() {
     const checkedItems = Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
       if (item.checked) {
         return true;
@@ -183,7 +183,8 @@ class TrackListPage {
     });
     if (checkedItems.includes(true)) {
       this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
-      Array.from(document.querySelectorAll('.checkbox_item')).map(async (item) => {
+      let tracksToDelete = [];
+      Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
         if (item.checked) {
           document.querySelector(`[data_rowhash='${item.getAttribute('data_checkboxhash')}']`).classList.add('table_body_row__hidden');
           console.log(
@@ -195,14 +196,20 @@ class TrackListPage {
           const deleteId = this.tracksToShow.find((item1) => {
             return item1.hashString == item.getAttribute('data_checkboxhash');
           }).id;
-          let result = await this.gpxiesAPI.deleteTrackById(deleteId);
-          if (result.ok) {
-            this.popup.showSuccessMessage();
-          } else {
-            this.popup.showErrorMessage();
-          }
+          tracksToDelete.push(deleteId);
         }
       });
+      let result = await this.gpxiesAPI.deleteTrackById(tracksToDelete);
+      if (result.ok) {
+        this.popup.showSuccessMessage();
+        // this.tracksToShow.filter((track)=>{
+        //  if ( track.id in tracksToDelete ) {
+        //    document.querySelector('')
+        //  }
+        // })
+      } else {
+        this.popup.showErrorMessage();
+      }
       this.trackListPageButtonsBlock.hideButtonContainer();
     }
   }

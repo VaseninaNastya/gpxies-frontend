@@ -1,7 +1,7 @@
 class GpxiesAPI {
   constructor() {
-    this.API_SERVER = 'https://api.gpxies.ru';
-    // this.API_SERVER = 'http://127.0.0.1:3003';
+    // this.API_SERVER = 'https://api.gpxies.ru';
+    this.API_SERVER = 'http://127.0.0.1:3003';
   }
   /*  Users   */
   async userRegistration(userRegistrationData) {
@@ -66,9 +66,10 @@ class GpxiesAPI {
       },
     })
       .then((response) => {
-        return response.json();
+        // console.log(response);
+        return response;
       })
-      .catch((error) => false);
+      .catch((error) => error);
   }
 
   /* Tracks */
