@@ -14,11 +14,11 @@ class LoginPage {
     } 
   }
   getWordsData() {
-    const chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = chooseLanguageComponent.generateWordsData();
-    this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
+    this.chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = this.chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage_container = this.chooseLanguageComponent.generateLayout();
     this.chooseLanguage_container.classList.add('language_container_login');
-    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   generateLayout() {
@@ -75,39 +75,23 @@ class LoginPage {
       this.redirectToTrackListPage();
     }
   }
-  hotkeyChangeLanguage() {
-    if (localStorage.getItem('gpxiesChosen_language') == 0) {
-      localStorage.setItem('gpxiesChosen_language', 1);
-      console.log('this.chooseLanguage', this.chooseLanguage);
-    } else {
-      localStorage.setItem('gpxiesChosen_language', 0);
-      console.log('this.chooseLanguage', this.chooseLanguage);
-    }
-    this.shiftLeft = false;
-    this.altKey = false;
-  }
   handleBodyKeypress(e) {
+    let shift,alt = null
     if (e.stopPropagation) e.stopPropagation();
     if (e.code == 'Enter') {
       this.handleEventLogin(e);
     }
     if (e.shiftKey) {
-      this.shiftKey = true;
+      shift = true;
     }
     if (e.altKey) {
-      this.altKey = true;
+      alt = true;
     }
-    if (e.shiftKey && this.altKey) {
-      this.hotkeyChangeLanguage();
+    if ((e.shiftKey && alt) || (e.altKey && shift)) {
+      this.chooseLanguageComponent.hotkeyChangeLanguage();
       this.refreshLayout();
-      this.shiftKey = false;
-      this.altKey = false;
-    }
-    if (e.altKey && this.shiftKey) {
-      this.hotkeyChangeLanguage();
-      this.refreshLayout();
-      this.shiftKey = false;
-      this.altKey = false;
+      shift = false;
+      alt = false;
     }
   }
   addEventListeners() {
