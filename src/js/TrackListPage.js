@@ -16,13 +16,7 @@ import ChooseLanguage from './ChooseLanguage';
 import Auth from './utils/auth.utils';
 
 class TrackListPage {
-  constructor() {
-    const auth = new Auth().checkAuth();
-    if (!auth.ok) {
-      window.location = '/login';
-    }
-    this.trackHashForDelete = [];
-  }
+  constructor() {}
 
   getWordsData() {
     const chooseLanguageComponent = new ChooseLanguage();
@@ -30,7 +24,13 @@ class TrackListPage {
     this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
-  generateLayout() {
+  async generateLayout() {
+    let auth = await new Auth().checkAuth();
+    if (!auth) {
+      window.location = '/login';
+    }
+    this.trackHashForDelete = [];
+
     this.getWordsData();
     const footer = new Footer();
     this.popup = new MessagePopup(

@@ -11,10 +11,7 @@ import Auth from './utils/auth.utils';
 
 class LoadTrackPage {
   constructor() {
-    const auth = new Auth().checkAuth();
-    if (!auth.ok) {
-      window.location = '/login';
-    }
+   
   }
   getWordsData() {
     const chooseLanguageComponent = new ChooseLanguage();
@@ -22,7 +19,12 @@ class LoadTrackPage {
     this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
-  generateLayout() {
+  async generateLayout() {
+    let auth = await new Auth().checkAuth();
+    if (!auth) {
+      window.location = '/login';
+    }
+
     this.getWordsData();
     this.gpxiesAPI = new GpxiesAPI();
     this.popup = new MessagePopup(

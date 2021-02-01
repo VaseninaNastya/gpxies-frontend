@@ -2,17 +2,20 @@ const { default: GpxiesAPI } = require('../GpxiesAPI');
 
 class Auth {
   constructor() {
-    this.checkAuth();
+    // this.checkAuth();
   }
 
   async checkAuth() {
-    console.log('AUTH');
     const gpxiesAPI = new GpxiesAPI();
-    const result = await gpxiesAPI.whoami();
+    let result = await gpxiesAPI.whoami();
+    console.log(result);
     if (result.ok) {
+      console.log('Auth OK');
       return true;
+    } else {
+      console.log('Auth NOT Ok');
+      return false;
     }
-    return false;
   }
 }
 export default Auth;

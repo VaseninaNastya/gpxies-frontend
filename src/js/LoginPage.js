@@ -7,12 +7,7 @@ import Footer from './Footer';
 import Auth from './utils/auth.utils';
 
 class LoginPage {
-  constructor() {
-    const auth = new Auth().checkAuth();
-    if (auth.ok) {
-      window.location = '/mytracks';
-    } 
-  }
+  constructor() {}
   getWordsData() {
     const chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = chooseLanguageComponent.generateWordsData();
@@ -21,7 +16,12 @@ class LoginPage {
     this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
-  generateLayout() {
+  async generateLayout() {
+    const auth = await new Auth().checkAuth();
+    if (auth) {
+      window.location = '/mytracks';
+    }
+
     const footer = new Footer();
     this.getWordsData();
     this.button__prime = create('div', 'button__primary', `${this.wordsChooseArr.login}`);
@@ -115,7 +115,6 @@ class LoginPage {
     document.body.addEventListener('keydown', this.onPress);
     this.button__prime.addEventListener('click', (e) => this.handleEventLogin(e));
     this.login_form_registrationPageLink.addEventListener('click', () => {
-
       this.redirectToRegistrationPage();
     });
     document.querySelector('.language_container').addEventListener('click', () => {

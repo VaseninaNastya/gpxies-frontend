@@ -66,9 +66,10 @@ class GpxiesAPI {
       },
     })
       .then((response) => {
-        return response.json();
+        // console.log(response);
+        return response;
       })
-      .catch((error) => false);
+      .catch((error) => error);
   }
 
   /* Tracks */
