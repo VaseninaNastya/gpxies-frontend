@@ -75,11 +75,8 @@ class ShowTrackPage {
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   async showTrack(hashString) {
-    //console.log(hashString);
     let result = await this.gpxiesAPI.getTrackById(hashString);
     let userinfo = await this.gpxiesAPI.getUserInfo(result.user);
-    // console.log(result);
-    //console.log(userinfo);
     document.title = `${result.title} - Gpxies.ru`;
     document.querySelector(
       ".trackDescription_trackName"
@@ -99,7 +96,6 @@ class ShowTrackPage {
     if (result.isPrivate) {
       document.querySelector(".icon_private0").style.visibility = "visible";
     }
-    console.log(document.querySelector(".item_download"));
    
 
     // Show track on map
@@ -117,7 +113,6 @@ class ShowTrackPage {
     if (this.trackShowRes.type ==  "error") {
       window.location = '/mytracks'
     }
-    console.log("this.worldMap.showGpx(hashString);", this.trackShowRes);
     this.addEventListeners();
   }
   refreshLayout() {
@@ -130,9 +125,13 @@ class ShowTrackPage {
     let shift,
       alt = null;
     if (e.stopPropagation) e.stopPropagation();
-    /* if (e.code == 'Enter') {
-      this.handleEventLogin(e);
-    }*/
+     if (e.code == 'Delete') {
+      this.handleEventDeleteTrack(e)
+    }
+    if (e.code == 'KeyD') {
+      this.gpxiesAPI.downloadTrack(this.hashString);
+
+    }
     if (e.shiftKey) {
       shift = true;
     }
@@ -150,7 +149,6 @@ class ShowTrackPage {
     document
     .querySelector(".item_download")
     .addEventListener("click", async () => {
-      // console.log(hashString);
       this.gpxiesAPI.downloadTrack(this.hashString);
     });
 
@@ -164,7 +162,6 @@ class ShowTrackPage {
     document
       .querySelector(".item_delete")
       .addEventListener("click",  () => {
-         console.log(this.hashString);
         this.handleEventDeleteTrack();
       });
       document.querySelector('.loadingSpinner_wrapper').addEventListener('click', (e) => {
@@ -182,46 +179,19 @@ class ShowTrackPage {
   
   async handleEventDeleteTrack() {
     let userTracks = await this.addTracksData()
-    console.log("userTracks",userTracks);
-    /*const checkedItems = Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
-      if (item.checked) {
-        return true;
-      } else {
-        return false;
-      }
-    });*/
-    //if (checkedItems.includes(true)) {
       this.blockPageLayoutNode.append(this.popup.generateMessageLayout())
       document.querySelector(".loadingSpinner_wrapper").classList.remove('loadingSpinner_wrapper__hidden');
       let tracksToDelete = [];
-      //Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
-        //if (item.checked) {
-          //document.querySelector(`[data_rowhash='${item.getAttribute('data_checkboxhash')}']`).classList.add('table_body_row__hidden');
-          console.log(
-            'botv',
-            this.hashString
-          );
           const deleteId = userTracks.find((item1) => {
             return item1.hashString == this.hashString;
           }).id;
           tracksToDelete.push(deleteId);
-        //}
-     // });
-      console.log("tracksToDelete",tracksToDelete);
       let result = await this.gpxiesAPI.deleteTrackById(tracksToDelete);
       if (result.ok) {
-        console.log("трек удален");
         this.popup.showSuccessMessage();
-        // this.tracksToShow.filter((track)=>{
-        //  if ( track.id in tracksToDelete ) {
-        //    document.querySelector('')
-        //  }
-        // })
       } else {
-        console.log("ошибка");
         this.popup.showErrorMessage();
       }
-    //}*/
   }
 }
 

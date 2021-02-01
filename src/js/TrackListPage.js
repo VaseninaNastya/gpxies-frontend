@@ -255,8 +255,7 @@ class TrackListPage {
   }
   handleBodyKeypress(e) {
     let shift,
-      alt,
-      ctrl = null;
+      alt = null;
     if (e.stopPropagation) e.stopPropagation();
     if (e.code == 'Delete') {
       this.handleEventDeleteTrack();
@@ -268,6 +267,11 @@ class TrackListPage {
       alt = true;
     }
 
+    if (e.code == 'KeyD') {
+      console.log('работаddут');
+      this.handleEventDownloadTrack(e);
+
+    }
 
     if (e.code == 'KeyC') {
       console.log('работаут');
