@@ -113,6 +113,9 @@ class ShowTrackPage {
         );
         this.blockPageLayoutNode.innerHTML = "";
       }, 2000);
+    } 
+    if (this.trackShowRes.type ==  "error") {
+      window.location = '/mytracks'
     }
     console.log("this.worldMap.showGpx(hashString);", this.trackShowRes);
     this.addEventListeners();
