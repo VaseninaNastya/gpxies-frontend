@@ -3,7 +3,6 @@ import create from './utils/create.utils';
 import GpxiesAPI from './GpxiesAPI';
 import Header from './Header';
 import Type from './utils/trackTypes.utils';
-import Mounth from './utils/mounth.utils';
 import Sports from './utils/sportTypes.utils';
 import icon_private from '../../assets/img/icons_private.png';
 import SearchBar from './SearchBar';
@@ -14,7 +13,7 @@ import SportsNames from './utils/sportsTypesNames.utils.js';
 import Footer from './Footer';
 import ChooseLanguage from './ChooseLanguage';
 import Auth from './utils/auth.utils';
-
+import GetDate from './utils/getDate.utils'
 class TrackListPage {
   constructor() {}
 
@@ -137,19 +136,11 @@ class TrackListPage {
       this.generateTableBodyLayout(this.tracksToShow);
     }
   }
-  getDate(date) {
-    const dateObj = new Date(date);
-    const day = dateObj.getDate();
-    const year = dateObj.getFullYear();
-    const mounth = Mounth[dateObj.getMonth()];
-    const dateRes = day + '.' + mounth + '.' + year;
-    return dateRes;
-  }
   generateTableBodyLayout(arr) {
     arr.map((item) => {
       console.log(item);
       const itemPrivateHidden = `icon_private${item.isPrivate}`;
-      const date = this.getDate(item.created);
+      const date = GetDate(item.created);
       const tableBodyString = create(
         'div',
         'table_body_row',
@@ -227,10 +218,11 @@ class TrackListPage {
       alt = true;
     }
 
-    /*if((e.code == "KeyC")){
-      this.checkAllCheckbox.checked
+    if((e.code == "KeyC")){
+      console.log("работаут");
+      this.chooseUnchooseAll(e)
     }
-    if(ctrl && (e.code == "KeyC")){
+    /*if(ctrl && (e.code == "KeyC")){
       console.log("работает");
       this.checkAllCheckbox.checked
     }*/
@@ -284,20 +276,7 @@ class TrackListPage {
     });
 
     //Chose and unchose all.
-    this.table_item_checkAllCheckbox.addEventListener('click', (e) => {
-      if (e.target.tagName == 'INPUT') {
-        this.checkAllCheckbox.checked = !this.checkAllCheckbox.checked;
-      }
-      if (this.checkAllCheckbox.checked) {
-        this.checkAllCheckbox.checked = false;
-        this.unchooseAll();
-        this.trackListPageButtonsBlock.hideButtonContainer();
-      } else {
-        this.checkAllCheckbox.checked = true;
-        this.chooseAll();
-        this.trackListPageButtonsBlock.showButtonContainer();
-      }
-    });
+    this.table_item_checkAllCheckbox.addEventListener('click', (e) => this.chooseUnchooseAll(e));
     this.sportChoce_select.addEventListener('change', () => {
       this.searchBar_input.value = '';
       this.unchooseAll();
@@ -335,6 +314,21 @@ class TrackListPage {
         this.filterFromLow('distance');
       }
     });
+  }
+  chooseUnchooseAll(e){
+    
+    if (e.target.tagName == 'INPUT') {
+      this.checkAllCheckbox.checked = !this.checkAllCheckbox.checked;
+    }
+    if (this.checkAllCheckbox.checked) {
+      this.checkAllCheckbox.checked = false;
+      this.unchooseAll();
+      this.trackListPageButtonsBlock.hideButtonContainer();
+    } else {
+      this.checkAllCheckbox.checked = true;
+      this.chooseAll();
+      this.trackListPageButtonsBlock.showButtonContainer();
+    }
   }
   filterBySportType() {
     this.tracksToShow = [];

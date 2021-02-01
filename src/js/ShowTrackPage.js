@@ -6,7 +6,8 @@ import СompleteStatictics from './СompleteStatictics';
 import Header from './Header';
 import WorldMap from './WorldMap';
 import GpxiesAPI from './GpxiesAPI';
-import ChooseLanguage from './ChooseLanguage';
+import ChooseLanguage from "./ChooseLanguage";
+import GetDate from './utils/getDate.utils'
 
 class ShowTrackPage {
   generateLayout() {
@@ -52,9 +53,9 @@ class ShowTrackPage {
       (result.distance / 1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}`;
     document.querySelector('.icon_header').src = `/img/icon_${result.type.toLowerCase()}.png`;
     document.querySelector('.trackDescription_authorName').innerHTML = `<a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
-    document.querySelector('.trackDescription_data').innerHTML = `${result.created}`;
-    if (result.isPrivate) {
-      document.querySelector('.icon_private0').style.visibility = 'visible';
+    document.querySelector('.trackDescription_data').innerHTML = GetDate(result.created);
+    if (result.isPrivate){
+      document.querySelector('.icon_private0').style.visibility="visible"
     }
     document.querySelector('.item_download').addEventListener('click', async () => {
       this.gpxiesAPI.downloadTrack(hashString);
