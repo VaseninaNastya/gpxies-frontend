@@ -9,6 +9,7 @@
 }
 .trackDescription_trackName,
 .trackDescription_trackLength {
+  line-height: 1.3;
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
