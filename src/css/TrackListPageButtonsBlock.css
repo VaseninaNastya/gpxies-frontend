@@ -22,13 +22,13 @@
     transition: transform 0.3s;
     /*visibility: visible;*/
 }
-.track_dowload_button{
+.track_download_button{
     background-color:#54939b;
 }
 .track_delete_button{
     background-color: orangered;
 }
-.track_dowload_button, .track_delete_button{
+.track_download_button, .track_delete_button{
     padding: 5px 20px;
     color: white;
     border-radius: 7px;
@@ -36,14 +36,14 @@
     cursor: pointer;
 }
 
-.track_dowload_button:hover, .track_delete_button:hover {
+.track_download_button:hover, .track_delete_button:hover {
     color: white;
   }
   .track_delete_button:active {
     background-color: rgb(238, 63, 0);
     border: none;
   }
-  .track_dowload_button:active {
+  .track_download_button:active {
     background-color:#47767c;
     border: none;
   }
@@ -61,7 +61,7 @@
         padding: 7px;
         width: 110px;
     }
-    .track_dowload_button, .track_delete_button{
+    .track_download_button, .track_delete_button{
         padding: 5px;
     }
   }
@@ -75,7 +75,7 @@
         padding: 7px;
         width: 85px;
     }
-    .track_dowload_button, .track_delete_button{
+    .track_download_button, .track_delete_button{
         padding: 5px;
     }
   }

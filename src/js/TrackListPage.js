@@ -13,7 +13,7 @@ import SportsNames from './utils/sportsTypesNames.utils.js';
 import Footer from './Footer';
 import ChooseLanguage from './ChooseLanguage';
 import Auth from './utils/auth.utils';
-import GetDate from './utils/getDate.utils'
+import GetDate from './utils/getDate.utils';
 class TrackListPage {
   constructor() {}
 
@@ -205,8 +205,54 @@ class TrackListPage {
       this.trackListPageButtonsBlock.hideButtonContainer();
     }
   }
+  async handleEventDownloadTrack(){
+    const checkedItems = Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
+      if (item.checked) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    if (checkedItems.includes(true)) {
+      // this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
+      let tracksToDownload = [];
+      Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
+        if (item.checked) {
+          // document.querySelector(`[data_rowhash='${item.getAttribute('data_checkboxhash')}']`).classList.add('table_body_row__hidden');
+          // console.log(
+          //   'botv',
+          //   this.tracksToShow.find((item1) => {
+          //     return item1.hashString == item.getAttribute('data_checkboxhash');
+          //   }).id
+          // );
+          const downloadHash = this.tracksToShow.find((item1) => {
+            return item1.hashString == item.getAttribute('data_checkboxhash');
+          }).hashString;
+          
+          tracksToDownload.push(downloadHash);
+        }
+      });
+      tracksToDownload.forEach(async (item)=>{
+        console.log(item);
+        let res = await this.gpxiesAPI.downloadTrack(item);
+        console.log(res);
+      })
+      
+      
+
+
+      // if (result.ok) {
+      //   this.popup.showSuccessMessage();
+      // } else {
+      //   this.popup.showErrorMessage();
+      // }
+       this.trackListPageButtonsBlock.hideButtonContainer();
+    }
+  }
   handleBodyKeypress(e) {
-    let shift,alt,ctrl = null
+    let shift,
+      alt,
+      ctrl = null;
     if (e.stopPropagation) e.stopPropagation();
     if (e.code == 'Delete') {
       this.handleEventDeleteTrack();
@@ -218,9 +264,9 @@ class TrackListPage {
       alt = true;
     }
 
-    if((e.code == "KeyC")){
-      console.log("работаут");
-      this.chooseUnchooseAll(e)
+    if (e.code == 'KeyC') {
+      console.log('работаут');
+      this.chooseUnchooseAll(e);
     }
     /*if(ctrl && (e.code == "KeyC")){
       console.log("работает");
@@ -252,8 +298,11 @@ class TrackListPage {
     document.querySelector('.track_delete_button').addEventListener('click', () => {
       this.handleEventDeleteTrack();
     });
+    document.querySelector('.track_download_button').addEventListener('click', () => {
+      this.handleEventDownloadTrack();
+    });
 
-   /* document.addEventListener('keydown', (e) => {
+    /* document.addEventListener('keydown', (e) => {
       if (e.code == 'Delete') {
         this.handleEventDeleteTrack();
       }
@@ -315,8 +364,7 @@ class TrackListPage {
       }
     });
   }
-  chooseUnchooseAll(e){
-    
+  chooseUnchooseAll(e) {
     if (e.target.tagName == 'INPUT') {
       this.checkAllCheckbox.checked = !this.checkAllCheckbox.checked;
     }

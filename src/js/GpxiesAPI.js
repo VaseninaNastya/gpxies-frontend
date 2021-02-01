@@ -214,14 +214,13 @@ class GpxiesAPI {
       },
     })
       .then((response) => {
-        console.log('downl resp',response);
         return response.blob();
       })
       .then((blob) => {
-        var url = window.URL.createObjectURL(blob);
-        var a = document.createElement('a');
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
         a.href = url;
-        a.download = 'filename.gpx';
+        a.download = `track_${hashString}.gpx`;
         document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
         a.click();
         a.remove(); //afterwards we remove the element again
