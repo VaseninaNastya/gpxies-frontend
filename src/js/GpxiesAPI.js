@@ -213,7 +213,10 @@ class GpxiesAPI {
         Authorization: 'Bearer ' + localStorage.getItem('gpxiesToken'),
       },
     })
-      .then((response) => response.blob())
+      .then((response) => {
+        console.log(responses);
+        return response.blob();
+      })
       .then((blob) => {
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement('a');
