@@ -8,6 +8,7 @@ import WorldMap from './WorldMap';
 import GpxiesAPI from './GpxiesAPI';
 import ChooseLanguage from "./ChooseLanguage";
 import GetDate from './utils/getDate.utils'
+
 class ShowTrackPage {
   generateLayout() {
     this.getWordsData();
@@ -34,11 +35,11 @@ class ShowTrackPage {
       this.showTrack(hashString);
     }, 1000);
   }
-  getWordsData(){
+  getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr =  this.chooseLanguageComponent.generateWordsData();
-    this.chooseLanguage =  this.chooseLanguageComponent.determinationLanguage();
-    this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
+    this.wordsArr = this.chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   async showTrack(hashString) {
     console.log(hashString);
@@ -46,31 +47,36 @@ class ShowTrackPage {
     let userinfo = await this.gpxiesAPI.getUserInfo(result.user);
     console.log(result);
     console.log(userinfo);
-    document.title=`${result.title} - Gpxies.ru`;
+    document.title = `${result.title} - Gpxies.ru`;
     document.querySelector('.trackDescription_trackName').innerHTML = `${result.title}, `;
-    document.querySelector('.trackDescription_trackLength').innerHTML = (result.distance/1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}`;
+    document.querySelector('.trackDescription_trackLength').innerHTML =
+      (result.distance / 1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}`;
     document.querySelector('.icon_header').src = `/img/icon_${result.type.toLowerCase()}.png`;
     document.querySelector('.trackDescription_authorName').innerHTML = `<a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
     document.querySelector('.trackDescription_data').innerHTML = GetDate(result.created);
     if (result.isPrivate){
       document.querySelector('.icon_private0').style.visibility="visible"
     }
+    document.querySelector('.item_download').addEventListener('click', async () => {
+      this.gpxiesAPI.downloadTrack(hashString);
+    });
 
     // Show track on map
-    
+
     this.worldMap.showGpx(hashString);
-    this.addEventListeners()
+    this.addEventListeners();
   }
   refreshLayout() {
-    document.body.innerHTML = "";
+    document.body.innerHTML = '';
     document.body.removeEventListener('keydown', this.onPress);
-    this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
+    this.chooseLanguage = localStorage.getItem('gpxiesChosen_language');
     this.generateLayout();
   }
   handleBodyKeypress(e) {
-    let shift,alt = null
+    let shift,
+      alt = null;
     if (e.stopPropagation) e.stopPropagation();
-   /* if (e.code == 'Enter') {
+    /* if (e.code == 'Enter') {
       this.handleEventLogin(e);
     }*/
     if (e.shiftKey) {
@@ -89,9 +95,7 @@ class ShowTrackPage {
   addEventListeners() {
     this.onPress = this.handleBodyKeypress.bind(this);
     document.body.addEventListener('keydown', this.onPress);
-    document
-    .querySelector(".language_container")
-    .addEventListener("click", () => {
+    document.querySelector('.language_container').addEventListener('click', () => {
       this.refreshLayout();
     });
   }

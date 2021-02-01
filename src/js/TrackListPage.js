@@ -138,6 +138,7 @@ class TrackListPage {
   }
   generateTableBodyLayout(arr) {
     arr.map((item) => {
+      console.log(item);
       const itemPrivateHidden = `icon_private${item.isPrivate}`;
       const date = GetDate(item.created);
       const tableBodyString = create(

@@ -1,5 +1,5 @@
 import create from "./utils/create.utils";
-import icon_walk from "../../assets/img/icon_walk.png";
+// import icon_walk from "../../assets/img/icon_walk.png";
 import icon_private from "../../assets/img/icons_private.png";
 import ChooseLanguage from "./ChooseLanguage";
 class ShowTrackPageHeader {
@@ -16,7 +16,7 @@ class ShowTrackPageHeader {
     const menu = create("ul", "trackDescription_menu", [
       create(
         "li",
-        "trackDescription_menu_item",
+        "trackDescription_menu_item item_download",
         `${this.wordsChooseArr.download}`
       ),
       create(

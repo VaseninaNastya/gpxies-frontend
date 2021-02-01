@@ -1,7 +1,7 @@
 class GpxiesAPI {
   constructor() {
     this.API_SERVER = 'https://api.gpxies.ru';
-   // this.API_SERVER = 'http://127.0.0.1:3003';
+    // this.API_SERVER = 'http://127.0.0.1:3003';
   }
   /*  Users   */
   async userRegistration(userRegistrationData) {
@@ -200,6 +200,31 @@ class GpxiesAPI {
       .then((response) => {
         // console.log('RSP', response);
         return response.json();
+      })
+      .catch((error) => Error(error));
+  }
+  async downloadTrack(hashString) {
+    return fetch(this.API_SERVER + '/tracks/download/' + hashString, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36',
+        Referer: 'https://api.gpxies.ru',
+        Authorization: 'Bearer ' + localStorage.getItem('gpxiesToken'),
+      },
+    })
+      .then((response) => {
+        console.log(responses);
+        return response.blob();
+      })
+      .then((blob) => {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'filename.gpx';
+        document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+        a.click();
+        a.remove(); //afterwards we remove the element again
       })
       .catch((error) => Error(error));
   }
