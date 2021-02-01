@@ -57,7 +57,9 @@ class ShowTrackPage {
     if (result.isPrivate){
       document.querySelector('.icon_private0').style.visibility="visible"
     }
+    console.log(document.querySelector('.item_download'));
     document.querySelector('.item_download').addEventListener('click', async () => {
+      console.log(hashString);
       this.gpxiesAPI.downloadTrack(hashString);
     });
 
