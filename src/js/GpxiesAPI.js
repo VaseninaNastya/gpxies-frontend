@@ -214,7 +214,6 @@ class GpxiesAPI {
       },
     })
       .then((response) => {
-        console.log('response',response);
         return response.blob();
       })
       .then((blob) => {
