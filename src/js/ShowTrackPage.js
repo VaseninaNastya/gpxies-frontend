@@ -1,28 +1,37 @@
-import '../css/main.css';
-import create from './utils/create.utils';
-import ShowTrackPageHeader from './ShowTrackPageHeader';
-import Footer from './Footer';
-import СompleteStatictics from './СompleteStatictics';
-import Header from './Header';
-import WorldMap from './WorldMap';
-import GpxiesAPI from './GpxiesAPI';
+import "../css/main.css";
+import create from "./utils/create.utils";
+import ShowTrackPageHeader from "./ShowTrackPageHeader";
+import Footer from "./Footer";
+import СompleteStatictics from "./СompleteStatictics";
+import Header from "./Header";
+import WorldMap from "./WorldMap";
+import GpxiesAPI from "./GpxiesAPI";
 import ChooseLanguage from "./ChooseLanguage";
-import GetDate from './utils/getDate.utils'
-import MessagePopup from './MessagePopup';
+import GetDate from "./utils/getDate.utils";
+import MessagePopup from "./MessagePopup";
+import BlockPageLayout from "./BlockPageLayout";
+import icon_spinner from '../../assets/img/icons_spinner.png';
 
 class ShowTrackPage {
   generateLayout() {
-
     this.getWordsData();
+    this.loadingSpinner_img = create("img", "icon_spinner", null, null, [
+      "src",
+      icon_spinner,
+    ]);
     const hashString = window.location.pathname.toString().slice(7);
-
+    this.blockPageLayout = new BlockPageLayout();
+    this.blockPageLayoutNode = this.blockPageLayout.generateMessageLayout();
+    this.blockPageLayoutNode.append(this.loadingSpinner_img);
+    this.blockPageLayoutNode.classList.remove("loadingSpinner_wrapper__hidden");
+    document.body.prepend(this.blockPageLayoutNode);
     const completeStatictics = new СompleteStatictics();
     const showTrackPageHeader = new ShowTrackPageHeader();
     const header = new Header();
     const footer = new Footer();
-    const map = create('div', 'map', null, null, ['id', 'mapid']);
+    const map = create("div", "map", null, null, ["id", "mapid"]);
     document.body.prepend(
-      create('div', 'showTrackPage_wrapper', [
+      create("div", "showTrackPage_wrapper", [
         header.generateLayout(),
         showTrackPageHeader.generateLayout(),
         map,
@@ -44,36 +53,57 @@ class ShowTrackPage {
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   async showTrack(hashString) {
-  //console.log(hashString);
+    //console.log(hashString);
     let result = await this.gpxiesAPI.getTrackById(hashString);
     let userinfo = await this.gpxiesAPI.getUserInfo(result.user);
-   // console.log(result);
+    // console.log(result);
     //console.log(userinfo);
     document.title = `${result.title} - Gpxies.ru`;
-    document.querySelector('.trackDescription_trackName').innerHTML = `${result.title}, `;
-    document.querySelector('.trackDescription_trackLength').innerHTML =
-      (result.distance / 1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}`;
-    document.querySelector('.icon_header').src = `/img/icon_${result.type.toLowerCase()}.png`;
-    document.querySelector('.trackDescription_authorName').innerHTML = `<a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
-    document.querySelector('.trackDescription_data').innerHTML = GetDate(result.created);
-    if (result.isPrivate){
-      document.querySelector('.icon_private0').style.visibility="visible"
+    document.querySelector(
+      ".trackDescription_trackName"
+    ).innerHTML = `${result.title}, `;
+    document.querySelector(".trackDescription_trackLength").innerHTML =
+      (result.distance / 1000).toFixed(1).toString() +
+      ` ${this.wordsChooseArr.km}`;
+    document.querySelector(
+      ".icon_header"
+    ).src = `/img/icon_${result.type.toLowerCase()}.png`;
+    document.querySelector(
+      ".trackDescription_authorName"
+    ).innerHTML = `<a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
+    document.querySelector(".trackDescription_data").innerHTML = GetDate(
+      result.created
+    );
+    if (result.isPrivate) {
+      document.querySelector(".icon_private0").style.visibility = "visible";
     }
-    console.log(document.querySelector('.item_download'));
-    document.querySelector('.item_download').addEventListener('click', async () => {
-     // console.log(hashString);
-      this.gpxiesAPI.downloadTrack(hashString);
-    });
+    console.log(document.querySelector(".item_download"));
+    document
+      .querySelector(".item_download")
+      .addEventListener("click", async () => {
+        // console.log(hashString);
+        this.gpxiesAPI.downloadTrack(hashString);
+      });
 
     // Show track on map
 
-    this.worldMap.showGpx(hashString);
+    //this.worldMap.showGpx(hashString);
+    this.trackShowRes = await this.worldMap.showGpx(hashString);
+    if (this.trackShowRes) {
+      setTimeout(() => {
+        this.blockPageLayoutNode.classList.add(
+          "loadingSpinner_wrapper__hidden"
+        );
+        this.blockPageLayoutNode.innerHTML = ""
+      }, 2000);
+    }
+    console.log("this.worldMap.showGpx(hashString);", this.trackShowRes);
     this.addEventListeners();
   }
   refreshLayout() {
-    document.body.innerHTML = '';
-    document.body.removeEventListener('keydown', this.onPress);
-    this.chooseLanguage = localStorage.getItem('gpxiesChosen_language');
+    document.body.innerHTML = "";
+    document.body.removeEventListener("keydown", this.onPress);
+    this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
   handleBodyKeypress(e) {
@@ -98,10 +128,12 @@ class ShowTrackPage {
   }
   addEventListeners() {
     this.onPress = this.handleBodyKeypress.bind(this);
-    document.body.addEventListener('keydown', this.onPress);
-    document.querySelector('.language_container').addEventListener('click', () => {
-      this.refreshLayout();
-    });
+    document.body.addEventListener("keydown", this.onPress);
+    document
+      .querySelector(".language_container")
+      .addEventListener("click", () => {
+        this.refreshLayout();
+      });
   }
 }
 

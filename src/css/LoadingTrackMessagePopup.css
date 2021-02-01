@@ -18,6 +18,12 @@
     top:0px;
     z-index: 60;
 }
+.loadingSpinner_wrapper img{
+    position: relative;
+    top: 200px;
+    left: calc(50% - 50px);
+    height: 100px;
+}
 .loadingSpinner_wrapper__hidden{
     visibility: hidden;
     height: 0px;
