@@ -226,10 +226,11 @@ class TrackListPage {
       alt = true;
     }
 
-    /*if((e.code == "KeyC")){
-      this.checkAllCheckbox.checked
+    if((e.code == "KeyC")){
+      console.log("работаут");
+      this.chooseUnchooseAll(e)
     }
-    if(ctrl && (e.code == "KeyC")){
+    /*if(ctrl && (e.code == "KeyC")){
       console.log("работает");
       this.checkAllCheckbox.checked
     }*/
@@ -283,20 +284,7 @@ class TrackListPage {
     });
 
     //Chose and unchose all.
-    this.table_item_checkAllCheckbox.addEventListener('click', (e) => {
-      if (e.target.tagName == 'INPUT') {
-        this.checkAllCheckbox.checked = !this.checkAllCheckbox.checked;
-      }
-      if (this.checkAllCheckbox.checked) {
-        this.checkAllCheckbox.checked = false;
-        this.unchooseAll();
-        this.trackListPageButtonsBlock.hideButtonContainer();
-      } else {
-        this.checkAllCheckbox.checked = true;
-        this.chooseAll();
-        this.trackListPageButtonsBlock.showButtonContainer();
-      }
-    });
+    this.table_item_checkAllCheckbox.addEventListener('click', (e) => this.chooseUnchooseAll(e));
     this.sportChoce_select.addEventListener('change', () => {
       this.searchBar_input.value = '';
       this.unchooseAll();
@@ -334,6 +322,21 @@ class TrackListPage {
         this.filterFromLow('distance');
       }
     });
+  }
+  chooseUnchooseAll(e){
+    
+    if (e.target.tagName == 'INPUT') {
+      this.checkAllCheckbox.checked = !this.checkAllCheckbox.checked;
+    }
+    if (this.checkAllCheckbox.checked) {
+      this.checkAllCheckbox.checked = false;
+      this.unchooseAll();
+      this.trackListPageButtonsBlock.hideButtonContainer();
+    } else {
+      this.checkAllCheckbox.checked = true;
+      this.chooseAll();
+      this.trackListPageButtonsBlock.showButtonContainer();
+    }
   }
   filterBySportType() {
     this.tracksToShow = [];
