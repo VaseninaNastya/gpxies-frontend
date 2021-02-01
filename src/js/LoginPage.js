@@ -14,11 +14,11 @@ class LoginPage {
     } 
   }
   getWordsData() {
-    this.chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = this.chooseLanguageComponent.generateWordsData();
-    this.chooseLanguage_container = this.chooseLanguageComponent.generateLayout();
-    this.chooseLanguage_container.classList.add("language_container_login");
-    this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
+    this.chooseLanguage_container.classList.add('language_container_login');
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   generateLayout() {
@@ -75,32 +75,47 @@ class LoginPage {
       this.redirectToTrackListPage();
     }
   }
+  hotkeyChangeLanguage() {
+    if (localStorage.getItem('gpxiesChosen_language') == 0) {
+      localStorage.setItem('gpxiesChosen_language', 1);
+      console.log('this.chooseLanguage', this.chooseLanguage);
+    } else {
+      localStorage.setItem('gpxiesChosen_language', 0);
+      console.log('this.chooseLanguage', this.chooseLanguage);
+    }
+    this.shiftLeft = false;
+    this.altKey = false;
+  }
   handleBodyKeypress(e) {
     if (e.stopPropagation) e.stopPropagation();
     if (e.code == 'Enter') {
       this.handleEventLogin(e);
-    }    
-    let alt,shift = null;
+    }
     if (e.shiftKey) {
-      shift = true;
+      this.shiftKey = true;
     }
     if (e.altKey) {
-      alt = true;
+      this.altKey = true;
     }
-    if ((e.shiftKey && alt)||(e.altKey && shift)) {
-      this.chooseLanguageComponent.hotkeyChangeLanguage();
+    if (e.shiftKey && this.altKey) {
+      this.hotkeyChangeLanguage();
       this.refreshLayout();
-      shift = false;
-      alt = false;
+      this.shiftKey = false;
+      this.altKey = false;
+    }
+    if (e.altKey && this.shiftKey) {
+      this.hotkeyChangeLanguage();
+      this.refreshLayout();
+      this.shiftKey = false;
+      this.altKey = false;
     }
   }
   addEventListeners() {
     this.onPress = this.handleBodyKeypress.bind(this);
-    document.body.addEventListener("keydown", this.onPress );
-    this.button__prime.addEventListener("click", (e) =>
-      this.handleEventLogin(e)
-    );
-    this.login_form_registrationPageLink.addEventListener("click", () => {
+
+    document.body.addEventListener('keydown', this.onPress);
+    this.button__prime.addEventListener('click', (e) => this.handleEventLogin(e));
+    this.login_form_registrationPageLink.addEventListener('click', () => {
       this.redirectToRegistrationPage();
     });
     document.querySelector('.language_container').addEventListener('click', () => {
