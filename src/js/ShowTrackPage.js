@@ -7,7 +7,7 @@ import Header from './Header';
 import WorldMap from './WorldMap';
 import GpxiesAPI from './GpxiesAPI';
 import ChooseLanguage from "./ChooseLanguage";
-import Mounth from './utils/mounth.utils';
+import GetDate from './utils/getDate.utils'
 class ShowTrackPage {
   generateLayout() {
     this.getWordsData();
@@ -34,14 +34,6 @@ class ShowTrackPage {
       this.showTrack(hashString);
     }, 1000);
   }
-  getDate(date) {
-    const dateObj = new Date(date);
-    const day = dateObj.getDate();
-    const year = dateObj.getFullYear();
-    const mounth = Mounth[dateObj.getMonth()];
-    const dateRes = day + '.' + mounth + '.' + year;
-    return dateRes;
-  }
   getWordsData(){
     this.chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr =  this.chooseLanguageComponent.generateWordsData();
@@ -59,7 +51,7 @@ class ShowTrackPage {
     document.querySelector('.trackDescription_trackLength').innerHTML = (result.distance/1000).toFixed(1).toString() + ` ${this.wordsChooseArr.km}`;
     document.querySelector('.icon_header').src = `/img/icon_${result.type.toLowerCase()}.png`;
     document.querySelector('.trackDescription_authorName').innerHTML = `<a href='/user/${userinfo.username}'>${userinfo.username}</a>`;
-    document.querySelector('.trackDescription_data').innerHTML = this.getDate(result.created);
+    document.querySelector('.trackDescription_data').innerHTML = GetDate(result.created);
     if (result.isPrivate){
       document.querySelector('.icon_private0').style.visibility="visible"
     }
