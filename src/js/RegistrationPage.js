@@ -6,12 +6,12 @@ import Footer from "./Footer";
 import Auth from "./utils/auth.utils";
 
 class RegistrationPage {
-  /*constructor() {
+  constructor() {
     const auth = new Auth().checkAuth();
     if (auth.ok) {
       window.location = '/mytracks';
     } 
-  }*/
+  }
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = this.chooseLanguageComponent.generateWordsData();

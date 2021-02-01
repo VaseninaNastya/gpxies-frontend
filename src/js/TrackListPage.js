@@ -16,13 +16,13 @@ import ChooseLanguage from './ChooseLanguage';
 import Auth from './utils/auth.utils';
 
 class TrackListPage {
-  /*constructor() {
+  constructor() {
     const auth = new Auth().checkAuth();
     if (!auth.ok) {
       window.location = '/login';
     }
     this.trackHashForDelete = [];
-  }*/
+  }
 
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
@@ -207,17 +207,25 @@ class TrackListPage {
     }
   }
   handleBodyKeypress(e) {
-    let shift,alt = null
+    let shift,alt,ctrl = null
     if (e.stopPropagation) e.stopPropagation();
-    /*if (e.code == 'Delete') {
+    if (e.code == 'Delete') {
       this.handleEventDeleteTrack();
-    }*/
+    }
     if (e.shiftKey) {
       shift = true;
     }
     if (e.altKey) {
       alt = true;
     }
+
+    /*if((e.code == "KeyC")){
+      this.checkAllCheckbox.checked
+    }
+    if(ctrl && (e.code == "KeyC")){
+      console.log("работает");
+      this.checkAllCheckbox.checked
+    }*/
     if ((e.shiftKey && alt) || (e.altKey && shift)) {
       this.chooseLanguageComponent.hotkeyChangeLanguage();
       this.refreshLayout();

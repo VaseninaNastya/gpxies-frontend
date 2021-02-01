@@ -7,12 +7,12 @@ import Footer from './Footer';
 import Auth from './utils/auth.utils';
 
 class LoginPage {
-  /*constructor() {
+  constructor() {
     const auth = new Auth().checkAuth();
     if (auth.ok) {
       window.location = '/mytracks';
     } 
-  }*/
+  }
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = this.chooseLanguageComponent.generateWordsData();
@@ -75,17 +75,6 @@ class LoginPage {
       this.redirectToTrackListPage();
     }
   }
-  /* hotkeyChangeLanguage() {
-    if (localStorage.getItem('gpxiesChosen_language') == 0) {
-      localStorage.setItem('gpxiesChosen_language', 1);
-      console.log('this.chooseLanguage', this.chooseLanguage);
-    } else {
-      localStorage.setItem('gpxiesChosen_language', 0);
-      console.log('this.chooseLanguage', this.chooseLanguage);
-    }
-    this.shiftLeft = false;
-    this.altKey = false;
-  }*/
   handleBodyKeypress(e) {
     let shift,alt = null
     if (e.stopPropagation) e.stopPropagation();

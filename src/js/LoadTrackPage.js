@@ -10,12 +10,12 @@ import Footer from './Footer';
 import Auth from './utils/auth.utils';
 
 class LoadTrackPage {
-  /*constructor() {
+  constructor() {
     const auth = new Auth().checkAuth();
     if (!auth.ok) {
       window.location = '/login';
     }
-  }*/
+  }
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = this.chooseLanguageComponent.generateWordsData();
