@@ -127,7 +127,7 @@
     position: absolute;
     bottom: 0;
 }
-.button_editTrack{
+.button_viewTrack{
     background-color:#54939b !important;
 }
 @keyframes rotating {
