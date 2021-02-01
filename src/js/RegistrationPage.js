@@ -3,8 +3,15 @@ import create from "./utils/create.utils";
 import GpxiesAPI from "./GpxiesAPI";
 import ChooseLanguage from "./ChooseLanguage";
 import Footer from "./Footer";
+import Auth from "./utils/auth.utils";
 
 class RegistrationPage {
+  constructor() {
+    const auth = new Auth().checkAuth();
+    if (auth.ok) {
+      window.location = '/mytracks';
+    } 
+  }
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = this.chooseLanguageComponent.generateWordsData();
@@ -237,7 +244,7 @@ class RegistrationPage {
     }
   }
   redirectToLoginPage() {
-    window.location = "loginPage.html";
+    window.location = "/login";
   }
   clearLoginErrors() {
     if (this.login_description) {

@@ -1,8 +1,9 @@
 class GpxiesAPI {
   constructor() {
     this.API_SERVER = 'https://api.gpxies.ru';
-    // this.API_SERVER = "http://127.0.0.1:3003";
+    // this.API_SERVER = 'http://127.0.0.1:3003';
   }
+  /*  Users   */
   async userRegistration(userRegistrationData) {
     return fetch(this.API_SERVER + '/users', {
       method: 'POST',
@@ -54,12 +55,23 @@ class GpxiesAPI {
       })
       .catch((error) => Error(error));
   }
+  async whoami() {
+    return fetch(this.API_SERVER + '/users/whoami', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36',
+        Referer: 'https://api.gpxies.ru',
+        Authorization: 'Bearer ' + localStorage.getItem('gpxiesToken'),
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => false);
+  }
 
-
-
-
-
-  // This will upload the file after having read it
+  /* Tracks */
   async uploadTrack(file) {
     return fetch(this.API_SERVER + '/tracks/upload', {
       method: 'POST',
@@ -101,7 +113,6 @@ class GpxiesAPI {
       })
       .catch((error) => Error(error));
   }
-  // async tracksFileUpload(tracksFile) { }
   async getAllTracks() {
     return fetch(this.API_SERVER + '/tracks/', {
       method: 'GET',
@@ -138,7 +149,6 @@ class GpxiesAPI {
       })
       .catch((error) => Error(error));
   }
-
   async getTrackById(id) {
     return fetch(this.API_SERVER + '/tracks/id/' + id, {
       method: 'GET',
@@ -154,17 +164,17 @@ class GpxiesAPI {
       })
       .catch((error) => Error(error));
   }
-
-  async deleteTrackById(id) {
+  async deleteTrackById(tracksToDelete) {
     return (
-      fetch(this.API_SERVER + '/tracks/id/' + id, {
-        method: 'DELETE',
+      fetch(this.API_SERVER + '/tracks/delete', {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36',
           Referer: 'https://api.gpxies.ru',
           Authorization: 'Bearer ' + localStorage.getItem('gpxiesToken'),
         },
+        body: JSON.stringify(tracksToDelete),
       })
         .then((response) => {
           console.log('response', response);
@@ -175,6 +185,22 @@ class GpxiesAPI {
     })*/
         .catch((error) => Error(error))
     );
+  }
+  async getTrackPoints(hashString) {
+    return fetch(this.API_SERVER + '/tracks/points/' + hashString, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36',
+        Referer: 'https://api.gpxies.ru',
+        Authorization: 'Bearer ' + localStorage.getItem('gpxiesToken'),
+      },
+    })
+      .then((response) => {
+        // console.log('RSP', response);
+        return response.json();
+      })
+      .catch((error) => Error(error));
   }
 }
 export default GpxiesAPI;

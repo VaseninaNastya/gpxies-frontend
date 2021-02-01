@@ -7,9 +7,15 @@ import MessagePopup from './MessagePopup';
 import icon_spinner from '../../assets/img/icons_spinner.png';
 import ChooseLanguage from './ChooseLanguage';
 import Footer from './Footer';
-import GPX from 'leaflet-gpx';
+import Auth from './utils/auth.utils';
 
 class LoadTrackPage {
+  constructor() {
+    const auth = new Auth().checkAuth();
+    if (!auth.ok) {
+      window.location = '/login';
+    }
+  }
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = this.chooseLanguageComponent.generateWordsData();
@@ -187,14 +193,30 @@ class LoadTrackPage {
       childList: true,
       addedNodes: true,
     });
-    this.button_save.addEventListener('click', (e) => this.loadTrack(e));
-  }
-  async loadTrack(event){
-    event.preventDefault();
-    let distance = 0;
-    let gpx = URL.createObjectURL(this.loading_hiddenInput.files[0]);
-    let gpxMeta = new L.GPX(gpx, { async: true }).on('loaded', function (e) {
-      distance = e.target.get_distance();
+
+    this.button_save.addEventListener('click', async (event) => {
+      event.preventDefault();
+
+      this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
+      const formElem = document.querySelector('.loadTrackPage_form');
+      const { hashString, distance, points } = await this.gpxiesAPI.uploadTrack(formElem);
+
+      const tracksData = {
+        title: this.trackName_input.value || `New track ${new Date().toISOString()}`,
+        type: this.sport_selector.value,
+        description: this.track_description_textarea.value,
+        isPrivate: this.private_checkbox.checked,
+        hashString: hashString,
+        distance: distance,
+        points: points,
+      };
+      const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
+      if (result.hashString) {
+        setTimeout(this.popup.showSuccessMessage(), 300);
+      } else {
+        setTimeout(this.popup.showErrorMessage(), 300);
+      }
+
     });
     this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
     const formElem = document.querySelector('.loadTrackPage_form');
