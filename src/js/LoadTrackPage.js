@@ -7,13 +7,19 @@ import MessagePopup from './MessagePopup';
 import icon_spinner from '../../assets/img/icons_spinner.png';
 import ChooseLanguage from './ChooseLanguage';
 import Footer from './Footer';
-import GPX from 'leaflet-gpx';
+import Auth from './utils/auth.utils';
 
 class LoadTrackPage {
+  constructor() {
+    const auth = new Auth().checkAuth();
+    if (!auth.ok) {
+      window.location = '/login';
+    }
+  }
   getWordsData() {
-    this.chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = this.chooseLanguageComponent.generateWordsData();
-    this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   generateLayout() {
@@ -129,28 +135,7 @@ class LoadTrackPage {
     document.body.prepend(wraper);
     this.addEventListeners();
   }
-  handleBodyKeypress(e) {
-    if (e.stopPropagation) e.stopPropagation();
-    if (e.code == "Enter" && !this.button_save.getAttribute('disabled')) {
-      this.loadTrack(e);
-    }    
-    let alt,shift = null;
-    if (e.shiftKey) {
-      shift = true;
-    }
-    if (e.altKey) {
-      alt = true;
-    }
-    if ((e.shiftKey && alt)||(e.altKey && shift)) {
-      this.chooseLanguageComponent.hotkeyChangeLanguage();
-      this.refreshLayout();
-      shift = false;
-      alt = false;
-    }
-  }
   addEventListeners() {
-    this.onPress = this.handleBodyKeypress.bind(this);
-    document.body.addEventListener("keydown", this.onPress );
     document.querySelector('.language_container').addEventListener('click', () => {
       this.refreshLayout();
     });
@@ -187,36 +172,32 @@ class LoadTrackPage {
       childList: true,
       addedNodes: true,
     });
-    this.button_save.addEventListener('click', (e) => this.loadTrack(e));
-  }
-  async loadTrack(event){
-    event.preventDefault();
-    let distance = 0;
-    let gpx = URL.createObjectURL(this.loading_hiddenInput.files[0]);
-    let gpxMeta = new L.GPX(gpx, { async: true }).on('loaded', function (e) {
-      distance = e.target.get_distance();
+    this.button_save.addEventListener('click', async (event) => {
+      event.preventDefault();
+
+      this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
+      const formElem = document.querySelector('.loadTrackPage_form');
+      const { hashString, distance, points } = await this.gpxiesAPI.uploadTrack(formElem);
+
+      const tracksData = {
+        title: this.trackName_input.value || `New track ${new Date().toISOString()}`,
+        type: this.sport_selector.value,
+        description: this.track_description_textarea.value,
+        isPrivate: this.private_checkbox.checked,
+        hashString: hashString,
+        distance: distance,
+        points: points,
+      };
+      const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
+      if (result.hashString) {
+        setTimeout(this.popup.showSuccessMessage(), 300);
+      } else {
+        setTimeout(this.popup.showErrorMessage(), 300);
+      }
     });
-    this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
-    const formElem = document.querySelector('.loadTrackPage_form');
-    const { hashString } = await this.gpxiesAPI.uploadTrack(formElem);
-    const tracksData = {
-      title: this.trackName_input.value,
-      type: this.sport_selector.value,
-      description: this.track_description_textarea.value,
-      isPrivate: this.private_checkbox.checked,
-      hashString: hashString,
-      distance: distance,
-    };
-    const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
-    if (result.hashString) {
-      setTimeout(this.popup.showSuccessMessage(), 300);
-    } else {
-      setTimeout(this.popup.showErrorMessage(), 300);
-    }
   }
   refreshLayout() {
     document.body.innerHTML = '';
-    document.body.removeEventListener("keydown", this.onPress);
     this.chooseLanguage = localStorage.getItem('gpxiesChosen_language');
     this.generateLayout();
   }

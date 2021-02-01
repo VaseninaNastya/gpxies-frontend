@@ -36,12 +36,5 @@ class ChooseLanguage{
     generateWordsData(){
         return [wordsRu,wordsEn]
     }
-    hotkeyChangeLanguage() {
-        if (localStorage.getItem("gpxiesChosen_language") == 0) {
-          localStorage.setItem("gpxiesChosen_language", 1);
-        } else {
-          localStorage.setItem("gpxiesChosen_language", 0);
-        }
-      }
 }
 export default ChooseLanguage

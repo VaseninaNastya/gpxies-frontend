@@ -3,16 +3,23 @@ import create from "./utils/create.utils";
 import GpxiesAPI from "./GpxiesAPI";
 import ChooseLanguage from "./ChooseLanguage";
 import Footer from "./Footer";
+import Auth from "./utils/auth.utils";
 
 class RegistrationPage {
+  constructor() {
+    const auth = new Auth().checkAuth();
+    if (auth.ok) {
+      window.location = '/mytracks';
+    } 
+  }
   getWordsData() {
-    this.chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = this.chooseLanguageComponent.generateWordsData();
-    this.chooseLanguage_container = this.chooseLanguageComponent.generateLayout();
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
     this.chooseLanguage_container.classList.add(
       "language_container_registration"
     );
-    this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   generateLayout() {
@@ -144,7 +151,6 @@ class RegistrationPage {
   }
   refreshLayout() {
     document.body.innerHTML = "";
-    document.body.removeEventListener("keydown", this.onPress);
     this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
@@ -167,30 +173,12 @@ class RegistrationPage {
     await this.showDuplicateEmailErrorsMessages();
     await this.addRegisteredDataAtLocalStorage();
   }
-  handleBodyKeypress(e) {
-    let alt,shift = null
-    if (e.stopPropagation) e.stopPropagation();
-    if (e.code == "Enter") {
-      this.handleEventRegistration(e)
-    }
-    if (e.shiftKey) {
-      shift = true;
-    }
-    if (e.altKey) {
-      alt = true;
-    }
-    if ((e.shiftKey && alt)||(e.altKey && shift)) {
-      this.chooseLanguageComponent.hotkeyChangeLanguage();
-      this.refreshLayout();
-      shift = false;
-      alt = false;
-    }
-  }
   addListeners() {
     this.button__prime.addEventListener("click", (e) => {this.handleEventRegistration(e)
     });
-    this.onPress = this.handleBodyKeypress.bind(this);
-    document.body.addEventListener("keydown", this.onPress );
+    document.addEventListener('keydown',  (e)=>{ if(e.code == "Enter"){
+      this.handleEventRegistration(e)
+    }});
     this.registration_form_loginLink.addEventListener("click", () => {
       this.redirectToLoginPage();
     });
@@ -237,7 +225,7 @@ class RegistrationPage {
     }
   }
   redirectToLoginPage() {
-    window.location = "loginPage.html";
+    window.location = "/login";
   }
   clearLoginErrors() {
     if (this.login_description) {

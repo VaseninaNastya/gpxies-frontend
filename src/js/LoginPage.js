@@ -1,153 +1,132 @@
-import "../css/main.css";
-import ChooseLanguage from "./ChooseLanguage";
-import create from "./utils/create.utils";
-import GpxiesAPI from "./GpxiesAPI";
-import MessagePopup from "./MessagePopup";
-import Footer from "./Footer";
+import '../css/main.css';
+import ChooseLanguage from './ChooseLanguage';
+import create from './utils/create.utils';
+import GpxiesAPI from './GpxiesAPI';
+import MessagePopup from './MessagePopup';
+import Footer from './Footer';
+import Auth from './utils/auth.utils';
 
 class LoginPage {
+  constructor() {
+    const auth = new Auth().checkAuth();
+    if (auth.ok) {
+      window.location = '/mytracks';
+    } 
+  }
   getWordsData() {
-    this.chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = this.chooseLanguageComponent.generateWordsData();
-    this.chooseLanguage_container = this.chooseLanguageComponent.generateLayout();
-    this.chooseLanguage_container.classList.add("language_container_login");
-    this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
+    const chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage_container = chooseLanguageComponent.generateLayout();
+    this.chooseLanguage_container.classList.add('language_container_login');
+    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   generateLayout() {
     const footer = new Footer();
     this.getWordsData();
-    this.button__prime = create(
-      "div",
-      "button__primary",
-      `${this.wordsChooseArr.login}`
-    );
-    this.error_description = create(
-      "div",
-      "error_description error_description_hidden",
-      `${this.wordsChooseArr.login_error_description}`
-    );
-    this.email_input = create(
-      "input",
-      null,
-      null,
-      null,
-      ["type", "text"],
-      ["id", "emailField"],
-      ["required", "required"]
-    );
-    this.password_input = create(
-      "input",
-      null,
-      null,
-      null,
-      ["type", "password"],
-      ["id", "password"],
-      ["required", "required"]
-    );
-    this.login_form_registrationPageLink = create(
-      "div",
-      "login_form_registrationLink",
-      `${this.wordsChooseArr.registration}`
-    );
-    this.login_form_container = create("div", "login_form_container", [
-      create("label", null, "email", null, ["for", "emailField"]),
+    this.button__prime = create('div', 'button__primary', `${this.wordsChooseArr.login}`);
+    this.error_description = create('div', 'error_description error_description_hidden', `${this.wordsChooseArr.login_error_description}`);
+    this.email_input = create('input', null, null, null, ['type', 'text'], ['id', 'emailField'], ['required', 'required']);
+    this.password_input = create('input', null, null, null, ['type', 'password'], ['id', 'password'], ['required', 'required']);
+    this.login_form_registrationPageLink = create('div', 'login_form_registrationLink', `${this.wordsChooseArr.registration}`);
+    this.login_form_container = create('div', 'login_form_container', [
+      create('label', null, 'email', null, ['for', 'emailField']),
       this.email_input,
       this.error_description,
-      create(
-        "label",
-        "login_form_password",
-        `${this.wordsChooseArr.password}`,
-        null,
-        ["for", "password"]
-      ),
+      create('label', 'login_form_password', `${this.wordsChooseArr.password}`, null, ['for', 'password']),
       this.password_input,
-      create("a", null, null, null, ["href", "#"]),
+      create('a', null, null, null, ['href', '#']),
     ]);
-    this.login_form = create("form", "login_form", [
-      create("h3", "login_form_title", `${this.wordsChooseArr.enter}`),
+    this.login_form = create('form', 'login_form', [
+      create('h3', 'login_form_title', `${this.wordsChooseArr.enter}`),
       this.login_form_container,
-      create("div", "login_form_buttoncontainer", [
-        this.button__prime,
-        this.login_form_registrationPageLink,
-      ]),
+      create('div', 'login_form_buttoncontainer', [this.button__prime, this.login_form_registrationPageLink]),
       this.chooseLanguage_container,
     ]);
-    const wrapper = create("div", "login_wrapper wrapper", [
-      this.login_form,
-      footer.generateLayout(),
-    ]);
+    const wrapper = create('div', 'login_wrapper wrapper', [this.login_form, footer.generateLayout()]);
     document.body.prepend(wrapper);
     this.checkRegistration();
     this.addEventListeners();
   }
   refreshLayout() {
-    document.body.innerHTML = "";
-    document.body.removeEventListener("keydown", this.onPress);
-    this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
+    document.body.innerHTML = '';
+    document.body.removeEventListener('keydown', this.onPress);
+    this.chooseLanguage = localStorage.getItem('gpxiesChosen_language');
     this.generateLayout();
   }
   async handleEventLogin(e) {
     e.preventDefault();
     let userData = {
-      email: document.querySelector("#emailField").value,
-      password: document.querySelector("#password").value,
+      email: document.querySelector('#emailField').value,
+      password: document.querySelector('#password').value,
     };
     this.gpxiesAPI = new GpxiesAPI();
     let res = await this.gpxiesAPI.userLogin(userData);
-    console.log("res", res);
-    if (res.type == "error") {
-      this.error_description.classList.remove("error_description_hidden");
+    console.log('res', res);
+    if (res.type == 'error') {
+      this.error_description.classList.remove('error_description_hidden');
     } else {
-      this.error_description.classList.add("error_description_hidden");
+      this.error_description.classList.add('error_description_hidden');
     }
     if (res.token) {
-      localStorage.setItem("gpxiesUserName", res.username);
-      localStorage.setItem("gpxiesToken", res.token);
-      localStorage.setItem("gpxiesUserId", res.id);
+      localStorage.setItem('gpxiesUserName', res.username);
+      localStorage.setItem('gpxiesToken', res.token);
+      localStorage.setItem('gpxiesUserId', res.id);
       this.redirectToTrackListPage();
     }
   }
+  hotkeyChangeLanguage() {
+    if (localStorage.getItem('gpxiesChosen_language') == 0) {
+      localStorage.setItem('gpxiesChosen_language', 1);
+      console.log('this.chooseLanguage', this.chooseLanguage);
+    } else {
+      localStorage.setItem('gpxiesChosen_language', 0);
+      console.log('this.chooseLanguage', this.chooseLanguage);
+    }
+    this.shiftLeft = false;
+    this.altKey = false;
+  }
   handleBodyKeypress(e) {
     if (e.stopPropagation) e.stopPropagation();
-    if (e.code == "Enter") {
+    if (e.code == 'Enter') {
       this.handleEventLogin(e);
-    }    
-    let alt,shift = null;
+    }
     if (e.shiftKey) {
-      shift = true;
+      this.shiftKey = true;
     }
     if (e.altKey) {
-      alt = true;
+      this.altKey = true;
     }
-    if ((e.shiftKey && alt)||(e.altKey && shift)) {
-      this.chooseLanguageComponent.hotkeyChangeLanguage();
+    if (e.shiftKey && this.altKey) {
+      this.hotkeyChangeLanguage();
       this.refreshLayout();
-      shift = false;
-      alt = false;
+      this.shiftKey = false;
+      this.altKey = false;
+    }
+    if (e.altKey && this.shiftKey) {
+      this.hotkeyChangeLanguage();
+      this.refreshLayout();
+      this.shiftKey = false;
+      this.altKey = false;
     }
   }
   addEventListeners() {
     this.onPress = this.handleBodyKeypress.bind(this);
-    document.body.addEventListener("keydown", this.onPress );
-    this.button__prime.addEventListener("click", (e) =>
-    //this.handleEventLogin(e)
-      this.handleEventLogin(e)
-    );
-    this.login_form_registrationPageLink.addEventListener("click", () => {
+    document.body.addEventListener('keydown', this.onPress);
+    this.button__prime.addEventListener('click', (e) => this.handleEventLogin(e));
+    this.login_form_registrationPageLink.addEventListener('click', () => {
+
       this.redirectToRegistrationPage();
     });
-    document
-      .querySelector(".language_container")
-      .addEventListener("click", () => {
-        this.refreshLayout();
-      });
+    document.querySelector('.language_container').addEventListener('click', () => {
+      this.refreshLayout();
+    });
   }
   redirectToTrackListPage() {
-    window.location = "/mytracks";
+    window.location = '/mytracks';
   }
   redirectToRegistrationPage() {
-    window.location = "/registration";
+    window.location = '/registration';
   }
   checkRegistration() {
     const registrationMessage = new MessagePopup(
@@ -157,21 +136,16 @@ class LoginPage {
       null
     );
     const registrationSuccessMessageNode = registrationMessage.generateSuccessLayout();
-    registrationSuccessMessageNode.classList.remove(
-      "successMessage_container",
-      "successMessage_container__hidden"
-    );
-    registrationSuccessMessageNode.classList.add(
-      "registrationMessage_container"
-    );
-    if (localStorage.getItem("gpxiesEmail")) {
+    registrationSuccessMessageNode.classList.remove('successMessage_container', 'successMessage_container__hidden');
+    registrationSuccessMessageNode.classList.add('registrationMessage_container');
+    if (localStorage.getItem('gpxiesEmail')) {
       this.login_form_container.prepend(registrationSuccessMessageNode);
-      this.email_input.value = localStorage.getItem("gpxiesEmail");
-      localStorage.removeItem("gpxiesEmail");
+      this.email_input.value = localStorage.getItem('gpxiesEmail');
+      localStorage.removeItem('gpxiesEmail');
     }
-    if (localStorage.getItem("gpxiesPassword")) {
-      this.password_input.value = localStorage.getItem("gpxiesPassword");
-      localStorage.removeItem("gpxiesPassword");
+    if (localStorage.getItem('gpxiesPassword')) {
+      this.password_input.value = localStorage.getItem('gpxiesPassword');
+      localStorage.removeItem('gpxiesPassword');
     }
   }
 }
