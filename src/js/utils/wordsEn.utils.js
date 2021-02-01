@@ -52,4 +52,5 @@ module.exports = {
   fullStatistics: "Full statistics",
   km: "km",
   button_viewTrack: "View track",
+  button_backTrackPreview:"Back to the track preview",
 };

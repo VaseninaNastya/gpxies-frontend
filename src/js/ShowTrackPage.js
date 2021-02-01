@@ -10,16 +10,19 @@ import ChooseLanguage from "./ChooseLanguage";
 import GetDate from "./utils/getDate.utils";
 import MessagePopup from "./MessagePopup";
 import BlockPageLayout from "./BlockPageLayout";
-import icon_spinner from '../../assets/img/icons_spinner.png';
+import icon_spinner from "../../assets/img/icons_spinner.png";
 
 class ShowTrackPage {
   generateLayout() {
     this.getWordsData();
-    this.loadingSpinner_img = create("img", "icon_spinner showTrackPage_icon_spinner", null, null, [
-      "src",
-      icon_spinner,
-    ]);
-    const hashString = window.location.pathname.toString().slice(7);
+    this.loadingSpinner_img = create(
+      "img",
+      "icon_spinner showTrackPage_icon_spinner",
+      null,
+      null,
+      ["src", icon_spinner]
+    );
+    this.hashString = window.location.pathname.toString().slice(7);
     this.blockPageLayout = new BlockPageLayout();
     this.blockPageLayoutNode = this.blockPageLayout.generateMessageLayout();
     this.blockPageLayoutNode.append(this.loadingSpinner_img);
@@ -29,9 +32,19 @@ class ShowTrackPage {
     const showTrackPageHeader = new ShowTrackPageHeader();
     this.popup = new MessagePopup(
       `${this.wordsChooseArr.success_trackDelete_message}`,
-      [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]],
+      [
+        [
+          "button_returnToTrackList",
+          `${this.wordsChooseArr.button_returnToTrackList}`,
+        ],
+      ],
       `${this.wordsChooseArr.error_trackDelete_message}`,
-      [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]]
+      [
+        [
+          "button_backTrackPreview",
+          `${this.wordsChooseArr.button_backTrackPreview}`,
+        ],
+      ]
     );
     const header = new Header();
     const footer = new Footer();
@@ -49,8 +62,11 @@ class ShowTrackPage {
     this.worldMap.generateLayout();
     this.gpxiesAPI = new GpxiesAPI();
     setTimeout(() => {
-      this.showTrack(hashString);
+      this.showTrack(this.hashString);
     }, 800);
+  }
+  async addTracksData() {
+   return this.userTracks = await this.gpxiesAPI.getUserTracksById(localStorage.getItem('gpxiesUserId'));
   }
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
@@ -84,23 +100,18 @@ class ShowTrackPage {
       document.querySelector(".icon_private0").style.visibility = "visible";
     }
     console.log(document.querySelector(".item_download"));
-    document
-      .querySelector(".item_download")
-      .addEventListener("click", async () => {
-        // console.log(hashString);
-        this.gpxiesAPI.downloadTrack(hashString);
-      });
+   
 
     // Show track on map
 
     //this.worldMap.showGpx(hashString);
-    this.trackShowRes = await this.worldMap.showGpx(hashString);
+    this.trackShowRes = await this.worldMap.showGpx(this.hashString);
     if (this.trackShowRes) {
       setTimeout(() => {
         this.blockPageLayoutNode.classList.add(
           "loadingSpinner_wrapper__hidden"
         );
-        this.blockPageLayoutNode.innerHTML = ""
+        this.blockPageLayoutNode.innerHTML = "";
       }, 2000);
     }
     console.log("this.worldMap.showGpx(hashString);", this.trackShowRes);
@@ -133,6 +144,13 @@ class ShowTrackPage {
     }
   }
   addEventListeners() {
+    document
+    .querySelector(".item_download")
+    .addEventListener("click", async () => {
+      // console.log(hashString);
+      this.gpxiesAPI.downloadTrack(this.hashString);
+    });
+
     this.onPress = this.handleBodyKeypress.bind(this);
     document.body.addEventListener("keydown", this.onPress);
     document
@@ -140,6 +158,67 @@ class ShowTrackPage {
       .addEventListener("click", () => {
         this.refreshLayout();
       });
+    document
+      .querySelector(".item_delete")
+      .addEventListener("click",  () => {
+         console.log(this.hashString);
+        this.handleEventDeleteTrack();
+      });
+      document.querySelector('.loadingSpinner_wrapper').addEventListener('click', (e) => {
+        if (
+          Array.from(e.target.classList).includes('loadingSpinner_wrapper') ||
+          Array.from(e.target.classList).includes('button_returnToTrackList')
+        ) {
+          window.location = '/mytracks'
+        }
+        if(Array.from(e.target.classList).includes('button_backTrackPreview')){
+          this.popup.hideMessages();
+        }
+      });
+  }
+  
+  async handleEventDeleteTrack() {
+    let userTracks = await this.addTracksData()
+    console.log("userTracks",userTracks);
+    /*const checkedItems = Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
+      if (item.checked) {
+        return true;
+      } else {
+        return false;
+      }
+    });*/
+    //if (checkedItems.includes(true)) {
+      this.blockPageLayoutNode.append(this.popup.generateMessageLayout())
+      document.querySelector(".loadingSpinner_wrapper").classList.remove('loadingSpinner_wrapper__hidden');
+      let tracksToDelete = [];
+      //Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
+        //if (item.checked) {
+          //document.querySelector(`[data_rowhash='${item.getAttribute('data_checkboxhash')}']`).classList.add('table_body_row__hidden');
+          console.log(
+            'botv',
+            this.hashString
+          );
+          const deleteId = userTracks.find((item1) => {
+            return item1.hashString == this.hashString;
+          }).id;
+          tracksToDelete.push(deleteId);
+        //}
+     // });
+      console.log("tracksToDelete",tracksToDelete);
+      let result = await this.gpxiesAPI.deleteTrackById(tracksToDelete);
+      if (result.ok) {
+        console.log("трек удален");
+        this.popup.showSuccessMessage();
+        // this.tracksToShow.filter((track)=>{
+        //  if ( track.id in tracksToDelete ) {
+        //    document.querySelector('')
+        //  }
+        // })
+      } else {
+        console.log("ошибка");
+        this.popup.showErrorMessage();
+      }
+    //}*/
   }
 }
 

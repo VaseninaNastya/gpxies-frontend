@@ -32,7 +32,7 @@ class ShowTrackPageHeader {
       create("li", "trackDescription_menu_item", `${this.wordsChooseArr.edit}`),
       create(
         "li",
-        "trackDescription_menu_item",
+        "trackDescription_menu_item item_delete",
         `${this.wordsChooseArr.delete}`
       ),
     ]);
