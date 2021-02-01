@@ -172,7 +172,7 @@ class GpxiesAPI {
     );
   }
   async getTrackPoints(hashString) {
-    return fetch(this.API_SERVER + '/tracks/download/' + hashString, {
+    return fetch(this.API_SERVER + '/tracks/points/' + hashString, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -182,8 +182,8 @@ class GpxiesAPI {
       },
     })
       .then((response) => {
-        console.log('RSP', response);
-        return response.json();
+        // console.log('RSP', response);
+        return response.text();
       })
       .catch((error) => Error(error));
   }

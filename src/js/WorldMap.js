@@ -57,10 +57,12 @@ class WorldMap {
 
   async showGpx(hashString) {
     console.log('hashString', hashString);
-    // let trackPoints = [];
-    // const gpxiesAPI = new GpxiesAPI();
-    // let result = await gpxiesAPI.getTrackPoints(hashString);
-    // console.log('result',result);
+
+
+    let trackPoints = [];
+    const gpxiesAPI = new GpxiesAPI();
+    let result = await gpxiesAPI.getTrackPoints(hashString);
+    console.log('result',result);
   }
 
   // Trick for clear all layer and objects from map

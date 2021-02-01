@@ -7,7 +7,6 @@ import MessagePopup from './MessagePopup';
 import icon_spinner from '../../assets/img/icons_spinner.png';
 import ChooseLanguage from './ChooseLanguage';
 import Footer from './Footer';
-import GPX from 'leaflet-gpx';
 
 class LoadTrackPage {
   getWordsData() {
@@ -168,15 +167,11 @@ class LoadTrackPage {
     });
     this.button_save.addEventListener('click', async (event) => {
       event.preventDefault();
-      let distance = 0;
-      let gpx = URL.createObjectURL(this.loading_hiddenInput.files[0]);
-      let gpxMeta = new L.GPX(gpx, { async: true }).on('loaded', function (e) {
-        distance = e.target.get_distance();
-      });
 
       this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
       const formElem = document.querySelector('.loadTrackPage_form');
-      const { hashString } = await this.gpxiesAPI.uploadTrack(formElem);
+      const { hashString, distance, points } = await this.gpxiesAPI.uploadTrack(formElem);
+
       const tracksData = {
         title: this.trackName_input.value || `New track ${new Date().toISOString()}`,
         type: this.sport_selector.value,
@@ -184,6 +179,7 @@ class LoadTrackPage {
         isPrivate: this.private_checkbox.checked,
         hashString: hashString,
         distance: distance,
+        points: points,
       };
       const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
       if (result.hashString) {
