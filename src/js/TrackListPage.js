@@ -13,11 +13,17 @@ import MessagePopup from './MessagePopup';
 import SportsNames from './utils/sportsTypesNames.utils.js';
 import Footer from './Footer';
 import ChooseLanguage from './ChooseLanguage';
+import Auth from './utils/auth.utils';
 
 class TrackListPage {
   constructor() {
+    const auth = new Auth().checkAuth();
+    if (!auth.ok) {
+      window.location = '/login';
+    }
     this.trackHashForDelete = [];
   }
+
   getWordsData() {
     const chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = chooseLanguageComponent.generateWordsData();

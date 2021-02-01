@@ -7,8 +7,15 @@ import MessagePopup from './MessagePopup';
 import icon_spinner from '../../assets/img/icons_spinner.png';
 import ChooseLanguage from './ChooseLanguage';
 import Footer from './Footer';
+import Auth from './utils/auth.utils';
 
 class LoadTrackPage {
+  constructor() {
+    const auth = new Auth().checkAuth();
+    if (!auth.ok) {
+      window.location = '/login';
+    }
+  }
   getWordsData() {
     const chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = chooseLanguageComponent.generateWordsData();
