@@ -55,6 +55,21 @@ class GpxiesAPI {
       })
       .catch((error) => Error(error));
   }
+  async whoami() {
+    return fetch(this.API_SERVER + '/users/whoami', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36',
+        Referer: 'https://api.gpxies.ru',
+        Authorization: 'Bearer ' + localStorage.getItem('gpxiesToken'),
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => false);
+  }
 
   /* Tracks */
   async uploadTrack(file) {

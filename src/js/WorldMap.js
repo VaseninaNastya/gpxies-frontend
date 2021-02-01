@@ -66,7 +66,6 @@ class WorldMap {
         });
       });
     });
-    console.log(polylineCoordinates);
     let polyline = L.polyline(polylineCoordinates, { color: 'red' }).addTo(this.mymap);
 
     // zoom the map to the polyline

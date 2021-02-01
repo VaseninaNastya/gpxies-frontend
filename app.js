@@ -5,11 +5,21 @@ const app = express();
 // const userRouter = require('./routes/page.route');
 
 app.get('/', (req, res) => {
-  res.redirect('/login');
+  res.redirect('/mytracks');
 });
 // set static directories
 app.use(express.static(path.join(__dirname, 'dist')));
 const port = 3900;
+
+// const secured = (req, res, next) => {
+//   // console.log(req);
+//   console.log(localStorage.getItem('gpxiesToken'));
+//   if (req.user) {
+//     return next();
+//   }
+//   // req.session.returnTo = req.originalUrl;
+//   res.redirect("/login");
+// };
 
 app.use('/registration', express.static(path.join(__dirname, 'dist/registrationPage.html')));
 app.use('/login', express.static(path.join(__dirname, 'dist/loginPage.html')));
