@@ -183,7 +183,7 @@ class GpxiesAPI {
     })
       .then((response) => {
         // console.log('RSP', response);
-        return response.text();
+        return response.json();
       })
       .catch((error) => Error(error));
   }

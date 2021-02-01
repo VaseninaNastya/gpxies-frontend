@@ -1,6 +1,6 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import GPX from 'leaflet-gpx';
+// import GPX from 'leaflet-gpx';
 import GpxiesAPI from './GpxiesAPI';
 
 class WorldMap {
@@ -29,23 +29,16 @@ class WorldMap {
       accessToken: 'pk.eyJ1Ijoibm1pbmtldmljaCIsImEiOiJja2sybmp4OWgxMnEwMm90N3hrbmcyMWZ5In0.5wMIS1zH3Z0LFY2orShZbA',
     }).addTo(this.mymap);
 
-    var gpx = '/test.gpx'; // URL to your GPX file or the GPX itself
-    let self = this;
-    new L.GPX(gpx, { async: true })
-      .on('loaded', function (e) {
-        self.mymap.fitBounds(e.target.getBounds());
-      })
-      .addTo(this.mymap);
-
-    // Get name (and stats) of selected country
+    // var gpx = '/test.gpx'; // URL to your GPX file or the GPX itself
+    // let self = this;
+    // new L.GPX(gpx, { async: true })
+    //   .on('loaded', function (e) {
+    //     self.mymap.fitBounds(e.target.getBounds());
+    //   })
+    //   .addTo(this.mymap);
 
     function onMapClick(e) {
       console.log(e.latlng.lat, e.latlng.lng);
-      // self.geonamesAPI.getCountryName(e.latlng.lat, e.latlng.lng).then(countryCode => {
-      //     if (countryCode !== undefined) {
-      //         document.querySelector('.mainContent_container').setAttribute('data-country', countryCode);
-      //     }
-      // });
     }
 
     this.mymap.on('click', onMapClick);
@@ -58,11 +51,26 @@ class WorldMap {
   async showGpx(hashString) {
     console.log('hashString', hashString);
 
-
     let trackPoints = [];
     const gpxiesAPI = new GpxiesAPI();
-    let result = await gpxiesAPI.getTrackPoints(hashString);
-    console.log('result',result);
+    let track = await gpxiesAPI.getTrackPoints(hashString);
+    this.drawTrack(track.gpx.trk);
+  }
+
+  drawTrack(tracks) {
+    let polylineCoordinates = [];
+    tracks.forEach((trk) => {
+      trk.trkseg.forEach((trkseg) => {
+        trkseg.trkpt.forEach((trkpt) => {
+          polylineCoordinates.push([parseFloat(trkpt.attr.lat), parseFloat(trkpt.attr.lon)]);
+        });
+      });
+    });
+    console.log(polylineCoordinates);
+    let polyline = L.polyline(polylineCoordinates, { color: 'red' }).addTo(this.mymap);
+
+    // zoom the map to the polyline
+    this.mymap.fitBounds(polyline.getBounds());
   }
 
   // Trick for clear all layer and objects from map
