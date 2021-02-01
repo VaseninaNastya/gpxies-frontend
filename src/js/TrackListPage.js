@@ -16,18 +16,18 @@ import ChooseLanguage from './ChooseLanguage';
 import Auth from './utils/auth.utils';
 
 class TrackListPage {
-  constructor() {
+  /*constructor() {
     const auth = new Auth().checkAuth();
     if (!auth.ok) {
       window.location = '/login';
     }
     this.trackHashForDelete = [];
-  }
+  }*/
 
   getWordsData() {
-    const chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = chooseLanguageComponent.generateWordsData();
-    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr = this.chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
   generateLayout() {
@@ -112,6 +112,7 @@ class TrackListPage {
   }
   refreshLayout() {
     document.body.innerHTML = '';
+    document.body.removeEventListener('keydown', this.onPress);
     this.chooseLanguage = localStorage.getItem('gpxiesChosen_language');
     this.generateLayout();
   }
@@ -205,7 +206,28 @@ class TrackListPage {
       this.trackListPageButtonsBlock.hideButtonContainer();
     }
   }
+  handleBodyKeypress(e) {
+    let shift,alt = null
+    if (e.stopPropagation) e.stopPropagation();
+    /*if (e.code == 'Delete') {
+      this.handleEventDeleteTrack();
+    }*/
+    if (e.shiftKey) {
+      shift = true;
+    }
+    if (e.altKey) {
+      alt = true;
+    }
+    if ((e.shiftKey && alt) || (e.altKey && shift)) {
+      this.chooseLanguageComponent.hotkeyChangeLanguage();
+      this.refreshLayout();
+      shift = false;
+      alt = false;
+    }
+  }
   addEventListeners() {
+    this.onPress = this.handleBodyKeypress.bind(this);
+    document.body.addEventListener('keydown', this.onPress);
     document.querySelector('.language_container').addEventListener('click', () => {
       this.refreshLayout();
     });
@@ -223,11 +245,11 @@ class TrackListPage {
       this.handleEventDeleteTrack();
     });
 
-    document.addEventListener('keydown', (e) => {
+   /* document.addEventListener('keydown', (e) => {
       if (e.code == 'Delete') {
         this.handleEventDeleteTrack();
       }
-    });
+    });*/
     //Show and Hide Button Container
     this.tableBody_container.addEventListener('click', (e) => {
       if (Array.from(e.target.classList).includes('table_item_checkbox')) {

@@ -35,9 +35,9 @@ class ShowTrackPage {
     }, 1000);
   }
   getWordsData(){
-    const chooseLanguageComponent = new ChooseLanguage();
-    this.wordsArr = chooseLanguageComponent.generateWordsData();
-    this.chooseLanguage = chooseLanguageComponent.determinationLanguage();
+    this.chooseLanguageComponent = new ChooseLanguage();
+    this.wordsArr =  this.chooseLanguageComponent.generateWordsData();
+    this.chooseLanguage =  this.chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage]
   }
   async showTrack(hashString) {
@@ -63,10 +63,32 @@ class ShowTrackPage {
   }
   refreshLayout() {
     document.body.innerHTML = "";
+    document.body.removeEventListener('keydown', this.onPress);
     this.chooseLanguage = localStorage.getItem("gpxiesChosen_language");
     this.generateLayout();
   }
+  handleBodyKeypress(e) {
+    let shift,alt = null
+    if (e.stopPropagation) e.stopPropagation();
+   /* if (e.code == 'Enter') {
+      this.handleEventLogin(e);
+    }*/
+    if (e.shiftKey) {
+      shift = true;
+    }
+    if (e.altKey) {
+      alt = true;
+    }
+    if ((e.shiftKey && alt) || (e.altKey && shift)) {
+      this.chooseLanguageComponent.hotkeyChangeLanguage();
+      this.refreshLayout();
+      shift = false;
+      alt = false;
+    }
+  }
   addEventListeners() {
+    this.onPress = this.handleBodyKeypress.bind(this);
+    document.body.addEventListener('keydown', this.onPress);
     document
     .querySelector(".language_container")
     .addEventListener("click", () => {
