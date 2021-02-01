@@ -172,7 +172,7 @@ class TrackListPage {
       this.tableBody_container.append(tableBodyString);
     });
   }
-  handleEventDeleteTrack() {
+  async handleEventDeleteTrack() {
     const checkedItems = Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
       if (item.checked) {
         return true;
@@ -182,26 +182,28 @@ class TrackListPage {
     });
     if (checkedItems.includes(true)) {
       this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
-      Array.from(document.querySelectorAll('.checkbox_item')).map(async (item) => {
+      let tracksToDelete = [];
+      Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
         if (item.checked) {
           document.querySelector(`[data_rowhash='${item.getAttribute('data_checkboxhash')}']`).classList.add('table_body_row__hidden');
-          console.log(
-            'botv',
-            this.tracksToShow.find((item1) => {
-              return item1.hashString == item.getAttribute('data_checkboxhash');
-            }).id
-          );
+          // console.log(
+          //   'botv',
+          //   this.tracksToShow.find((item1) => {
+          //     return item1.hashString == item.getAttribute('data_checkboxhash');
+          //   }).id
+          // );
           const deleteId = this.tracksToShow.find((item1) => {
             return item1.hashString == item.getAttribute('data_checkboxhash');
           }).id;
-          let result = await this.gpxiesAPI.deleteTrackById(deleteId);
-          if (result.ok) {
-            this.popup.showSuccessMessage();
-          } else {
-            this.popup.showErrorMessage();
-          }
+          tracksToDelete.push(deleteId);
         }
       });
+      let result = await this.gpxiesAPI.deleteTrackById(tracksToDelete);
+      if (result.ok) {
+        this.popup.showSuccessMessage();
+      } else {
+        this.popup.showErrorMessage();
+      }
       this.trackListPageButtonsBlock.hideButtonContainer();
     }
   }
