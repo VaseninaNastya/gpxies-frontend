@@ -14,6 +14,7 @@ import Footer from './Footer';
 import ChooseLanguage from './ChooseLanguage';
 import Auth from './utils/auth.utils';
 import GetDate from './utils/getDate.utils'
+import BlockPageLayout from './BlockPageLayout';
 class TrackListPage {
   constructor() {}
 
@@ -29,17 +30,18 @@ class TrackListPage {
       window.location = '/login';
     }
     this.trackHashForDelete = [];
-
     this.getWordsData();
     const footer = new Footer();
+    this.blockPageLayout = new BlockPageLayout()
     this.popup = new MessagePopup(
       `${this.wordsChooseArr.success_trackDelete_message}`,
       [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]],
       `${this.wordsChooseArr.error_trackDelete_message}`,
       [['button_returnToTrackList', `${this.wordsChooseArr.button_returnToTrackList}`]]
     );
+    document.body.prepend(this.blockPageLayout.generateMessageLayout());
     this.popup_container = this.popup.generateMessageLayout();
-    document.body.prepend(this.popup_container);
+    document.querySelector(".loadingSpinner_wrapper").append(this.popup_container)
     this.trackListPageButtonsBlock = new TrackListPageButtonsBlock();
     this.buttonsBlock_container = this.trackListPageButtonsBlock.generateLayout();
     this.addTracksData();
@@ -174,7 +176,7 @@ class TrackListPage {
       }
     });
     if (checkedItems.includes(true)) {
-      this.popup_container.classList.remove('loadingSpinner_wrapper__hidden');
+      document.querySelector(".loadingSpinner_wrapper").classList.remove('loadingSpinner_wrapper__hidden');
       let tracksToDelete = [];
       Array.from(document.querySelectorAll('.checkbox_item')).map((item) => {
         if (item.checked) {
@@ -219,13 +221,8 @@ class TrackListPage {
     }
 
     if((e.code == "KeyC")){
-      console.log("работаут");
       this.chooseUnchooseAll(e)
     }
-    /*if(ctrl && (e.code == "KeyC")){
-      console.log("работает");
-      this.checkAllCheckbox.checked
-    }*/
     if ((e.shiftKey && alt) || (e.altKey && shift)) {
       this.chooseLanguageComponent.hotkeyChangeLanguage();
       this.refreshLayout();

@@ -15,12 +15,7 @@ class MessagePopup {
       this.generateSuccessLayout(),
       this.generateErrorLayout()
     ]);
-    this.loadingSpinner_wrapper = create(
-      "div",
-      "loadingSpinner_wrapper loadingSpinner_wrapper__hidden",
-      loadingSpinner_container,
-    );
-    return this.loadingSpinner_wrapper
+    return loadingSpinner_container
   }
   generateSuccessLayout() {
     this.successMessageNode = create(
@@ -72,7 +67,7 @@ class MessagePopup {
   }
 
   hideMessages(){
-    this.loadingSpinner_wrapper.classList.add("loadingSpinner_wrapper__hidden");
+    document.querySelector(".loadingSpinner_wrapper").classList.add("loadingSpinner_wrapper__hidden");
     this.loadingSpinner_img.classList.remove("loadingSpinner_img__hidden");
     if (document.querySelector(".successMessage_container")) {
       document

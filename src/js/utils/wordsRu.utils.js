@@ -50,5 +50,6 @@ module.exports = {
   author:"aвтор",
   uploaded: "загружено",
   fullStatistics: "Полная статистика",
-  km: "км"
+  km: "км",
+  button_viewTrack: "Просмотр трека",
 };
