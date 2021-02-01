@@ -8,6 +8,8 @@ import icon_spinner from '../../assets/img/icons_spinner.png';
 import ChooseLanguage from './ChooseLanguage';
 import Footer from './Footer';
 import Auth from './utils/auth.utils';
+import GetDate from './utils/getDate.utils'
+
 
 class LoadTrackPage {
   constructor() {
@@ -206,7 +208,7 @@ class LoadTrackPage {
     const { hashString, distance, points } = await this.gpxiesAPI.uploadTrack(formElem);
 
     const tracksData = {
-      title: this.trackName_input.value || `New track ${new Date().toISOString()}`,
+      title: this.trackName_input.value || `New track ${GetDate(new Date().toISOString())}`,
       type: this.sport_selector.value,
       description: this.track_description_textarea.value,
       isPrivate: this.private_checkbox.checked,

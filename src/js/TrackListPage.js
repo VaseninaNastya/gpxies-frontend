@@ -3,7 +3,6 @@ import create from './utils/create.utils';
 import GpxiesAPI from './GpxiesAPI';
 import Header from './Header';
 import Type from './utils/trackTypes.utils';
-import Mounth from './utils/mounth.utils';
 import Sports from './utils/sportTypes.utils';
 import icon_private from '../../assets/img/icons_private.png';
 import SearchBar from './SearchBar';
@@ -14,7 +13,7 @@ import SportsNames from './utils/sportsTypesNames.utils.js';
 import Footer from './Footer';
 import ChooseLanguage from './ChooseLanguage';
 import Auth from './utils/auth.utils';
-
+import GetDate from './utils/getDate.utils'
 class TrackListPage {
   constructor() {}
 
@@ -137,18 +136,10 @@ class TrackListPage {
       this.generateTableBodyLayout(this.tracksToShow);
     }
   }
-  getDate(date) {
-    const dateObj = new Date(date);
-    const day = dateObj.getDate();
-    const year = dateObj.getFullYear();
-    const mounth = Mounth[dateObj.getMonth()];
-    const dateRes = day + '.' + mounth + '.' + year;
-    return dateRes;
-  }
   generateTableBodyLayout(arr) {
     arr.map((item) => {
       const itemPrivateHidden = `icon_private${item.isPrivate}`;
-      const date = this.getDate(item.created);
+      const date = GetDate(item.created);
       const tableBodyString = create(
         'div',
         'table_body_row',
