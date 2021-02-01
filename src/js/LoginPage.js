@@ -112,10 +112,10 @@ class LoginPage {
   }
   addEventListeners() {
     this.onPress = this.handleBodyKeypress.bind(this);
-
     document.body.addEventListener('keydown', this.onPress);
     this.button__prime.addEventListener('click', (e) => this.handleEventLogin(e));
     this.login_form_registrationPageLink.addEventListener('click', () => {
+
       this.redirectToRegistrationPage();
     });
     document.querySelector('.language_container').addEventListener('click', () => {
