@@ -1,14 +1,20 @@
 .trackDescription {
   width: 100%;
 }
-
+.сompleteStatictics_wrapper{
+  display: none;
+}
 .trackDescription_container {
   width: 80%;
 }
 .trackDescription_trackName,
 .trackDescription_trackLength {
+  display: inline-block;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  flex-wrap:nowrap;
 }
 .trackDescription_menu_item {
   border-left: solid 2px rgba(128, 128, 128, 0.3);
@@ -76,20 +82,55 @@
   align-items: center;
   line-height: 35px;
   justify-content: left;
-  flex-wrap: wrap;
+  flex-wrap:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .trackDescription_title__secondary {
   display: flex;
   justify-content: left;
   align-items: center;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
+}
+.trackDescription_authorName_container,.trackDescription_data_container{
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 5px;
+  max-width: 50%;
+}
+
+/*
+.trackDescription_data_container{
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.trackDescription_data_container{
+  width: 60%;
+}
+.trackDescription_data{
+width: 100px;
+display: flex;
+flex-wrap: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
 }
 .trackDescription_authorName_container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-right: 10px;
-}
+}*/
 @media (max-width: 1000px) and (min-width: 650px) {
+ /* .trackDescription_title__secondary {
+    fl
+  }*/
   .trackDescription_container {
-    padding-left: 10px;
+    padding:0 10px;
   }
   /*.trackDescription_menu{
     width: 70%;
@@ -99,12 +140,15 @@
   }*/
 }
 @media (max-width: 650px) {
+  .сompleteStatictics_wrapper{
+    display: inherit;
+  }
   .showTrack_header {
     height: 70px;
   }
   .trackDescription_container {
     width: 100%;
-    margin-left: 10px;
+    padding:0 10px;
   }
   .trackDescription_statistic {
     display: none;
@@ -126,6 +170,9 @@
 }
 
 @media (max-width: 420px) {
+  .сompleteStatictics_wrapper{
+    display: inherit;
+  }
   .trackDescription_menu{
     width: 80%;
   }
