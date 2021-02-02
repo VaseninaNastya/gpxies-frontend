@@ -76,16 +76,24 @@ class LoginPage {
     }
   }
   handleBodyKeypress(e) {
-    let shift,alt = null
     if (e.stopPropagation) e.stopPropagation();
-    if (e.code == 'Enter') {
-      this.handleEventLogin(e);
-    }
+    let shift,
+      alt,
+      ctrl = null;
     if (e.shiftKey) {
       shift = true;
     }
+    if (e.ctrlKey) {
+      ctrl = true;
+    }
+
     if (e.altKey) {
       alt = true;
+    }
+
+    if (ctrl&&e.code == 'Enter') {
+      this.handleEventLogin(e);
+      ctrl = false;
     }
     if ((e.shiftKey && alt) || (e.altKey && shift)) {
       this.chooseLanguageComponent.hotkeyChangeLanguage();

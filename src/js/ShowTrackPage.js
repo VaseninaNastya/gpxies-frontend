@@ -66,7 +66,9 @@ class ShowTrackPage {
     }, 800);
   }
   async addTracksData() {
-   return this.userTracks = await this.gpxiesAPI.getUserTracksById(localStorage.getItem('gpxiesUserId'));
+    return (this.userTracks = await this.gpxiesAPI.getUserTracksById(
+      localStorage.getItem("gpxiesUserId")
+    ));
   }
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
@@ -96,7 +98,6 @@ class ShowTrackPage {
     if (result.isPrivate) {
       document.querySelector(".icon_private0").style.visibility = "visible";
     }
-   
 
     // Show track on map
 
@@ -109,9 +110,9 @@ class ShowTrackPage {
         );
         this.blockPageLayoutNode.innerHTML = "";
       }, 2000);
-    } 
-    if (this.trackShowRes.type ==  "error") {
-      window.location = '/mytracks'
+    }
+    if (this.trackShowRes.type == "error") {
+      window.location = "/mytracks";
     }
     this.addEventListeners();
   }
@@ -123,21 +124,28 @@ class ShowTrackPage {
   }
   handleBodyKeypress(e) {
     let shift,
-      alt = null;
+      alt,
+      ctrl = null;
+      if (e.shiftKey) {
+        shift = true;
+      }
+      if (e.ctrlKey) {
+        ctrl = true;
+      }
+  
+      if (e.altKey) {
+        alt = true;
+      }
     if (e.stopPropagation) e.stopPropagation();
-     if (e.code == 'Delete') {
-      this.handleEventDeleteTrack(e)
+    if (ctrl &&  e.code == "Delete") {
+      this.handleEventDeleteTrack(e);
+      ctrl = false;
     }
-    if (e.code == 'KeyD') {
+    if (ctrl && e.code == "KeyD") {
       this.gpxiesAPI.downloadTrack(this.hashString);
+        ctrl = false;
+    }
 
-    }
-    if (e.shiftKey) {
-      shift = true;
-    }
-    if (e.altKey) {
-      alt = true;
-    }
     if ((e.shiftKey && alt) || (e.altKey && shift)) {
       this.chooseLanguageComponent.hotkeyChangeLanguage();
       this.refreshLayout();
@@ -147,10 +155,10 @@ class ShowTrackPage {
   }
   addEventListeners() {
     document
-    .querySelector(".item_download")
-    .addEventListener("click", async () => {
-      this.gpxiesAPI.downloadTrack(this.hashString);
-    });
+      .querySelector(".item_download")
+      .addEventListener("click", async () => {
+        this.gpxiesAPI.downloadTrack(this.hashString);
+      });
 
     this.onPress = this.handleBodyKeypress.bind(this);
     document.body.addEventListener("keydown", this.onPress);
@@ -159,39 +167,43 @@ class ShowTrackPage {
       .addEventListener("click", () => {
         this.refreshLayout();
       });
+    document.querySelector(".item_delete").addEventListener("click", () => {
+      this.handleEventDeleteTrack();
+    });
     document
-      .querySelector(".item_delete")
-      .addEventListener("click",  () => {
-        this.handleEventDeleteTrack();
-      });
-      document.querySelector('.loadingSpinner_wrapper').addEventListener('click', (e) => {
+      .querySelector(".loadingSpinner_wrapper")
+      .addEventListener("click", (e) => {
         if (
-          Array.from(e.target.classList).includes('loadingSpinner_wrapper') ||
-          Array.from(e.target.classList).includes('button_returnToTrackList')
+          Array.from(e.target.classList).includes("loadingSpinner_wrapper") ||
+          Array.from(e.target.classList).includes("button_returnToTrackList")
         ) {
-          window.location = '/mytracks'
+          window.location = "/mytracks";
         }
-        if(Array.from(e.target.classList).includes('button_backTrackPreview')){
+        if (
+          Array.from(e.target.classList).includes("button_backTrackPreview")
+        ) {
           this.popup.hideMessages();
         }
       });
   }
-  
+
   async handleEventDeleteTrack() {
-    let userTracks = await this.addTracksData()
-      this.blockPageLayoutNode.append(this.popup.generateMessageLayout())
-      document.querySelector(".loadingSpinner_wrapper").classList.remove('loadingSpinner_wrapper__hidden');
-      let tracksToDelete = [];
-          const deleteId = userTracks.find((item1) => {
-            return item1.hashString == this.hashString;
-          }).id;
-          tracksToDelete.push(deleteId);
-      let result = await this.gpxiesAPI.deleteTrackById(tracksToDelete);
-      if (result.ok) {
-        this.popup.showSuccessMessage();
-      } else {
-        this.popup.showErrorMessage();
-      }
+    let userTracks = await this.addTracksData();
+    this.blockPageLayoutNode.append(this.popup.generateMessageLayout());
+    document
+      .querySelector(".loadingSpinner_wrapper")
+      .classList.remove("loadingSpinner_wrapper__hidden");
+    let tracksToDelete = [];
+    const deleteId = userTracks.find((item1) => {
+      return item1.hashString == this.hashString;
+    }).id;
+    tracksToDelete.push(deleteId);
+    let result = await this.gpxiesAPI.deleteTrackById(tracksToDelete);
+    if (result.ok) {
+      this.popup.showSuccessMessage();
+    } else {
+      this.popup.showErrorMessage();
+    }
   }
 }
 

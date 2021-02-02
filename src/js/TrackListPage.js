@@ -254,29 +254,33 @@ class TrackListPage {
     }
   }
   handleBodyKeypress(e) {
-    let shift,
-      alt = null;
     if (e.stopPropagation) e.stopPropagation();
-    if (e.code == 'Delete') {
-      this.handleEventDeleteTrack();
-    }
-    if (e.shiftKey) {
-      shift = true;
-    }
-    if (e.altKey) {
-      alt = true;
-    }
+    let shift,
+      alt,
+      ctrl = null;
+      if (e.shiftKey) {
+        shift = true;
+      }
+      if (e.ctrlKey) {
+        ctrl = true;
+      }
+  
+      if (e.altKey) {
+        alt = true;
+      }
+      if (ctrl &&  e.code == "Delete") {
+        this.handleEventDeleteTrack(e);
+        ctrl = false;
+      }
+      if (ctrl && e.code == "KeyD") {
+        this.gpxiesAPI.downloadTrack(this.hashString);
+        ctrl = false;
+      }
+  
 
-    if (e.code == 'KeyD') {
-      console.log('работаddут');
-      this.handleEventDownloadTrack(e);
-
-    }
-
-    if (e.code == 'KeyC') {
+    if (ctrl && e.code == 'KeyC') {
       console.log('работаут');
-      this.chooseUnchooseAll(e);
-
+      ctrl = false;
     }
     if ((e.shiftKey && alt) || (e.altKey && shift)) {
       this.chooseLanguageComponent.hotkeyChangeLanguage();
