@@ -51,6 +51,7 @@ module.exports = {
   uploaded: "загружено",
   fullStatistics: "Полная статистика",
   km: "км",
+  points: "Точек:",
   button_viewTrack: "Просмотр трека",
   button_backTrackPreview:"Вернуться к просмотру трека",
 };

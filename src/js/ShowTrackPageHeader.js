@@ -38,9 +38,8 @@ class ShowTrackPageHeader {
     ]);
     const statisticsSmall = create("ul", "trackDescription_statistic", [
       create("h5", null, `${this.wordsChooseArr.statistics}`),
-      create("li", "trackDescription_statistic_item", ""),
-      create("li", "trackDescription_statistic_item", ""),
-      create("li", "trackDescription_statistic_item", ""),
+      create("li", "trackDescription_statistic_item stat_distance", ""),
+      create("li", "trackDescription_statistic_item stat_points", "")
     ]);
     const headerContainer = create("div", "showTrack_header", [
       create("div","container",[
