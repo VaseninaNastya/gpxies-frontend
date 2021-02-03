@@ -216,6 +216,7 @@ class LoadTrackPage {
     event.preventDefault();
     document.querySelector(".loadingSpinner_wrapper").classList.remove('loadingSpinner_wrapper__hidden');
     const formElem = document.querySelector('.loadTrackPage_form');
+    console.log('formElem',formElem);
     const { hashString, distance, points } = await this.gpxiesAPI.uploadTrack(formElem);
     const tracksData = {
       title: this.trackName_input.value || `New track ${GetDate(new Date().toISOString())}`,

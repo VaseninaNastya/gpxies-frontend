@@ -1,33 +1,21 @@
-<?xml version="1.0"?>
-<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" creator="AllTrails.com" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxtrkx="http://www.garmin.com/xmlschemas/TrackStatsExtension/v1" xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" creator="eTrex 20" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www8.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackStatsExtension/v1 http://www8.garmin.com/xmlschemas/TrackStatsExtension.xsd http://www.garmin.com/xmlschemas/WaypointExtension/v1 http://www8.garmin.com/xmlschemas/WaypointExtensionv1.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd">
   <metadata>
-    <name><![CDATA[[ПЛАН] Койонсаари]]></name>
-    <desc><![CDATA[]]></desc>
-    <link href="http://www.alltrails.com">
-      <text>AllTrails, LLC</text>
+    <link href="http://www.garmin.com">
+      <text>Garmin International</text>
     </link>
-    <bounds minlat="61.11355" minlon="29.69414" maxlat="61.31292" maxlon="30.08887"/>
+    <time>2021-01-01T21:05:00Z</time>
   </metadata>
-  <wpt lat="61.11319" lon="29.875">
-    <name><![CDATA[ЖД]]></name>
-    <desc><![CDATA[]]></desc>
-  </wpt>
-  <wpt lat="61.12293" lon="29.88427">
-    <name><![CDATA[Пятерочка]]></name>
-    <desc><![CDATA[]]></desc>
-  </wpt>
-  <wpt lat="61.2991" lon="29.89045">
-    <name><![CDATA[Куркиёки с магазинами]]></name>
-    <desc><![CDATA[]]></desc>
-  </wpt>
-  <wpt lat="61.28805" lon="30.08743">
-    <name><![CDATA[Парковка перед въездом на остров]]></name>
-    <desc><![CDATA[]]></desc>
-  </wpt>
-  <trk>
-    <name><![CDATA[[ПЛАН] Койонсаари]]></name>
-    <desc><![CDATA[]]></desc>
-    <src>AllTrails</src>
+   <trk>
+    <name>Текущий трек: 26 ДЕК 2020 15:35</name>
+    <extensions>
+      <gpxx:TrackExtension>
+        <gpxx:DisplayColor>Magenta</gpxx:DisplayColor>
+      </gpxx:TrackExtension>
+      <gpxtrkx:TrackStatsExtension>
+        <gpxtrkx:Distance>58279</gpxtrkx:Distance>
+      </gpxtrkx:TrackStatsExtension>
+    </extensions>
     <trkseg>
       <trkpt lat="61.11355" lon="29.87519">
         <ele>2.69</ele>
