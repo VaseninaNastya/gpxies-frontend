@@ -8,14 +8,11 @@ import icon_spinner from '../../assets/img/icons_spinner.png';
 import ChooseLanguage from './ChooseLanguage';
 import Footer from './Footer';
 import Auth from './utils/auth.utils';
-import GetDate from './utils/getDate.utils'
+import GetDate from './utils/getDate.utils';
 import BlockPageLayout from './BlockPageLayout';
 
-
 class LoadTrackPage {
-  constructor() {
-   
-  }
+  constructor() {}
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
     this.wordsArr = this.chooseLanguageComponent.generateWordsData();
@@ -30,7 +27,7 @@ class LoadTrackPage {
     //create('div', 'track_name_tableItem', create('a', null, item.title, null, ['href', '/track/' + item.hashString])),
     this.getWordsData();
     this.gpxiesAPI = new GpxiesAPI();
-    this.blockPageLayout = new BlockPageLayout()
+    this.blockPageLayout = new BlockPageLayout();
     this.popup = new MessagePopup(
       `${this.wordsChooseArr.success_trackLoad_message}`,
       [
@@ -43,7 +40,7 @@ class LoadTrackPage {
     const footer = new Footer();
     document.body.prepend(this.blockPageLayout.generateMessageLayout());
     this.popup_container = this.popup.generateMessageLayout();
-    document.querySelector(".loadingSpinner_wrapper").append(this.popup_container)
+    document.querySelector('.loadingSpinner_wrapper').append(this.popup_container);
     this.spinner = create('img', 'icon_spinner', null, null, ['src', icon_spinner]);
     this.loading_button = create('label', 'loading_button', `${this.wordsChooseArr.selectFile}`, null, ['for', 'load_track_file_input']);
     this.loading_hiddenInput = create(
@@ -144,27 +141,22 @@ class LoadTrackPage {
   }
   handleBodyKeypress(e) {
     if (e.stopPropagation) e.stopPropagation();
-    let shift,
-      alt,
+    let alt,
       ctrl = null;
-    if (e.shiftKey) {
-      shift = true;
-    }
     if (e.ctrlKey) {
       ctrl = true;
     }
     if (e.altKey) {
       alt = true;
     }
-    if (ctrl&&(e.code == 'Enter')&&(!this.button_save.getAttribute('disabled'))) {
+    if (ctrl && e.code == 'Enter' && !this.button_save.getAttribute('disabled')) {
       this.loadTrack(e);
       ctrl = false;
     }
-    if ((e.shiftKey && alt) || (e.altKey && shift)) {
+    if (ctrl && e.code == 'KeyE') {
       this.chooseLanguageComponent.hotkeyChangeLanguage();
       this.refreshLayout();
-      shift = false;
-      alt = false;
+      ctrl = false;
     }
   }
   addEventListeners() {
@@ -180,12 +172,12 @@ class LoadTrackPage {
       this.loading_trackFileName.append(this.spinner);
     });
     document.querySelector('.loadingSpinner_wrapper').addEventListener('click', (e) => {
-      console.log("hf,jjjfjf>>>>>>>>>>>>>>");
+      console.log('hf,jjjfjf>>>>>>>>>>>>>>');
       if (Array.from(e.target.classList).includes('loadingSpinner_wrapper') || Array.from(e.target.classList).includes('button_newTrack')) {
         this.addDisabledButtonAttribute();
         this.resetForm();
       }
-      if(Array.from(e.target.classList).includes('button_viewTrack')){
+      if (Array.from(e.target.classList).includes('button_viewTrack')) {
         window.location = '/track/' + this.hashString;
       }
     });
@@ -212,11 +204,11 @@ class LoadTrackPage {
     });
     this.button_save.addEventListener('click', (e) => this.loadTrack(e));
   }
-  async loadTrack(event){
+  async loadTrack(event) {
     event.preventDefault();
-    document.querySelector(".loadingSpinner_wrapper").classList.remove('loadingSpinner_wrapper__hidden');
+    document.querySelector('.loadingSpinner_wrapper').classList.remove('loadingSpinner_wrapper__hidden');
     const formElem = document.querySelector('.loadTrackPage_form');
-    console.log('formElem',formElem);
+    console.log('formElem', formElem);
     const { hashString, distance, points } = await this.gpxiesAPI.uploadTrack(formElem);
     const tracksData = {
       title: this.trackName_input.value || `New track ${GetDate(new Date().toISOString())}`,
@@ -227,7 +219,7 @@ class LoadTrackPage {
       distance: distance,
       points: points,
     };
-    this.hashString = hashString
+    this.hashString = hashString;
     const result = await this.gpxiesAPI.tracksDataUpload(tracksData);
     if (result.hashString) {
       setTimeout(this.popup.showSuccessMessage(), 300);
