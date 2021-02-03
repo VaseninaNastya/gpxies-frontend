@@ -141,6 +141,13 @@ class TrackListPage {
     }
   }
   generateTableBodyLayout(arr) {
+    if (arr.length==0){
+      document.querySelector('.table_body_container').textContent=`${this.wordsChooseArr.noTracks}`;
+      document.querySelector('.table_body_container').classList.add('notracks');
+    } else {
+      document.querySelector('.table_body_container').textContent='';
+      document.querySelector('.table_body_container').classList.remove('notracks');
+    }
     arr.map((item) => {
       console.log(item);
       const itemPrivateHidden = `icon_private${item.isPrivate}`;

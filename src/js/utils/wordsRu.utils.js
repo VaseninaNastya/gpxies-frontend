@@ -52,6 +52,7 @@ module.exports = {
   fullStatistics: "Полная статистика",
   km: "км",
   points: "Точек:",
+  noTracks:"Треков пока нет",
   button_viewTrack: "Просмотр трека",
   button_backTrackPreview:"Вернуться к просмотру трека",
 };

@@ -119,6 +119,11 @@
   visibility: hidden;
 }
 
+.notracks{
+  text-align: center;
+  padding-top: 40px;
+}
+
 .table_item_name{
   display: flex;
   flex-direction: row;
