@@ -21,7 +21,7 @@ class ShowTrackPageHeader {
       ),
       create(
         "li",
-        "trackDescription_menu_item",
+        "trackDescription_menu_item trackDescription_menu_item__disabled",
         `${this.wordsChooseArr.createVariation}`
       ),
       /*create(
@@ -29,7 +29,7 @@ class ShowTrackPageHeader {
         "trackDescription_menu_item",
         `${this.wordsChooseArr.addToBookmarks}`
       ),*/
-      create("li", "trackDescription_menu_item", `${this.wordsChooseArr.edit}`),
+      create("li", "trackDescription_menu_item trackDescription_menu_item__disabled", `${this.wordsChooseArr.edit}`),
       create(
         "li",
         "trackDescription_menu_item item_delete",

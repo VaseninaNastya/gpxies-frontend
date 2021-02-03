@@ -255,38 +255,33 @@ class TrackListPage {
   }
   handleBodyKeypress(e) {
     if (e.stopPropagation) e.stopPropagation();
-    let shift,
+    let 
       alt,
       ctrl = null;
-      if (e.shiftKey) {
-        shift = true;
-      }
-      if (e.ctrlKey) {
-        ctrl = true;
-      }
-  
-      if (e.altKey) {
-        alt = true;
-      }
-      if (ctrl &&  e.code == "Delete") {
-        this.handleEventDeleteTrack(e);
-        ctrl = false;
-      }
-      if (ctrl && e.code == "KeyD") {
-        this.gpxiesAPI.downloadTrack(this.hashString);
-        ctrl = false;
-      }
-  
+    if (e.ctrlKey) {
+      ctrl = true;
+    }
 
-    if (ctrl && e.code == 'KeyC') {
-      console.log('работаут');
+    if (e.altKey) {
+      alt = true;
+    }
+    if (ctrl && e.code == "Delete") {
+      this.handleEventDeleteTrack(e);
       ctrl = false;
     }
-    if ((e.shiftKey && alt) || (e.altKey && shift)) {
+    if (ctrl && e.code == "KeyD") {
+      this.gpxiesAPI.downloadTrack(this.hashString);
+      ctrl = false;
+    }
+
+    if (ctrl && e.code == "KeyC") {
+      console.log("работаут");
+      ctrl = false;
+    }
+    if (ctrl && e.code == "KeyE") {
       this.chooseLanguageComponent.hotkeyChangeLanguage();
       this.refreshLayout();
-      shift = false;
-      alt = false;
+      ctrl = false;
     }
   }
   addEventListeners() {

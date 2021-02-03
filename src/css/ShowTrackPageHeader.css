@@ -77,7 +77,14 @@
   width: 20px;
   visibility: hidden;
 }
-
+.trackDescription_menu_item__disabled:hover{
+  background-color: inherit;
+  cursor: auto;
+  color: rgba(128, 128, 128);
+}
+.trackDescription_menu_item__disabled:active{
+  background-color: inherit;
+}
 .trackDescription_title__primary {
   display: flex;
   align-items: center;
