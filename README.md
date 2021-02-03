@@ -1,6 +1,8 @@
 # rsclone
 Gpxies: сервис создания и хранения GPS-треков
 
+Pull request: https://github.com/nikolai-minkevich/rsclone/pull/56
+
 Проект размещён на https://gpxies.ru, бекенд на https://api.gpxies.ru
 
 Репозиторий с бек-эндом: https://github.com/nikolai-minkevich/gpxies_backend
