@@ -51,6 +51,7 @@ module.exports = {
   uploaded: "uploaded",
   fullStatistics: "Full statistics",
   km: "km",
+  points:"Points:",
   button_viewTrack: "View track",
   button_backTrackPreview:"Back to the track preview",
 };
