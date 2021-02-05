@@ -29,17 +29,20 @@ class Header {
       //uploadTrack
       console.log("e.target",Array.from(e.target.classList));
       if(Array.from(e.target.classList).includes("logout")){
-        this.redirectLogout();
+        window.location = "/login";
         localStorage.removeItem("gpxiesToken");
       }
       if(Array.from(e.target.classList).includes("trackList")){
-        this.redirectTrackListPage()
+        window.location = "/mytracks";
       }
       if(Array.from(e.target.classList).includes("uploadTrack")){
-        this.redirectLoadTrackPage()
+        window.location = "/upload";
+      }
+      if(Array.from(e.target.classList).includes("myPage")){
+        window.location = "/home";
       }
     }); }
-  redirectLogout() {
+ /* redirectLogout() {
     window.location = "/login";
   }
   redirectTrackListPage() {
@@ -47,7 +50,7 @@ class Header {
   }
   redirectLoadTrackPage() {
     window.location = "/upload";
-  }
+  }*/
   addUserNameButtonEventListener(){
     this.userName.addEventListener("click",()=>{
       this.showMenu()

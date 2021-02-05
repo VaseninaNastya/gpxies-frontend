@@ -13,23 +13,20 @@
   cursor: pointer;
 }
 .language_container{
+  width: 100px;
     display: flex;
     justify-content: space-around;
-}
-.language_container_login,
-.language_container_registration{
-  width: 30%;
-  height: 22px;
-  margin: 0 auto 10px auto;
-  border-radius: 5px;
-  background-color: rgb(245, 245, 245);
+    height: 22px;
+    border-radius: 5px;
+    background-color: rgb(245, 245, 245);
 }
 
-.language_container_login .language_item:first-child,
-.language_container_registration .language_item:first-child{
+
+.language_item:first-child,
+.language_item:first-child{
   border-radius: 5px 0 0 5px;
 }
-.language_container_login .language_item:last-child,
-.language_container_registration .language_item:last-child {
+.language_item:last-child,
+.language_item:last-child {
   border-radius: 0 5px 5px 0;
 }

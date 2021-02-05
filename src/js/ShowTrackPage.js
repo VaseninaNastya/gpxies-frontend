@@ -11,21 +11,11 @@ import GetDate from "./utils/getDate.utils";
 import MessagePopup from "./MessagePopup";
 import BlockPageLayout from "./BlockPageLayout";
 import icon_spinner from "../../assets/img/icons_spinner.png";
-import ButtonsBlock from "./ButtonsBlock";
+
 
 class ShowTrackPage {
   generateLayout() {
     this.getWordsData();
-    const showTrackPageButtonsArr = [
-      ["button__primary item_download", `${this.wordsChooseArr.download}`],
-      ["button__primary", `${this.wordsChooseArr.createVariation}`],
-      ["button__primary", `${this.wordsChooseArr.addToBookmarks}`],
-      ["button__primary", `${this.wordsChooseArr.edit}`],
-      ["button__primary item_delete", `${this.wordsChooseArr.delete}`],
-    ];
-    this.showTrackPageButtonsBlock = new ButtonsBlock(showTrackPageButtonsArr);
-    this.buttonsBlock_container = this.showTrackPageButtonsBlock.generateLayout();
-    console.log("this.buttonsBlock_container",this.buttonsBlock_container);
     this.loadingSpinner_img = create(
       "img",
       "icon_spinner showTrackPage_icon_spinner",

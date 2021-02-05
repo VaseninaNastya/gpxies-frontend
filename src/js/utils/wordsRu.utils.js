@@ -55,4 +55,11 @@ module.exports = {
   noTracks:"Треков пока нет",
   button_viewTrack: "Просмотр трека",
   button_backTrackPreview:"Вернуться к просмотру трека",
+  myPage: "Моя страница",
+  favorites: "Избранное",
+  friends: "Друзья",
+  settings: "Настройки",
+  language: "Язык",
+  visibleToAll: "видно всем",
+  private: "приватно",
 };
