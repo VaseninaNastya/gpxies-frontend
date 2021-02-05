@@ -1,7 +1,10 @@
 import create from "./utils/create.utils";
 // import icon_walk from "../../assets/img/icon_walk.png";
 import icon_private from "../../assets/img/icons_private.png";
+import icon_like from "../../assets/img/icon_like.svg";
+import icon_unlike from "../../assets/img/icon_unlike.svg"
 import ChooseLanguage from "./ChooseLanguage";
+import ButtonsBlock from "./ButtonsBlock";
 class ShowTrackPageHeader {
   getWordsData() {
     const chooseLanguageComponent = new ChooseLanguage();
@@ -13,37 +16,34 @@ class ShowTrackPageHeader {
   }
   generateLayout() {
     this.getWordsData();
-    const menu = create("ul", "trackDescription_menu", [
-      create(
-        "li",
+    const showTrackPageButtonsArr = [
+      [
         "trackDescription_menu_item item_download",
-        `${this.wordsChooseArr.download}`
-      ),
-      create(
-        "li",
-        "trackDescription_menu_item trackDescription_menu_item__disabled",
-        `${this.wordsChooseArr.createVariation}`
-      ),
-      /*create(
-        "li",
-        "trackDescription_menu_item",
-        `${this.wordsChooseArr.addToBookmarks}`
-      ),*/
-      create("li", "trackDescription_menu_item trackDescription_menu_item__disabled", `${this.wordsChooseArr.edit}`),
-      create(
-        "li",
+        `${this.wordsChooseArr.download}`,
+      ],
+      ["trackDescription_menu_item", `${this.wordsChooseArr.createVariation}`],
+      //["trackDescription_menu_item", `${this.wordsChooseArr.addToBookmarks}`],
+      ["trackDescription_menu_item", `${this.wordsChooseArr.edit}`],
+      [
         "trackDescription_menu_item item_delete",
-        `${this.wordsChooseArr.delete}`
-      ),
-    ]);
+        `${this.wordsChooseArr.delete}`,
+      ],
+    ];
+    this.showTrackPageButtonsBlock = new ButtonsBlock(
+      showTrackPageButtonsArr,
+      "trackDescription_menu"
+    );
+    this.buttonsBlock_container = this.showTrackPageButtonsBlock.generateLayout();
+    console.log("this.buttonsBlock_container", this.buttonsBlock_container);
     const statisticsSmall = create("ul", "trackDescription_statistic", [
       create("h5", null, `${this.wordsChooseArr.statistics}`),
       create("li", "trackDescription_statistic_item stat_distance", ""),
-      create("li", "trackDescription_statistic_item stat_points", "")
+      create("li", "trackDescription_statistic_item stat_points", ""),
     ]);
+    
     const headerContainer = create("div", "showTrack_header", [
-      create("div","container",[
-        create("div", "trackDescription_container",[
+      create("div", "container", [
+        create("div", "trackDescription_container", [
           create("div", "trackDescription", [
             create("h2", "trackDescription_title__primary", [
               create("img", "icon_header", null, null, ["src", ""]),
@@ -55,7 +55,28 @@ class ShowTrackPageHeader {
                 null,
                 null,
                 ["src", icon_private],
-                ["title", "Трек приватный"]
+                ["title", "Приватный"]
+              ),
+              create(
+                "div",
+                "icon_like_container",[
+                 /* create(
+                    "img",
+                    "icon_like",
+                    null,
+                    null,
+                    ["src", icon_like],
+                    ["title", "В 'избранном'"]
+                  ),*/
+                  create(
+                    "img",
+                    "icon_like",
+                    null,
+                    null,
+                    ["src", icon_unlike],
+                    ["title", "Добавить в 'избранное'"]
+                  )
+                ]
               ),
             ]),
             create("div", "trackDescription_title__secondary", [
@@ -65,13 +86,14 @@ class ShowTrackPageHeader {
               ]),
               create("div", "trackDescription_data_container", [
                 create("span", null, `${this.wordsChooseArr.uploaded}: `),
-                create("span", "trackDescription_data")]),
+                create("span", "trackDescription_data"),
+              ]),
             ]),
           ]),
-          menu
+          this.buttonsBlock_container,
         ]),
         statisticsSmall,
-      ])
+      ]),
     ]);
     return headerContainer;
   }
