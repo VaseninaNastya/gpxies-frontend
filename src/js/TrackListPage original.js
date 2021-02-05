@@ -58,26 +58,26 @@ class TrackListPage {
     document
       .querySelector(".loadingSpinner_wrapper")
       .append(this.popup_container);
-    /*const trackListPageButtonsArr = [
+    const trackListPageButtonsArr = [
       ["track_download_button", `${this.wordsChooseArr.download}`],
       ["track_delete_button", `${this.wordsChooseArr.delete}`]
     ];
     this.trackListPageButtonsBlock = new ButtonsBlock(trackListPageButtonsArr,"buttonsBlock_container");
-    this.buttonsBlock_container = this.trackListPageButtonsBlock.generateLayout();*/
+    this.buttonsBlock_container = this.trackListPageButtonsBlock.generateLayout();
     this.addTracksData();
     const header = new Header();
-    /*this.tableBody_container = create("div", "table_body_container");
+    this.tableBody_container = create("div", "table_body_container");
     this.tableBody = create("div", "table_body", [this.tableBody_container]);
     const tableContainer = create("div", "table_container", [
       this.generateTableHeaderLayout(),
       this.buttonsBlock_container,
       this.tableBody,
-    ]);*/
+    ]);
 
     document.body.prepend(
       create("div", "table_wrapper", [
         header.generateLayout(),
-        trackListTable.generateLayout(),
+        tableContainer,
         footer.generateLayout(),
       ])
     );
