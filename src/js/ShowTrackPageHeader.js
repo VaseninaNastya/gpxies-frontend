@@ -2,6 +2,7 @@ import create from "./utils/create.utils";
 // import icon_walk from "../../assets/img/icon_walk.png";
 import icon_private from "../../assets/img/icons_private.png";
 import ChooseLanguage from "./ChooseLanguage";
+import ButtonsBlock from "./ButtonsBlock";
 class ShowTrackPageHeader {
   getWordsData() {
     const chooseLanguageComponent = new ChooseLanguage();
@@ -13,29 +14,16 @@ class ShowTrackPageHeader {
   }
   generateLayout() {
     this.getWordsData();
-    const menu = create("ul", "trackDescription_menu", [
-      create(
-        "li",
-        "trackDescription_menu_item item_download",
-        `${this.wordsChooseArr.download}`
-      ),
-      create(
-        "li",
-        "trackDescription_menu_item trackDescription_menu_item__disabled",
-        `${this.wordsChooseArr.createVariation}`
-      ),
-      /*create(
-        "li",
-        "trackDescription_menu_item",
-        `${this.wordsChooseArr.addToBookmarks}`
-      ),*/
-      create("li", "trackDescription_menu_item trackDescription_menu_item__disabled", `${this.wordsChooseArr.edit}`),
-      create(
-        "li",
-        "trackDescription_menu_item item_delete",
-        `${this.wordsChooseArr.delete}`
-      ),
-    ]);
+    const showTrackPageButtonsArr = [
+      ["trackDescription_menu_item item_download", `${this.wordsChooseArr.download}`],
+      ["trackDescription_menu_item", `${this.wordsChooseArr.createVariation}`],
+      //["trackDescription_menu_item", `${this.wordsChooseArr.addToBookmarks}`],
+      ["trackDescription_menu_item", `${this.wordsChooseArr.edit}`],
+      ["trackDescription_menu_item item_delete", `${this.wordsChooseArr.delete}`],
+    ];
+    this.showTrackPageButtonsBlock = new ButtonsBlock(showTrackPageButtonsArr,"trackDescription_menu");
+    this.buttonsBlock_container = this.showTrackPageButtonsBlock.generateLayout();
+    console.log("this.buttonsBlock_container",this.buttonsBlock_container);
     const statisticsSmall = create("ul", "trackDescription_statistic", [
       create("h5", null, `${this.wordsChooseArr.statistics}`),
       create("li", "trackDescription_statistic_item stat_distance", ""),
@@ -56,7 +44,7 @@ class ShowTrackPageHeader {
                 null,
                 ["src", icon_private],
                 ["title", "Трек приватный"]
-              ),
+              ), 
             ]),
             create("div", "trackDescription_title__secondary", [
               create("div", "trackDescription_authorName_container", [
@@ -68,7 +56,7 @@ class ShowTrackPageHeader {
                 create("span", "trackDescription_data")]),
             ]),
           ]),
-          menu
+          this.buttonsBlock_container
         ]),
         statisticsSmall,
       ])
