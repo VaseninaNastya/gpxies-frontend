@@ -1,6 +1,7 @@
 import create from "./utils/create.utils";
 // import icon_walk from "../../assets/img/icon_walk.png";
 import icon_private from "../../assets/img/icons_private.png";
+import icon_like from "../../assets/img/icon_like.svg";
 import ChooseLanguage from "./ChooseLanguage";
 import ButtonsBlock from "./ButtonsBlock";
 class ShowTrackPageHeader {
@@ -43,7 +44,15 @@ class ShowTrackPageHeader {
                 null,
                 null,
                 ["src", icon_private],
-                ["title", "Трек приватный"]
+                ["title", "Приватный"]
+              ), 
+              create(
+                "img",
+                "icon_like",
+                null,
+                null,
+                ["src", icon_like],
+                ["title", "В 'избранном'"]
               ), 
             ]),
             create("div", "trackDescription_title__secondary", [
