@@ -135,7 +135,8 @@ class LoadTrackPage {
       ['encType', 'multipart/form-data']
     );
     this.loadTrackPage_container = create('div', 'loadTrackPage_container', [this.loadTrackPage_form]);
-    const wraper = create('div', 'loadTrackPage_wrapper', [header.generateLayout(), this.loadTrackPage_container, footer.generateLayout()]);
+    this.loadTrackPage_content = create('div',"loadTrackPage_content",this.loadTrackPage_container)
+    const wraper = create('div', 'loadTrackPage_wrapper', [header.generateLayout(),  this.loadTrackPage_content, footer.generateLayout()]);
     document.body.prepend(wraper);
     this.addEventListeners();
   }

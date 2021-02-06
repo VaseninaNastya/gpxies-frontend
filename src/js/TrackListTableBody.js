@@ -20,10 +20,7 @@ class TrackListTableBody {
     this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
-
-
   generateTableBodyLayout() {
-
     this.getWordsData() 
     if ( this.arr.length == 0) {
       document.querySelector(
@@ -37,7 +34,6 @@ class TrackListTableBody {
         .classList.remove("notracks");
     }
     this.arr.map((item) => {
-      console.log(item);
       const itemPrivateHidden = `icon_private${item.isPrivate}`;
       const date = GetDate(item.created);
       const tableBodyString = create(
