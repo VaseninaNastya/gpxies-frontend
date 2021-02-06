@@ -119,10 +119,21 @@ constructor(popup){
     return this.tableHeader;
   }
   addEventListeners() {
-    console.log("1111111111111111111this.popap",this.popup.showSuccessMessage );
+    document
+    .querySelector(".loadingSpinner_wrapper")
+    .addEventListener("click", (e) => {
+      if (
+        Array.from(e.target.classList).includes("loadingSpinner_wrapper") ||
+        Array.from(e.target.classList).includes("button_returnToTrackList")
+      ) {
+        this.unchooseAll();
+        this.checkAllCheckbox.checked = false;
+        this.popup.hideMessages();
+      }
+    });
+
     document.querySelector(".table_body_container").addEventListener("click", (e) => {
       if (Array.from(e.target.classList).includes("table_item_checkbox")) {
-        //console.log("e.target", e.target.querySelector(".checkbox_item").checked);
 
         e.target.querySelector(
           ".checkbox_item"
@@ -160,7 +171,10 @@ constructor(popup){
       } else {
         this.tableBody_container.innerHTML = "";
         this.tracksToShow = this.userTracks.map((x) => x);
-        this.generateTableBodyLayout(this.tracksToShow);
+        this.tableBody = new TrackListTableBody(this.tracksToShow)
+        this.tableBody_container.innerHTML =''
+        this.tableBody.generateTableBodyLayout();
+
       }
     });
 
@@ -311,14 +325,16 @@ constructor(popup){
       }
     });
     this.tableBody_container.innerHTML = "";
-    this.generateTableBodyLayout(this.tracksToShow);
+    this.tableBody = new TrackListTableBody(this.tracksToShow)
+    this.tableBody.generateTableBodyLayout();
   }
   filterFromHight(parametr) {
     this.tracksToShow = this.tracksToShow
       .concat()
       .sort((a, b) => (a[parametr] > b[parametr] ? 1 : -1));
     this.tableBody_container.innerHTML = "";
-    this.generateTableBodyLayout(this.tracksToShow);
+    this.tableBody = new TrackListTableBody(this.tracksToShow)
+    this.tableBody.generateTableBodyLayout();
   }
   filterFromLow(parametr) {
     this.tracksToShow = this.tracksToShow
@@ -326,8 +342,9 @@ constructor(popup){
       .sort((a, b) => (b[parametr] > a[parametr] ? 1 : -1));
     console.log("sss", this.tracksToShow[0].created);
     this.tableBody_container.innerHTML = "";
+    this.tableBody = new TrackListTableBody(this.tracksToShow)
+    this.tableBody.generateTableBodyLayout();
 
-    this.generateTableBodyLayout(this.tracksToShow);
     //this.tracksToShow = this.userTracks.map((x) => x);
   }
 }

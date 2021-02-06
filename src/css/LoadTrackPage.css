@@ -25,6 +25,8 @@
     height: 420px;
     width: 1000px;
     margin: 0 auto;
+    position: relative;
+    top: 0px;
 }
 .track_description_container{
     width: 100%;

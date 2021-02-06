@@ -51,18 +51,13 @@ class TrackListPage {
         ],
       ]
     );
-    console.log(">>>>>this.popup",this.popup);
     let trackListTable = new TrackListTable(this.popup)
     document.body.prepend(this.blockPageLayout.generateMessageLayout());
     this.popup_container = this.popup.generateMessageLayout();
     document
       .querySelector(".loadingSpinner_wrapper")
       .append(this.popup_container);
-
-    //this.addTracksData();
     const header = new Header();
-
-
     document.body.prepend(
       create("div", "table_wrapper", [
         header.generateLayout(),
@@ -75,94 +70,6 @@ class TrackListPage {
   }
   generatePopupLayout() {
     this.popup_container.classList.remove("loadingSpinner_wrapper__hidden");
-  }
-
-  /*async addTracksData() {
-    this.gpxiesAPI = new GpxiesAPI();
-    this.userTracks = await this.gpxiesAPI.getUserTracksById(
-      localStorage.getItem("gpxiesUserId")
-    );
-    if (this.userTracks) {
-
-      this.tracksToShow = this.userTracks.map((x) => x);
-      console.log("this.tracksToShow111", this.tracksToShow);
-      // this.addTracksDistanseData();
-      this.tableBody = new TrackListTableBody(this.tracksToShow)
-      this.tableBody.generateTableBodyLayout();
-    }
-  }*/
-
-  async handleEventDeleteTrack() {
-    const checkedItems = Array.from(
-      document.querySelectorAll(".checkbox_item")
-    ).map((item) => {
-      if (item.checked) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-    if (checkedItems.includes(true)) {
-      document
-        .querySelector(".loadingSpinner_wrapper")
-        .classList.remove("loadingSpinner_wrapper__hidden");
-      let tracksToDelete = [];
-      Array.from(document.querySelectorAll(".checkbox_item")).map((item) => {
-        if (item.checked) {
-          document
-            .querySelector(
-              `[data_rowhash='${item.getAttribute("data_checkboxhash")}']`
-            )
-            .classList.add("table_body_row__hidden");
-          console.log(
-            "botv",
-            this.tracksToShow.find((item1) => {
-              return item1.hashString == item.getAttribute("data_checkboxhash");
-            }).id
-          );
-          const deleteId = this.tracksToShow.find((item1) => {
-            return item1.hashString == item.getAttribute("data_checkboxhash");
-          }).id;
-          tracksToDelete.push(deleteId);
-        }
-      });
-      let result = await this.gpxiesAPI.deleteTrackById(tracksToDelete);
-      if (result.ok) {
-        this.popup.showSuccessMessage();
-      } else {
-        this.popup.showErrorMessage();
-      }
-      this.trackListPageButtonsBlock.hideButtonContainer();
-    }
-  }
-  async handleEventDownloadTrack() {
-    const checkedItems = Array.from(
-      document.querySelectorAll(".checkbox_item")
-    ).map((item) => {
-      if (item.checked) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-    if (checkedItems.includes(true)) {
-      let tracksToDownload = [];
-      Array.from(document.querySelectorAll(".checkbox_item")).map((item) => {
-        if (item.checked) {
-          const downloadHash = this.tracksToShow.find((item1) => {
-            return item1.hashString == item.getAttribute("data_checkboxhash");
-          }).hashString;
-
-          tracksToDownload.push(downloadHash);
-        }
-      });
-      tracksToDownload.forEach(async (item) => {
-        console.log(item);
-        let res = await this.gpxiesAPI.downloadTrack(item);
-        console.log(res);
-      });
-      this.trackListPageButtonsBlock.hideButtonContainer();
-    }
   }
   handleBodyKeypress(e) {
     if (e.stopPropagation) e.stopPropagation();
@@ -203,22 +110,7 @@ class TrackListPage {
           this.popup.hideMessages();
         }
       });
-    /*document
-      .querySelector(".track_delete_button")
-      .addEventListener("click", () => {
-        this.handleEventDeleteTrack();
-      });
-    document
-      .querySelector(".track_download_button")
-      .addEventListener("click", () => {
-        this.handleEventDownloadTrack();
-      });*/
 
-    /* document.addEventListener('keydown', (e) => {
-      if (e.code == 'Delete') {
-        this.handleEventDeleteTrack();
-      }
-    });*/
     //Show and Hide Button Container
     document.querySelector(".table_body_container").addEventListener("click", (e) => {
       if (Array.from(e.target.classList).includes("table_item_checkbox")) {
@@ -303,16 +195,7 @@ class TrackListPage {
       this.trackListPageButtonsBlock.showButtonContainer();
     }
   }
-  /*filterBySportType() {
-    this.tracksToShow = [];
-    this.userTracks.map((item) => {
-      if (item.type == this.sportType_chosen) {
-        this.tracksToShow.push(item);
-      }
-    });
-    this.tableBody_container.innerHTML = "";
-    this.generateTableBodyLayout(this.tracksToShow);
-  }*/
+
   filterFromHight(parametr) {
     this.tracksToShow = this.tracksToShow
       .concat()
