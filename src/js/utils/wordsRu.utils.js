@@ -55,4 +55,8 @@ module.exports = {
   noTracks:"Треков пока нет",
   button_viewTrack: "Просмотр трека",
   button_backTrackPreview:"Вернуться к просмотру трека",
+  TrackListPageTitle:"Мои треки",
+  LoadTrackPageTitle:"Загрузить",
+  RegistrationPageTitle:"Регистрация",
+  LoginPageTitle:"Авторизация",
 };

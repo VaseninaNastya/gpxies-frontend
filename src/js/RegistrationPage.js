@@ -22,6 +22,7 @@ class RegistrationPage {
     }
     const footer = new Footer();
     this.getWordsData();
+    document.title = `${this.wordsChooseArr.RegistrationPageTitle} - Gpxies.ru`;
     this.button__prime = create('a', 'button__primary', `${this.wordsChooseArr.signUp}`);
     this.password = create('input', null, null, null, ['type', 'password'], ['id', 'password'], ['required', 'required']);
     this.password_description = create(

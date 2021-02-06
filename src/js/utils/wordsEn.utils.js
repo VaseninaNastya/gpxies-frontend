@@ -55,4 +55,9 @@ module.exports = {
   points:"Points:",
   button_viewTrack: "View track",
   button_backTrackPreview:"Back to the track preview",
+  TrackListPageTitle:"My tracks",
+  LoadTrackPageTitle:"Upload",
+  RegistrationPageTitle:"Registration",
+  LoginPageTitle:"Login",
+
 };
