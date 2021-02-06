@@ -236,19 +236,18 @@ constructor(popup){
               `[data_rowhash='${item.getAttribute("data_checkboxhash")}']`
             )
             .classList.add("table_body_row__hidden");
-          console.log(
-            "botv",
-            this.tracksToShow.find((item1) => {
-              return item1.hashString == item.getAttribute("data_checkboxhash");
-            }).id
-          );
           const deleteId = this.tracksToShow.find((item1) => {
             return item1.hashString == item.getAttribute("data_checkboxhash");
           }).id;
           tracksToDelete.push(deleteId);
+          console.log("this.userTracks.", this.userTracks);
+          console.log("deleteId",deleteId);
+          console.log(this.userTracks.findIndex((item)=>item.id == deleteId));
+          this.userTracks.splice(this.userTracks.findIndex((item)=>item.id == deleteId),1);
         }
       });
       let result = await this.gpxiesAPI.deleteTrackById(tracksToDelete);
+      
       if (result.ok) {
         this.popup.showSuccessMessage();
       } else {
