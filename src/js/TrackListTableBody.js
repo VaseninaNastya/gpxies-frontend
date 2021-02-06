@@ -9,7 +9,7 @@ import SportsNames from "./utils/sportsTypesNames.utils.js";
 import ChooseLanguage from "./ChooseLanguage";
 import GetDate from "./utils/getDate.utils";
 
-class TrackListPage {
+class TrackListTableBody {
   constructor(arr) {
     this.arr = arr
   }
@@ -20,86 +20,11 @@ class TrackListPage {
     this.chooseLanguage = this.chooseLanguageComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLanguage];
   }
-  async generateLayout() {
-    this.trackHashForDelete = [];
-    this.getWordsData();
-    this.addTracksData();
-    this.tableBody_container = create("div", "table_body_container");
-    const tableContainer = create("div", "table_container", [
-      this.generateTableHeaderLayout(),
-      this.tableBody_container,
-    ]);
-    this.generateTableBodyLayout()
-    return tableContainer
-  }
-  generateTableHeaderLayout() {
-    const iconsContainer = new FilterFromTo();
-    this.filter_name_icons_container = iconsContainer.generateLayout();
-    this.filter_date_icons_container = iconsContainer.generateLayout();
-    this.filter_distance_icons_container = iconsContainer.generateLayout();
-    this.searchBar = new SearchBar();
-    this.checkAllCheckbox = create("input", null, null, null, [
-      "type",
-      "checkbox",
-    ]);
-    this.sportChoce_select = create(
-      "select",
-      "sport-choce",
-      [
-        create("option", null, `${this.wordsChooseArr.all}`, null, [
-          "value",
-          "",
-        ]),
-        create("option", null, `${this.wordsChooseArr.bike}`, null, [
-          "value",
-          Type.Bike,
-        ]),
-        create("option", null, `${this.wordsChooseArr.run}`, null, [
-          "value",
-          Type.Run,
-        ]),
-        create("option", null, `${this.wordsChooseArr.hike}`, null, [
-          "value",
-          Type.Hike,
-        ]),
-        create("option", null, `${this.wordsChooseArr.other}`, null, [
-          "value",
-          Type.Other,
-        ]),
-      ],
-      null,
-      ["id", "sport-choce"]
-    );
-    this.table_item_checkAllCheckbox = create("div", "table_item", [
-      create("div", null, `${this.wordsChooseArr.allTracks}`),
-      this.checkAllCheckbox,
-    ]);
-    this.tableHeader = create("div", "table_header_container", [
-      this.table_item_checkAllCheckbox,
-      create("div", "table_item table_header_item_sport-choce", [
-        create("span", null, `${this.wordsChooseArr.typeOfSport}`),
-        this.sportChoce_select,
-      ]),
-      create("div", "table_item table_header_item_date", [
-        create("span", null, `${this.wordsChooseArr.date}`),
-        this.filter_date_icons_container,
-      ]),
-      create("div", "table_item table_header_item_name", [
-        create("div", "table_header_item_name_container", [
-          create("label", null, `${this.wordsChooseArr.title}`, null, [
-            "for",
-            "filter_name",
-          ]),
-        ]),
-      ]),
-      create("div", "table_item table_header_item_distance", [
-        create("div", null, `${this.wordsChooseArr.distance}`),
-        this.filter_distance_icons_container,
-      ]),
-    ]);
-    return this.tableHeader;
-  }
+
+
   generateTableBodyLayout() {
+
+    this.getWordsData() 
     if ( this.arr.length == 0) {
       document.querySelector(
         ".table_body_container"
@@ -170,11 +95,12 @@ class TrackListPage {
         null,
         ["data_rowhash", item.hashString]
       );
-      this.tableBody_container.append(tableBodyString);
+      document.querySelector(".table_body_container").append(tableBodyString);
     });
   }
+
 }
 
 
 
-export default TrackListPage;
+export default TrackListTableBody;

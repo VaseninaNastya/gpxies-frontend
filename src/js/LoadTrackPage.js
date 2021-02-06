@@ -141,30 +141,24 @@ class LoadTrackPage {
   }
   handleBodyKeypress(e) {
     if (e.stopPropagation) e.stopPropagation();
-    let alt,
+    let 
       ctrl = null;
     if (e.ctrlKey) {
       ctrl = true;
     }
-    if (e.altKey) {
-      alt = true;
-    }
+ 
     if (ctrl && e.code == 'Enter' && !this.button_save.getAttribute('disabled')) {
       this.loadTrack(e);
       ctrl = false;
     }
-    if (ctrl && e.code == 'KeyE') {
-      this.chooseLanguageComponent.hotkeyChangeLanguage();
-      this.refreshLayout();
-      ctrl = false;
-    }
+
   }
   addEventListeners() {
     this.onPress = this.handleBodyKeypress.bind(this);
     document.body.addEventListener('keydown', this.onPress);
-    document.querySelector('.language_container').addEventListener('click', () => {
+    /*document.querySelector('.language_container').addEventListener('click', () => {
       this.refreshLayout();
-    });
+    });*/
     this.loading_button.addEventListener('click', () => {
       this.addDisabledButtonAttribute();
       this.loading_hiddenInput.value = null;
