@@ -74,27 +74,27 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'registrationPage.html',
-      template: './src/templates/registrationPage.html',
+      template: './src/templates/page.html',
       chunks: ['registrationPage']
     }),
     new HtmlWebpackPlugin({
       filename: 'loginPage.html',
-      template: './src/templates/loginPage.html',
+      template: './src/templates/page.html',
       chunks: ['loginPage']
     }),
     new HtmlWebpackPlugin({
       filename: 'showTrack.html',
-      template: './src/templates/showTrackPage.html',
+      template: './src/templates/page.html',
       chunks: ['showTrackPage']
     }),
     new HtmlWebpackPlugin({
       filename: 'trackListPage.html',
-      template: './src/templates/trackListPage.html',
+      template: './src/templates/page.html',
       chunks: ['trackListPage']
     }),
     new HtmlWebpackPlugin({
       filename: 'loadTrackPage.html',
-      template: './src/templates/loadTrackPage.html',
+      template: './src/templates/page.html',
       chunks: ['loadTrackPage']
     }),
   ],
