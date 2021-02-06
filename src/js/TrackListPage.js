@@ -9,7 +9,7 @@ import TrackListTable from "./TrackListTable"
 import BlockPageLayout from "./BlockPageLayout";
 
 class TrackListPage {
-  constructor() {}
+
 
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
@@ -42,7 +42,7 @@ class TrackListPage {
         ],
       ]
     );
-    let trackListTable = new TrackListTable(this.popup)
+    let trackListTable = new TrackListTable(this.popup, `${this.wordsChooseArr.myTrackList}`)
     document.body.prepend(this.blockPageLayout.generateMessageLayout());
     this.popup_container = this.popup.generateMessageLayout();
     document

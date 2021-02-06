@@ -32,6 +32,8 @@ background-color: rgb(245, 245, 245);
     display: flex;
     height: 80px;
     align-items: center;
+    background-color: white;
+    z-index: 10;
     border-bottom: 2px solid rgb(245, 245, 245);
 }
 .user_setting, .user_info, .user_friends{
@@ -44,8 +46,33 @@ text-overflow: ellipsis;
 width: 33%;
 justify-content: space-between;
 }
+.userPage_wrapper .buttonsBlock_container{
+    visibility: hidden;
+}
 .user_friends{
     margin-right: 10px;
+}
+.user_tracks_container{
+    height: calc(50% - 40px);
+   overflow: hidden;
+   border-bottom: 2px solid rgb(245, 245, 245);
+}
+
+.user_tracks_container .table_container{
+    position: relative;
+    top: calc(90px - 50vh);
+}
+.user_tracks_container_hide{
+    height: 100%;
+    position: relative;
+    top: 0;
+    z-index: 8;
+    background:  linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.9));
+    /*opacity: 0.3;*/
+}
+.user_tracks_container_hide:hover{
+    background:  linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.35));
+
 }
 .favoirites_chose_container{
     width: 180px;

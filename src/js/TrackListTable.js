@@ -9,9 +9,13 @@ import GpxiesAPI from "./GpxiesAPI";
 import TrackListTableBody from "./TrackListTableBody"
 
 class TrackListTable {
-constructor(popup){
-  this.popup = popup
+constructor(popup,tableTitle){
+  this.popup = popup,
+  this.tableTitle = tableTitle
 }
+
+
+
 
   getWordsData() {
     this.chooseLanguageComponent = new ChooseLanguage();
@@ -32,6 +36,7 @@ constructor(popup){
     this.getWordsData();
     this.tableBody_container = create("div", "table_body_container");
     const tableContainer = create("div", "table_container", [
+      create('h3',"tableTitle",this.tableTitle),
       this.generateTableHeaderLayout(),
       this.buttonsBlock_container,
       this.tableBody_container,

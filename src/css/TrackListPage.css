@@ -141,7 +141,14 @@
   height: 40px;
   margin: 0 auto;
 }
-
+.tableTitle{
+  background-color: white;
+  z-index: 40;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+}
 
 @media (max-width: 1000px) and (min-width: 650px)  {
   .table_container {

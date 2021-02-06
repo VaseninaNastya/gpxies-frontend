@@ -40,6 +40,7 @@ module.exports = {
   trackDescription:"Track description",
   uploadTrack: "Upload track",
   trackList:"Track list",
+  myTrackList:"List of my tracks",
   logout: "Log out",
   ru: "rus.",
   en: "eng.",
