@@ -29,6 +29,9 @@ app.use('/upload', express.static(path.join(__dirname, 'dist/loadTrackPage.html'
 app.use('/track/:hashString', (req, res, next) => {
   express.static(__dirname + '/dist/showTrack.html')(req, res, next);
 });
+app.use('/track/:hashString/edit', (req, res, next) => {
+  express.static(__dirname + '/dist/showTrack.html')(req, res, next);
+});
 
 app.listen(port, () => {
   console.log(`🛸 Front-end app listening at http://localhost:${port}`);
