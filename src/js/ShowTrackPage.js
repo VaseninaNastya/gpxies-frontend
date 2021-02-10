@@ -13,6 +13,7 @@ import BlockPageLayout from './BlockPageLayout';
 import icon_spinner from '../../assets/img/icons_spinner.png';
 import ButtonsBlock from './ButtonsBlock';
 
+
 class ShowTrackPage {
   generateLayout() {
     this.getWordsData();

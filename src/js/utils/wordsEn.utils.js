@@ -40,6 +40,7 @@ module.exports = {
   trackDescription:"Track description",
   uploadTrack: "Upload track",
   trackList:"Track list",
+  myTrackList:"List of my tracks",
   logout: "Log out",
   ru: "rus.",
   en: "eng.",
@@ -59,5 +60,11 @@ module.exports = {
   LoadTrackPageTitle:"Upload",
   RegistrationPageTitle:"Registration",
   LoginPageTitle:"Login",
+  myPage: "My page",
+  favorites: "Favorites",
+  friends: "Friends",
+  settings: "Settings",
+  language: "Language",
+  visibleToAll: "visible to all",
 
 };

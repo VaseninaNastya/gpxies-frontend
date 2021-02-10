@@ -25,7 +25,7 @@ app.use('/registration', express.static(path.join(__dirname, 'dist/registrationP
 app.use('/login', express.static(path.join(__dirname, 'dist/loginPage.html')));
 app.use('/mytracks', express.static(path.join(__dirname, 'dist/trackListPage.html')));
 app.use('/upload', express.static(path.join(__dirname, 'dist/loadTrackPage.html')));
-
+app.use('/home', express.static(path.join(__dirname, 'dist/userPage.html')));
 app.use('/track/:hashString', (req, res, next) => {
   express.static(__dirname + '/dist/showTrack.html')(req, res, next);
 });

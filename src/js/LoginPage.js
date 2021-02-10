@@ -70,10 +70,12 @@ class LoginPage {
       this.error_description.classList.add('error_description_hidden');
     }
     if (res.token) {
+      console.log("res",res);
       localStorage.setItem('gpxiesUserName', res.username);
+      localStorage.setItem('gpxiesUserEmail', res.email);
       localStorage.setItem('gpxiesToken', res.token);
       localStorage.setItem('gpxiesUserId', res.id);
-      this.redirectToTrackListPage();
+     this.redirectToTrackListPage();
     }
   }
   handleBodyKeypress(e) {

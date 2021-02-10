@@ -135,36 +135,31 @@ class LoadTrackPage {
       ['encType', 'multipart/form-data']
     );
     this.loadTrackPage_container = create('div', 'loadTrackPage_container', [this.loadTrackPage_form]);
-    const wraper = create('div', 'loadTrackPage_wrapper', [header.generateLayout(), this.loadTrackPage_container, footer.generateLayout()]);
+    this.loadTrackPage_content = create('div',"loadTrackPage_content",this.loadTrackPage_container)
+    const wraper = create('div', 'loadTrackPage_wrapper', [header.generateLayout(),  this.loadTrackPage_content, footer.generateLayout()]);
     document.body.prepend(wraper);
     this.addEventListeners();
   }
   handleBodyKeypress(e) {
     if (e.stopPropagation) e.stopPropagation();
-    let alt,
+    let 
       ctrl = null;
     if (e.ctrlKey) {
       ctrl = true;
     }
-    if (e.altKey) {
-      alt = true;
-    }
+ 
     if (ctrl && e.code == 'Enter' && !this.button_save.getAttribute('disabled')) {
       this.loadTrack(e);
       ctrl = false;
     }
-    if (ctrl && e.code == 'KeyE') {
-      this.chooseLanguageComponent.hotkeyChangeLanguage();
-      this.refreshLayout();
-      ctrl = false;
-    }
+
   }
   addEventListeners() {
     this.onPress = this.handleBodyKeypress.bind(this);
     document.body.addEventListener('keydown', this.onPress);
-    document.querySelector('.language_container').addEventListener('click', () => {
+    /*document.querySelector('.language_container').addEventListener('click', () => {
       this.refreshLayout();
-    });
+    });*/
     this.loading_button.addEventListener('click', () => {
       this.addDisabledButtonAttribute();
       this.loading_hiddenInput.value = null;

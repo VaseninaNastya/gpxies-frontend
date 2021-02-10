@@ -1,0 +1,88 @@
+.userPage_wrapper {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    top: 0;
+    left: 0;
+    background-image: url(../../assets/img/background.png);
+    background-repeat: repeat;
+    background-size: 100% auto;
+}
+.userPage_wrapper .header_container{
+background-color: rgb(245, 245, 245);
+}
+.userPage_wrapper header{
+    background-color:inherit
+}
+.userPage_wrapper .header_userName{
+    background-color: inherit;
+}
+
+.user_container {
+    height: calc(100vh - 100px);
+    width: 100%;
+    z-index: 1;
+}
+.user_container .container{
+    background-color: white;
+}
+
+.user_info_email{color: rgb(110, 110, 110);}
+.user_content_container{
+    display: flex;
+    height: 80px;
+    align-items: center;
+    background-color: white;
+    z-index: 10;
+    border-bottom: 2px solid rgb(245, 245, 245);
+}
+.user_setting, .user_info, .user_friends{
+    margin-left: 10px;
+display: flex;
+flex-direction: column;
+flex-wrap: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+width: 33%;
+justify-content: space-between;
+}
+.userPage_wrapper .buttonsBlock_container{
+    visibility: hidden;
+}
+.user_friends{
+    margin-right: 10px;
+}
+.user_tracks_container{
+    height: calc(50% - 40px);
+   overflow: hidden;
+   border-bottom: 2px solid rgb(245, 245, 245);
+}
+
+.user_tracks_container .table_container{
+    position: relative;
+    top: calc(90px - 50vh);
+}
+.user_tracks_container_hide{
+    height: 100%;
+    position: relative;
+    top: 0;
+    z-index: 8;
+    background:  linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.9));
+    /*opacity: 0.3;*/
+}
+.user_tracks_container_hide:hover{
+    background:  linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.35));
+
+}
+.favoirites_chose_container{
+    width: 180px;
+    display: flex;
+    justify-content: space-around;
+    height: 22px;
+    border-radius: 5px;
+    background-color: rgb(245, 245, 245);
+}
+.user_setting_container{
+    display: flex;
+    justify-content: space-between;
+}
