@@ -126,6 +126,8 @@ body {
 @import "./TrackListPageButtonsBlock";
 @import "./LoadingTrackMessagePopup";
 @import "./ChooseLanguage";
+@import "./UserPage";
+
 
 
 .container {
