@@ -24,6 +24,7 @@ class LoginPage {
 
     const footer = new Footer();
     this.getWordsData();
+    document.title = `${this.wordsChooseArr.LoginPageTitle} - Gpxies.ru`;
     this.button__prime = create('div', 'button__primary', `${this.wordsChooseArr.login}`);
     this.error_description = create('div', 'error_description error_description_hidden', `${this.wordsChooseArr.login_error_description}`);
     this.email_input = create('input', null, null, null, ['type', 'text'], ['id', 'emailField'], ['required', 'required']);

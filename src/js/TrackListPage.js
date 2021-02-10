@@ -24,6 +24,7 @@ class TrackListPage {
     }
     this.trackHashForDelete = [];
     this.getWordsData();
+    document.title = `${this.wordsChooseArr.TrackListPageTitle} - Gpxies.ru`;
     const footer = new Footer();
     this.blockPageLayout = new BlockPageLayout();
     this.popup = new MessagePopup(

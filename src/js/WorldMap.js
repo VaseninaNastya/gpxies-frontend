@@ -7,6 +7,14 @@ class WorldMap {
   constructor(mapid = 'mapid') {
     // this.worldMap = '';
     this.mapId = mapid;
+    this.ZOOM_FOR_EDIT = 15;
+    this.MODE_EDIT = 'edit';
+    this.MODE_VIEW = 'view';
+    this.MODE_CREATE = 'create';
+  }
+
+  setMode(mode = 'view') {
+    this.mode = mode;
   }
 
   generateLayout() {
@@ -41,12 +49,34 @@ class WorldMap {
       console.log(e.latlng.lat, e.latlng.lng);
     }
 
+    function onMapZoom(e) {
+      // Add check for EDIT_MODE
+
+      if (this.mode == this.MODE_EDIT) {
+        console.log('Zoom:', this.mymap.getZoom());
+        // Add remove all layers
+        //this.clearMapMarkers(this.mymap);
+        if (this.mymap.getZoom() >= this.ZOOM_FOR_EDIT) {
+          console.log('Bounds:', this.mymap.getBounds());
+          const mapBounds = this.mymap.getBounds();
+          // Add increasing of bounds for better smoothy
+          this.markers = [];
+          this.polylineCoordinates.map((coord, index) => {
+            if (mapBounds.contains(coord)) {
+              this.markers.push({ coord: coord, originalIndex: index });
+            }
+          });
+          this.drawPointsInBounds(this.markers);
+          console.log(this.markers.length);
+          console.log(this.markers);
+        }
+        console.log(this.mymap._layers);
+      }
+    }
+
     this.mymap.on('click', onMapClick);
-
-    this.setupListeners();
+    this.mymap.on('zoomend', onMapZoom.bind(this));
   }
-
-  setupListeners() {}
 
   async showGpx(hashString) {
     console.log('hashString', hashString);
@@ -56,31 +86,88 @@ class WorldMap {
     setTimeout(() => {
       this.drawTrack(track.gpx.trk);
     }, 2000);
-    return track
+    return track;
   }
 
-  drawTrack(tracks) {
-    let polylineCoordinates = [];
+  drawTrack(tracks, editable = true) {
+    this.polylineCoordinates = [];
     tracks.forEach((trk) => {
       trk.trkseg.forEach((trkseg) => {
         trkseg.trkpt.forEach((trkpt) => {
-          polylineCoordinates.push([parseFloat(trkpt.attr.lat), parseFloat(trkpt.attr.lon)]);
+          this.polylineCoordinates.push([parseFloat(trkpt.attr.lat), parseFloat(trkpt.attr.lon)]);
         });
       });
     });
-    let polyline = L.polyline(polylineCoordinates, { color: 'red' }).addTo(this.mymap);
+    let polyline = L.polyline(this.polylineCoordinates, { color: 'red' }).addTo(this.mymap);
 
     // zoom the map to the polyline
     this.mymap.fitBounds(polyline.getBounds());
   }
 
+  drawPointsInBounds(points) {
+    points.map((p) => {
+      this.drawTrackPoint(p.coord[0], p.coord[1], p.originalIndex);
+    });
+  }
+
+  drawTrackPoint(lat, lon, indexOfPolylinePoint) {
+    let self = this;
+
+    let marker = L.marker([lat, lon], {
+      draggable: 'true',
+    })
+      .on('dragend', (event) => {
+        var marker = event.target;
+        var position = marker.getLatLng();
+        marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
+        self.polylineCoordinates[indexOfPolylinePoint] = [position.lat, position.lng];
+        // self.clearMap(self.mymap);
+        // event.target.removeLayer()
+        console.log(self.mymap._layers);
+        L.polyline(self.polylineCoordinates, { color: 'red' }).addTo(self.mymap);
+        // self.mymap.panTo(new L.LatLng(position.lat, position.lng));
+      })
+      .addTo(this.mymap);
+    this.markers.push(marker);
+
+    // let self = this;
+    // function onTrackPointClick(e) {
+    //   console.log('TRKPT:', self.lat, self.lon);
+    // }
+    // const size = 10;
+    // L.circle([lat, lon], {
+    //   color: 'blue',
+    //   fillColor: '#f03',
+    //   fillOpacity: 0.5,
+    //   radius: size,
+    //   draggable:true
+    // })
+    //   .addTo(this.mymap)
+    //   .on('click', onTrackPointClick)
+  }
+
   // Trick for clear all layer and objects from map
   // https://stackoverflow.com/questions/14585688/clear-all-polylines-from-leaflet-map
-  clearMap(leafletMap) {
+  clearMapPolyline(leafletMap) {
+    console.log('clearMap', leafletMap);
     for (let i in leafletMap._layers) {
       if (leafletMap._layers[i]._path != undefined) {
+        console.log(i, leafletMap._layers[i]);
         try {
-          m.removeLayer(leafletMap._layers[i]);
+          leafletMap.removeLayer(leafletMap._layers[i]);
+        } catch (e) {
+          console.log('problem with ' + e + leafletMap._layers[i]);
+        }
+      }
+    }
+  }
+  clearMapMarkers(leafletMap) {
+    console.log('clearMap', leafletMap);
+    for (let i in leafletMap._layers) {
+      if (leafletMap._layers[i]._path == undefined) {
+        console.log(i, leafletMap._layers[i]);
+        try {
+          leafletMap.removeLayer(leafletMap._layers[i]);
         } catch (e) {
           console.log('problem with ' + e + leafletMap._layers[i]);
         }
