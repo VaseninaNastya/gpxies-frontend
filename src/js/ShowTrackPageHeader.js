@@ -74,7 +74,7 @@ class ShowTrackPageHeader {
                     null,
                     null,
                     ["src", icon_unlike],
-                    ["title", "Добавить в 'избранное'"]
+                    ["title",`${this.wordsChooseArr.addToFavorites}`]
                   )
                 ]
               ),

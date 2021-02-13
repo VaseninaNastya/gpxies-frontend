@@ -128,22 +128,14 @@ class WorldMap {
         // self.mymap.panTo(new L.LatLng(position.lat, position.lng));
       })
       .addTo(this.mymap);
-    this.markers.push(marker);
+    //this.markerLayer.push(marker);
+  }
 
-    // let self = this;
-    // function onTrackPointClick(e) {
-    //   console.log('TRKPT:', self.lat, self.lon);
-    // }
-    // const size = 10;
-    // L.circle([lat, lon], {
-    //   color: 'blue',
-    //   fillColor: '#f03',
-    //   fillOpacity: 0.5,
-    //   radius: size,
-    //   draggable:true
-    // })
-    //   .addTo(this.mymap)
-    //   .on('click', onTrackPointClick)
+  removeMarkerLayer() {
+    this.markerLayer.map((marker) => {
+      this.mymap.removeLayer(marker);
+    });
+    this.markerLayer = [];
   }
 
   // Trick for clear all layer and objects from map
