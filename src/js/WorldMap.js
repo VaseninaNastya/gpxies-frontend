@@ -85,6 +85,7 @@ class WorldMap {
 
     this.mymap.on("click", onMapClick);
     this.mymap.on("zoomend", onMapZoom.bind(this));
+    this.mymap.on("move", onMapZoom.bind(this));
   }
 
   async showGpx(hashString) {
