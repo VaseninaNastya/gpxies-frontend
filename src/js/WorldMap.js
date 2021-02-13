@@ -155,6 +155,9 @@ class WorldMap {
       icon: this.blueIcon,
       draggable: "true",
     })
+      .on("dragstart", (event) => {
+        this.isDragging = true;
+      })
       .on("dragend", (event) => {
         var marker = event.target;
         var position = marker.getLatLng();
@@ -169,12 +172,17 @@ class WorldMap {
         this.tracksGroup.addLayer(polyline).addTo(this.mymap);
         // L.polyline(self.polylineCoordinates, { color: "red" }).addTo(self.mymap);
         // self.mymap.panTo(new L.LatLng(position.lat, position.lng));
+        this.isDragging = false;
       })
       .on("mouseover", (event) => {
-        event.target.setIcon(this.redIcon);
+        if (!this.isDragging) {
+          event.target.setIcon(this.redIcon);
+        }
       })
       .on("mouseout", (event) => {
-        event.target.setIcon(this.blueIcon);
+        if (!this.isDragging) {
+          event.target.setIcon(this.blueIcon);
+        }
       });
 
     return marker;
