@@ -68,5 +68,8 @@ module.exports = {
   language: "Language",
   visibleToAll: "visible to all",
   addToFavorites: "Add to favorites",
-  editing:"Edit"
+  editing: "Edit",
+  save: "Save",
+  saveAs: "Save as new",
+  revert: "Revert",
 };

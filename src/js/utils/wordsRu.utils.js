@@ -68,5 +68,8 @@ module.exports = {
   visibleToAll: "видно всем",
   private: "приватно",
   addToFavorites:"Добавить в 'избранное'",
-  editing:"Редактирование"
+  editing:"Редактирование",
+  save: "Сохранить",
+  saveAs: "Сохранить как новый",
+  revert: "Отменить изменения",
 };

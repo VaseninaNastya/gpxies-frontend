@@ -56,7 +56,7 @@ class ShowTrackPage {
     document.body.prepend(
       create("div", "showTrackPage_wrapper", [
         header.generateLayout(),
-        showTrackPageHeader.generateLayout(),
+        showTrackPageHeader.generateLayout(this.mode),
         map,
         completeStatictics.generateLayout(),
         footer.generateLayout(),
@@ -155,13 +155,16 @@ class ShowTrackPage {
     // document.querySelector('.language_container').addEventListener('click', () => {
     //   this.refreshLayout();
     // });
-    document.querySelector(".item_delete").addEventListener("click", () => {
-      this.handleEventDeleteTrack();
-    });
-    //item_edit
-    document.querySelector(".item_edit").addEventListener("click", () => {
-      window.location += "/edit";
-    });
+
+    if (this.mode === this.MODE_VIEW) {
+      document.querySelector(".item_delete").addEventListener("click", () => {
+        this.handleEventDeleteTrack();
+      });
+      //item_edit
+      document.querySelector(".item_edit").addEventListener("click", () => {
+        window.location += "/edit";
+      });
+    }
 
     document.querySelector(".loadingSpinner_wrapper").addEventListener("click", (e) => {
       if (
