@@ -23,7 +23,7 @@ class ShowTrackPageHeader {
       ],
       ["trackDescription_menu_item", `${this.wordsChooseArr.createVariation}`],
       //["trackDescription_menu_item", `${this.wordsChooseArr.addToBookmarks}`],
-      ["trackDescription_menu_item", `${this.wordsChooseArr.edit}`],
+      ["trackDescription_menu_item item_edit", `${this.wordsChooseArr.edit}`],
       [
         "trackDescription_menu_item item_delete",
         `${this.wordsChooseArr.delete}`,
