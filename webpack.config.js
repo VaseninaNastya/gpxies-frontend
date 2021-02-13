@@ -100,7 +100,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'userPage.html',
-      template: './src/templates/userPage.html',
+      template: './src/templates/page.html',
       chunks: ['userPage']
     }),
   ],

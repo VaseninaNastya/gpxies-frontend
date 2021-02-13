@@ -67,4 +67,9 @@ module.exports = {
   language: "Язык",
   visibleToAll: "видно всем",
   private: "приватно",
+  addToFavorites:"Добавить в 'избранное'",
+  editing:"Редактирование",
+  save: "Сохранить",
+  saveAs: "Сохранить как новый",
+  revert: "Отменить изменения",
 };
