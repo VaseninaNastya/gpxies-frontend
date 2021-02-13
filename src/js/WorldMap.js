@@ -58,8 +58,15 @@ class WorldMap {
         //this.clearMapMarkers(this.mymap);
         if (this.mymap.getZoom() >= this.ZOOM_FOR_EDIT) {
           console.log("Bounds:", this.mymap.getBounds());
-          const mapBounds = this.mymap.getBounds();
+          let mapBounds = this.mymap.getBounds();
+
           // Add increasing of bounds for better smoothy
+          const INCREASE_COEFFICIENT = 0.001;
+          mapBounds._northEast.lat += INCREASE_COEFFICIENT;
+          mapBounds._northEast.lng += INCREASE_COEFFICIENT;
+          mapBounds._southWest.lat -= INCREASE_COEFFICIENT;
+          mapBounds._southWest.lng -= INCREASE_COEFFICIENT;
+          console.log("mapBounds", mapBounds);
           this.markers = [];
           this.polylineCoordinates.map((coord, index) => {
             if (mapBounds.contains(coord)) {
